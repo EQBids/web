@@ -1,0 +1,1 @@
+Generated login pin:{{ $pin }}

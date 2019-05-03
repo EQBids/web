@@ -1,0 +1,3940 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "EQUBIDS API",
+        "version": "1.0"
+    },
+    "host": "http://my-default-host.com",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/api/contractors/{contractor}/billings": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "List the billing address for this contractor",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "contractor",
+                        "in": "path",
+                        "description": "id of the contractor that owns the billings",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "the list of billing address owned by the specified contractor",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Display a listing of the resource.",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/billing_object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "deprecated": true
+            },
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "stores a new billing address for the current contractor",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "contractor",
+                        "in": "path",
+                        "description": "id of the contractor that owns the billings",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "billing address information",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/billing_object"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "stores a new billing address and return it's instance",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Store a newly created resource in storage.",
+                                    "type": "object",
+                                    "$ref": "#/definitions/billing_object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "deprecated": true
+            }
+        },
+        "/api/contractors/{contractor}/billings/{billing}": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "returns the billing address identified by {billing}",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "contractor",
+                        "in": "path",
+                        "description": "id of the contractor that owns the billings",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    },
+                    {
+                        "name": "billing",
+                        "in": "path",
+                        "description": "id of the billing address the is being showed",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "returns the identified billing address",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "object",
+                                    "$ref": "#/definitions/billing_object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "deprecated": true
+            },
+            "put": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "updates the billing address identified by {billing}",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "contractor",
+                        "in": "path",
+                        "description": "id of the contractor that owns the billings",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    },
+                    {
+                        "name": "billing",
+                        "in": "path",
+                        "description": "id of the billing address the is being updated",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "billing address information",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/billing_object"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "returns the updated billing address",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Update the specified resource in storage.",
+                                    "type": "object",
+                                    "$ref": "#/definitions/billing_object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "deprecated": true
+            },
+            "delete": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "deletes the specified billing address",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "contractor",
+                        "in": "path",
+                        "description": "id of the contractor that owns the billings",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    },
+                    {
+                        "name": "billing",
+                        "in": "path",
+                        "description": "id of the billing address the is being updated",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "the specified billing address was deleted",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Remove the specified resource from storage.",
+                                    "type": "object",
+                                    "$ref": "#/definitions/billing_object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "deprecated": true
+            }
+        },
+        "/api/cart": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "return the list of equipment in the current constractor's shopping cart",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "the list of equipment on the chart",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Display a listing of the resource.",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/equipment_response_object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "add a equipment to the current constractor's shopping cart",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "equipment",
+                        "in": "body",
+                        "description": "the id of the equipment that's going to be added to the cart",
+                        "required": true,
+                        "schema": "integer",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Item added",
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "description": "Store a newly created resource in storage."
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "item not found. or The equipment already added to the cart.",
+                        "schema": {
+                            "properties": {
+                                "error_message": {
+                                    "description": "Store a newly created resource in storage."
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "Removes all the items in the shopping cart",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "cart flushed",
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "description": "Removes all the items in the shopping cart"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/cart/{equipment}": {
+            "delete": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "remove the specified equipment from the current constractor's shopping cart",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "equipment",
+                        "in": "path",
+                        "description": "the id of the equipment that's going to be removed from the cart",
+                        "required": true,
+                        "schema": "integer",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Item removed",
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "description": "Remove the specified resource from storage."
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "item not found.",
+                        "schema": {
+                            "properties": {
+                                "error_message": {
+                                    "description": "Remove the specified resource from storage."
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "list orders current user can access, sorted by creation date",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of orders user can access",
+                        "schema": {
+                            "property": "data",
+                            "description": "Display a listing of the resource.",
+                            "type": "object",
+                            "$ref": "#/definitions/order_response_object"
+                        }
+                    },
+                    "400": {
+                        "description": "something went wrong creating the order",
+                        "schema": {
+                            "properties": {
+                                "error_message": {
+                                    "description": "Display a listing of the resource."
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "creates a new order for the current user, this's the last step of the ordering process, users need to specify quantities and dates for the desired items",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Order created",
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "description": "Store a newly created resource in storage."
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "something went wrong creating the order",
+                        "schema": {
+                            "properties": {
+                                "error_message": {
+                                    "description": "Store a newly created resource in storage."
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/{id}": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "return the details of the current order",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of the order that's going to be displayed",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "details of the specified order",
+                        "schema": {
+                            "property": "data",
+                            "description": "Display the specified resource.",
+                            "type": "object",
+                            "$ref": "#/definitions/order_response_object"
+                        }
+                    },
+                    "400": {
+                        "description": "something went wrong creating the order",
+                        "schema": {
+                            "properties": {
+                                "error_message": {
+                                    "description": "Display the specified resource."
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "finishes the updating process",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of the order that's being updated",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "details of the updated order",
+                        "schema": {
+                            "property": "data",
+                            "description": "Update the specified resource in storage.",
+                            "type": "object",
+                            "$ref": "#/definitions/order_response_object"
+                        }
+                    },
+                    "400": {
+                        "description": "something went wrong updating the order",
+                        "schema": {
+                            "properties": {
+                                "error_message": {
+                                    "description": "Update the specified resource in storage."
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/{id}/equipments": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "return the details of the current order",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of the order that's going to be displayed",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "equipments of the specified order",
+                        "schema": {
+                            "property": "data",
+                            "description": "Display the specified resource.",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/cart_equipment_response_object"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "something went wrong creating the order",
+                        "schema": {
+                            "properties": {
+                                "error_message": {
+                                    "description": "Display the specified resource."
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/process/site": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "return the picked site",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "list of usable sites",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/site_object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "stores the specified site as the destination where items will be delivered. this's the first step after filling the shopping cart",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "site",
+                        "in": "body",
+                        "description": "id of the site that's going to be used as destination",
+                        "required": true,
+                        "schema": "integer",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Site stored",
+                        "schema": {
+                            "properties": {
+                                "message": {}
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "the status of the shopping cart is invalid",
+                        "schema": {
+                            "properties": {
+                                "error_message": {}
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/process/suppliers/available": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "return the list of suppliers that are in range to the selected site",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "list of suppliers in range",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/suppliers_in_range_object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/process/suppliers": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "return the list of suppliers that users selected in their orders",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "list of selected suppliers in range",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/suppliers_in_range_object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "store in the order the available suppliers that users desired",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "suppliers",
+                        "in": "body",
+                        "description": "array ids of the suppliers that are going to be used in the order",
+                        "required": true,
+                        "schema": "array",
+                        "type": "array",
+                        "items": {
+                            "$ref": "integer"
+                        },
+                        "default": "[0,1,2,3]"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "stores the desired suppliers and return list of selected suppliers",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/suppliers_in_range_object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/process/details": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "return the list of equipment in the orders, desired quantities and date of delivery and return for each equipment",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "list of the equipment in the order, quantities and dates",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/cart_equipment_response_object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "stores the equipment details in the orders, desired quantities and date of delivery and return for each equipment",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "equipments",
+                        "in": "body",
+                        "description": "desired quantities, delivery and return date for each equipment",
+                        "required": true,
+                        "schema": "array",
+                        "type": "array",
+                        "$ref": "#/definitions/cart_equipment_request_object"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "list of the equipment in the order, quantities and dates",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/cart_equipment_response_object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/{id}/suppliers": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "return the list of suppliers of the specified order",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of the order that's going to be displayed",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "suppliers of the specified order",
+                        "schema": {
+                            "property": "data",
+                            "description": "Display the specified resource.",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/order_suppliers_response_object"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "something went wrong creating the order",
+                        "schema": {
+                            "properties": {
+                                "error_message": {
+                                    "description": "Display the specified resource."
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/{id}/approve": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "aproves the order if possible",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of the order that's going to be approved",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "confirmation message",
+                        "schema": {
+                            "properties": {
+                                "message": {}
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "something went wrong approving the order",
+                        "schema": {
+                            "properties": {
+                                "error_message": {}
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/{id}/cancel": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "cancels the order if possible",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of the order that's going to be canceled",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "confirmation message",
+                        "schema": {
+                            "properties": {
+                                "message": {}
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "something went wrong canceling the order",
+                        "schema": {
+                            "properties": {
+                                "error_message": {}
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/{id}/edit/begin": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "starts the order editing process if possible",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of the order that's going to be edited",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "confirmation message",
+                        "schema": {
+                            "properties": {
+                                "message": {}
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "something went wrong starting the order editing process",
+                        "schema": {
+                            "properties": {
+                                "error_message": {}
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/{id}/edit/cancel": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "cancels the order editing process if possible",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of the order which edit process is going to be canceled",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "confirmation message",
+                        "schema": {
+                            "properties": {
+                                "message": {}
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "something went wrong canceling the order editing process",
+                        "schema": {
+                            "properties": {
+                                "error_message": {}
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/{id}/edit/site": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "return the picked site",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "list of usable sites",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/site_object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "stores the specified site as the destination where items will be delivered. this's the first step after filling the shopping cart",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "site",
+                        "in": "body",
+                        "description": "id of the site that's going to be used as destination",
+                        "required": true,
+                        "schema": "integer",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Site stored",
+                        "schema": {
+                            "properties": {
+                                "message": {}
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "the status of the shopping cart is invalid",
+                        "schema": {
+                            "properties": {
+                                "error_message": {}
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/{id}/edit/suppliers/available": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "return the list of suppliers that are in range to the selected site",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "list of suppliers in range",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/suppliers_in_range_object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/{id}/edit/suppliers": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "return the list of suppliers that users selected in their orders",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "list of selected suppliers in range",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/suppliers_in_range_object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "store in the order the available suppliers that users desired",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "suppliers",
+                        "in": "body",
+                        "description": "array ids of the suppliers that are going to be used in the order",
+                        "required": true,
+                        "schema": "array",
+                        "type": "array",
+                        "items": {
+                            "$ref": "integer"
+                        },
+                        "default": "[0,1,2,3]"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "stores the desired suppliers and return list of selected suppliers",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/suppliers_in_range_object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/{id}/edit/details": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "return the list of equipment in the orders, desired quantities and date of delivery and return for each equipment",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "list of the equipment in the order, quantities and dates",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/cart_equipment_response_object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "stores the equipment details in the orders, desired quantities and date of delivery and return for each equipment",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "equipments",
+                        "in": "body",
+                        "description": "desired quantities, delivery and return date for each equipment",
+                        "required": true,
+                        "schema": "array",
+                        "type": "array",
+                        "$ref": "#/definitions/cart_equipment_request_object"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "list of the equipment in the order, quantities and dates",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/cart_equipment_response_object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/{order}/bids": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "list bids to the current order",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of orders user can access",
+                        "schema": {
+                            "property": "data",
+                            "description": "Display a listing of bids to the order",
+                            "type": "object",
+                            "$ref": "#/definitions/bid_order_item_response_object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "updates the selected bids for the order",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "bids",
+                        "in": "body",
+                        "description": "array of bid and order-item ids corresponding to the accepted bids per item",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/bid_item_request_object"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "updates the selected bids per order item",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/cart_equipment_response_object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "something went wrong updating the bids",
+                        "schema": {
+                            "properties": {
+                                "error_message": {}
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/{id}/close": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "closes the order if possible",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of the order that's going to be closed",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "confirmation message",
+                        "schema": {
+                            "properties": {
+                                "message": {}
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "something went wrong approving the order",
+                        "schema": {
+                            "properties": {
+                                "error_message": {}
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sites": {
+            "get": {
+                "tags": [
+                    "sites"
+                ],
+                "summary": "List the available sites",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "filter sites by its name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "type": "string"
+                    },
+                    {
+                        "name": "nickname",
+                        "in": "query",
+                        "description": "filter sites by its nickname",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "the list of available sites",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Display a listing of the resource.",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/site_object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "sites"
+                ],
+                "summary": "stores a new site for the current contractor",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "stores a new site and return it's instance",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Store a newly created resource in storage.",
+                                    "type": "object",
+                                    "$ref": "#/definitions/site_object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sites/{site}": {
+            "get": {
+                "tags": [
+                    "sites"
+                ],
+                "summary": "returns the site identified by {site}",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "site",
+                        "in": "path",
+                        "description": "the id of the site that's going to be returned",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "returns the identified site",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Display the specified resource.",
+                                    "type": "object",
+                                    "$ref": "#/definitions/site_object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "sites"
+                ],
+                "summary": "updates the site identified by {site}",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "site",
+                        "in": "path",
+                        "description": "the id of the site that's going to be updated",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "updates the site identified by the given id",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Update the specified resource in storage.",
+                                    "type": "object",
+                                    "$ref": "#/definitions/site_object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "sites"
+                ],
+                "summary": "deletes the specified site",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "site",
+                        "in": "path",
+                        "description": "the id of the site that's going to be deleted",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "the specified site was deleted",
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "description": "confirmation message",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sites/resume/{contractor}": {
+            "get": {
+                "tags": [
+                    "sites"
+                ],
+                "summary": "list the sites that belongs to the given contractor; if no contractor is given, the returned sites are those that belogns to the authenticated user ",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "contractor",
+                        "in": "path",
+                        "description": "the id of the contractor whose sites are going to be listed",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "the list of the sites of the given contractor or authenticated user",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "city": {
+                                                "type": "string"
+                                            },
+                                            "state": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/cities": {
+            "get": {
+                "summary": "List the available cities",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "filter cities by its name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "type": "string"
+                    },
+                    {
+                        "name": "country",
+                        "in": "query",
+                        "description": "the id of a country, only cities that belong to this country will be returned",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    },
+                    {
+                        "name": "state",
+                        "in": "query",
+                        "description": "the id of a state, only cities that belong to this state will be returned",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    },
+                    {
+                        "name": "metro",
+                        "in": "query",
+                        "description": "the id of a metro/area, only cities that belong to this metro will be returned",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "the list of available cities"
+                    }
+                }
+            }
+        },
+        "/api/cities/{city}": {
+            "get": {
+                "summary": "display the specified city",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "city",
+                        "in": "path",
+                        "description": "id of the desired city",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "return the information of the specified city"
+                    }
+                }
+            },
+            "put": {
+                "summary": "updates the information of specified city",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "city",
+                        "in": "path",
+                        "description": "id of the city being updated",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    },
+                    {
+                        "name": "status",
+                        "in": "body",
+                        "description": "the new status for the specified city",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "ineteger"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "return the updated information of the specified city"
+                    }
+                }
+            }
+        },
+        "/api/countries": {
+            "get": {
+                "summary": "List the available countries",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "filter countries by its name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "the list of available countries"
+                    }
+                }
+            }
+        },
+        "/api/countries/{country}": {
+            "get": {
+                "summary": "Show the specified country",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "country",
+                        "in": "path",
+                        "description": "id of the displayed country",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "the information of the specified country"
+                    }
+                }
+            },
+            "put": {
+                "summary": "update the state of the specified country",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "country",
+                        "in": "path",
+                        "description": "id of the country that's being updated",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "return the updated instance of the country"
+                    }
+                }
+            }
+        },
+        "/api/metros": {
+            "get": {
+                "summary": "List the available metro/areas",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "filter areas by its name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "type": "string"
+                    },
+                    {
+                        "name": "country",
+                        "in": "query",
+                        "description": "filter states by its country",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    },
+                    {
+                        "name": "state",
+                        "in": "query",
+                        "description": "filter states by its state and country",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "the list of available areas"
+                    }
+                }
+            }
+        },
+        "/api/metros/{metro}": {
+            "get": {
+                "summary": "display the specified metro/area",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "metro",
+                        "in": "path",
+                        "description": "id of the desired metro",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "returns the information of the desired metro/area"
+                    }
+                }
+            },
+            "put": {
+                "summary": "updates the specified metro/area",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "metro",
+                        "in": "path",
+                        "description": "id of the desired metro",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    },
+                    {
+                        "name": "status",
+                        "in": "body",
+                        "description": "new status for the specified metro",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "returns the updated information of the desired metro/area"
+                    }
+                }
+            }
+        },
+        "/api/states": {
+            "get": {
+                "summary": "List the available states",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "filter states by its name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "type": "string"
+                    },
+                    {
+                        "name": "country",
+                        "in": "query",
+                        "description": "filter states by its country",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "the list of available states"
+                    }
+                }
+            }
+        },
+        "/api/states/{state}": {
+            "get": {
+                "summary": "Display the information of the specified state",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "state",
+                        "in": "path",
+                        "description": "id of the state to be displayed",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "information of the displayed state"
+                    }
+                }
+            },
+            "put": {
+                "summary": "updates the state of the specified state",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "state",
+                        "in": "path",
+                        "description": "id of the state to be displayed",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    },
+                    {
+                        "name": "status",
+                        "in": "body",
+                        "description": "new status of the state",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "information of the updated state"
+                    }
+                }
+            }
+        },
+        "/api/categories": {
+            "get": {
+                "tags": [
+                    "equipment"
+                ],
+                "summary": "List the main (those without parents) equipment categories",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "the list of main categories",
+                        "schema": {
+                            "property": "data",
+                            "description": "Display a listing of the resource.",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/category_object"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/categories/{category}": {
+            "get": {
+                "tags": [
+                    "equipment"
+                ],
+                "summary": "display the content of the specified category",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "description": "id of the specified category",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "the information of the specified category and subcategories",
+                        "schema": {
+                            "property": "data",
+                            "description": "Display the specified resource.",
+                            "type": "object",
+                            "$ref": "#/definitions/equipment_response_object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/categories/{category}/items": {
+            "get": {
+                "tags": [
+                    "equipment"
+                ],
+                "summary": "List the equipment that belong to this category or subcategories",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "description": "id of the specified category",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "the list of equipment that belongs to this category and subcatories",
+                        "schema": {
+                            "property": "data",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/equipment_response_object"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/equipments": {
+            "get": {
+                "tags": [
+                    "equipment"
+                ],
+                "summary": "List all the available equipment",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "the list of the equipment",
+                        "schema": {
+                            "property": "data",
+                            "description": "Display a listing of the resource.",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/equipment_response_object"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/equipments/{equipment}": {
+            "get": {
+                "tags": [
+                    "equipment"
+                ],
+                "summary": "the information of the specified equipment",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "equipment",
+                        "in": "path",
+                        "description": "id of the specified equipment",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "the specified equipment",
+                        "schema": {
+                            "property": "data",
+                            "description": "Display the specified resource.",
+                            "type": "object",
+                            "$ref": "#/definitions/equipment_response_object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/bids": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "list bids current user can access, sorted by creation date",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of bids user can access",
+                        "schema": {
+                            "property": "data",
+                            "description": "Display a listing of the resource.",
+                            "type": "object",
+                            "$ref": "#/definitions/bid_response_object"
+                        }
+                    },
+                    "400": {
+                        "description": "something went wrong listing the bids",
+                        "schema": {
+                            "properties": {
+                                "error_message": {
+                                    "description": "Display a listing of the resource."
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "updates the specified bid is possible",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of the bid that's going to be displayed",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "equipments",
+                        "in": "body",
+                        "description": "array of bid and order-item ids corresponding to the accepted bids per item",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/biding_item_request_object"
+                            }
+                        }
+                    },
+                    {
+                        "name": "notes",
+                        "in": "body",
+                        "description": "bid notes",
+                        "required": false,
+                        "schema": "string",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "bid updated, returns the detailed bid information",
+                        "schema": {
+                            "property": "data",
+                            "description": "Update the specified resource in storage.",
+                            "type": "object",
+                            "$ref": "#/definitions/bid_detailed_response_object"
+                        }
+                    },
+                    "400": {
+                        "description": "something went wrong updating the bid",
+                        "schema": {
+                            "properties": {
+                                "error_message": {
+                                    "description": "Update the specified resource in storage."
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "stores a new bid for the specified order and the supplier of the current user",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "order_id",
+                        "in": "body",
+                        "description": "id of the order that's going to receive the bid",
+                        "required": true,
+                        "schema": "integer",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "equipments",
+                        "in": "body",
+                        "description": "array of bid and order-item ids corresponding to the accepted bids per item",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/biding_item_request_object"
+                            }
+                        }
+                    },
+                    {
+                        "name": "notes",
+                        "in": "body",
+                        "description": "bid notes",
+                        "required": false,
+                        "schema": "string",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "bid created, returns the new bid instance",
+                        "schema": {
+                            "property": "data",
+                            "description": "Store a newly created resource in storage.",
+                            "type": "object",
+                            "$ref": "#/definitions/bid_response_object"
+                        }
+                    },
+                    "400": {
+                        "description": "something went wrong creating the bid",
+                        "schema": {
+                            "properties": {
+                                "error_message": {
+                                    "description": "Store a newly created resource in storage."
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/bids/{id}": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "display the specified bid and all it's details",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of the bid that's going to be displayed",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "detailed bid information",
+                        "schema": {
+                            "property": "data",
+                            "description": "Display the specified resource.",
+                            "type": "object",
+                            "$ref": "#/definitions/bid_detailed_response_object"
+                        }
+                    },
+                    "400": {
+                        "description": "something went wrong listing the bids",
+                        "schema": {
+                            "properties": {
+                                "error_message": {
+                                    "description": "Display the specified resource."
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "cancels the specified bid",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "the authentication token generated by the app",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of the bid that's going to be displayed",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "bid cancelled",
+                        "schema": {
+                            "properties": {
+                                "success_message": {
+                                    "description": "Remove the specified resource from storage."
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "something went canceling the bid",
+                        "schema": {
+                            "properties": {
+                                "error_message": {
+                                    "description": "Remove the specified resource from storage."
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "List the users the current user can manage",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "filter users by its email",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "type": "string"
+                    },
+                    {
+                        "name": "first_name",
+                        "in": "query",
+                        "description": "filter users by its first name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "type": "string"
+                    },
+                    {
+                        "name": "last_name",
+                        "in": "query",
+                        "description": "filter users by its last name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of the filtered users that the current user can manage",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Display a listing of the resource.",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/user_object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Stores a new user 'owned' for the current user",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "user's data",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/user_object_request"
+                        },
+                        "type": "object"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "stores the new user and return it's data",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Store a newly created resource in storage.",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/user_object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/{user}": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "return the information of the specified user if the authenticated one has the permissions",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "user's id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "returns the information of the specified user",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Display the specified resource.",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/user_object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "updates the information of the specified user if the authenticated user is allowed",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "user's id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "user's data",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/user_object_request"
+                        },
+                        "type": "object"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "updates the specified user and return it's data",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Update the specified resource in storage.",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/user_object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "deletes the specified user if the authenticated one has the permissions",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "user's id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "the specified user was deleted",
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "description": "confirmation message",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "api/contractor/signup": {
+            "post": {
+                "summary": "Allows contractors to signup",
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "userdata",
+                        "in": "body",
+                        "description": "constractor to create",
+                        "schema": {
+                            "required": [
+                                "first_name",
+                                "last_name",
+                                "email",
+                                "company_name",
+                                "city",
+                                "state",
+                                "country",
+                                "phone"
+                            ],
+                            "properties": {
+                                "first_name": {
+                                    "type": "string",
+                                    "maxLength": 100
+                                },
+                                "last_name": {
+                                    "type": "string",
+                                    "maxLength": 100
+                                },
+                                "email": {
+                                    "type": "email",
+                                    "maxLength": 100
+                                },
+                                "company_name": {
+                                    "type": "string",
+                                    "maxLength": 100
+                                },
+                                "company_position": {
+                                    "type": "string",
+                                    "maxLength": 100
+                                },
+                                "address": {
+                                    "type": "string",
+                                    "maxLength": 200
+                                },
+                                "city": {
+                                    "description": "The integer id of a city on eqbids",
+                                    "type": "integer"
+                                },
+                                "metro": {
+                                    "description": "The integer id of a metro/area on eqbids",
+                                    "type": "integer"
+                                },
+                                "state": {
+                                    "description": "The integer id of a state on eqbids",
+                                    "type": "integer"
+                                },
+                                "country": {
+                                    "description": "The integer id of a country on eqbids",
+                                    "type": "integer"
+                                },
+                                "postal_code": {
+                                    "type": "string",
+                                    "maxLength": 8
+                                },
+                                "phone": {
+                                    "type": "string",
+                                    "maxLength": 15
+                                },
+                                "phone_alt": {
+                                    "type": "string",
+                                    "maxLength": 15
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/form_error"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/roles": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "List the roles the current user can use on his managed users",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of roles the authenticated user can use",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/role_object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/profile": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "return the information of the authenticated user",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "returns the information of the authenticated user",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/user_object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "updates the information of the  authenticated user",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "user's data",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/user_object_request"
+                        },
+                        "type": "object"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "updates the authenticated user and return it's data",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/user_object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/oauth/pin": {
+            "post": {
+                "summary": "Generates a new pin of the user identified with the supplied email",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "body",
+                        "description": "the email of the user that will get the pin",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "email"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "a confirmation message will be returned, the generated pin will be send to the specified email"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "form_error": {
+            "properties": {
+                "error": {
+                    "description": "always 1",
+                    "type": "integer",
+                    "default": 1,
+                    "example": 1
+                },
+                "error_message": {
+                    "description": "Class UserController",
+                    "type": "string"
+                },
+                "errors": {
+                    "description": "a list of form validation errors",
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "billing_object": {
+            "required": [
+                "name",
+                "address",
+                "city",
+                "state",
+                "country",
+                "phone"
+            ],
+            "properties": {
+                "contractor": {
+                    "description": "Class BillingController",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Class BillingController",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "address": {
+                    "description": "Class BillingController",
+                    "type": "string",
+                    "maxLength": 200
+                },
+                "notes": {
+                    "description": "Class BillingController",
+                    "type": "string",
+                    "maxLength": 200
+                }
+            }
+        },
+        "suppliers_in_range_object": {
+            "properties": {
+                "id": {
+                    "description": "Class OrderController",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Class OrderController",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "address": {
+                    "description": "Class OrderController",
+                    "type": "string",
+                    "maxLength": 200
+                },
+                "country": {
+                    "description": "Class OrderController",
+                    "type": "objet",
+                    "$ref": "#/definitions/country_object"
+                },
+                "state": {
+                    "description": "Class OrderController",
+                    "type": "objet",
+                    "$ref": "#/definitions/state_object"
+                },
+                "city": {
+                    "description": "Class OrderController",
+                    "type": "objet",
+                    "$ref": "#/definitions/city_object"
+                },
+                "distance": {
+                    "description": "Distance in kilometers (optional)",
+                    "type": "integer"
+                }
+            }
+        },
+        "cart_equipment_response_object": {
+            "properties": {
+                "id": {
+                    "description": "Class OrderController",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Class OrderController",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "image": {
+                    "description": "Class OrderController",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "from": {
+                    "description": "Class OrderController",
+                    "type": "string",
+                    "format": "YYYY-MM-DD",
+                    "default": "YYYY-MM-DD"
+                },
+                "to": {
+                    "description": "Class OrderController",
+                    "type": "string",
+                    "format": "YYYY-MM-DD",
+                    "default": "YYYY-MM-DD"
+                },
+                "qty": {
+                    "description": "Desired quantity of this equipment",
+                    "type": "integer"
+                },
+                "order_notes": {
+                    "description": "Notes added by the contractor to this equipment in the order",
+                    "type": "string"
+                },
+                "allow_attachments": {
+                    "description": "Suppliers can add attachments to this item",
+                    "type": "boolean"
+                }
+            }
+        },
+        "cart_equipment_request_object": {
+            "properties": {
+                "id": {
+                    "description": "Class OrderController",
+                    "type": "integer"
+                },
+                "from": {
+                    "description": "Class OrderController",
+                    "type": "string",
+                    "format": "YYYY-MM-DD",
+                    "default": "YYYY-MM-DD"
+                },
+                "to": {
+                    "description": "Class OrderController",
+                    "type": "string",
+                    "format": "YYYY-MM-DD",
+                    "default": "YYYY-MM-DD"
+                },
+                "qty": {
+                    "description": "Desired quantity of this equipment",
+                    "type": "integer"
+                },
+                "notes": {
+                    "description": "Order equipment notes",
+                    "type": "string"
+                }
+            }
+        },
+        "order_response_object": {
+            "properties": {
+                "id": {
+                    "description": "Class OrderController",
+                    "type": "integer"
+                },
+                "created_at": {
+                    "description": "Class OrderController",
+                    "type": "string"
+                },
+                "creator": {
+                    "description": "Class OrderController",
+                    "type": "object",
+                    "$ref": "#/definitions/user_object"
+                },
+                "destination": {
+                    "description": "Class OrderController",
+                    "type": "object",
+                    "$ref": "#/definitions/site_object"
+                },
+                "status": {
+                    "description": "Class OrderController",
+                    "type": "string"
+                },
+                "notes": {
+                    "description": "Class OrderController",
+                    "type": "string"
+                },
+                "edit": {
+                    "description": "true if the user can edit this order",
+                    "type": "boolean"
+                },
+                "cancel": {
+                    "description": "true if the user can cancel this order",
+                    "type": "boolean"
+                },
+                "approve": {
+                    "description": "true if the user can approve this order",
+                    "type": "boolean"
+                },
+                "bids": {
+                    "description": "true if the user see the bids of this order",
+                    "type": "boolean"
+                },
+                "has_bids": {
+                    "description": "true if the order has bids",
+                    "type": "boolean"
+                },
+                "closable": {
+                    "description": "true if the order can be closed",
+                    "type": "boolean"
+                }
+            }
+        },
+        "order_suppliers_response_object": {
+            "properties": {
+                "status": {
+                    "description": "Class OrderController",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "Class OrderController",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Class OrderController",
+                    "type": "string",
+                    "maxLength": 100
+                }
+            }
+        },
+        "bid_item_response_object": {
+            "properties": {
+                "id": {
+                    "description": "Bid id",
+                    "type": "integer"
+                },
+                "supplier": {
+                    "description": "Class OrderController",
+                    "type": "objet",
+                    "$ref": "#/definitions/suppliers_in_range_object"
+                },
+                "amount": {
+                    "description": "request amount for the equipment",
+                    "type": "number"
+                },
+                "status": {
+                    "description": "Order-item bid status",
+                    "type": "string"
+                },
+                "price": {
+                    "description": "",
+                    "type": "number"
+                },
+                "pickup_fee": {
+                    "description": "Class OrderController",
+                    "type": "number"
+                },
+                "delivery_fee": {
+                    "description": "Class OrderController",
+                    "type": "number"
+                },
+                "insurance": {
+                    "description": "insurance value",
+                    "type": "number"
+                },
+                "deliv_date": {
+                    "description": "Class OrderController",
+                    "type": "string",
+                    "format": "YYYY-MM-DD",
+                    "default": "YYYY-MM-DD"
+                },
+                "return_date": {
+                    "description": "Class OrderController",
+                    "type": "string",
+                    "format": "YYYY-MM-DD",
+                    "default": "YYYY-MM-DD"
+                },
+                "notes": {
+                    "description": "Class OrderController",
+                    "type": "string"
+                }
+            }
+        },
+        "bid_item_request_object": {
+            "properties": {
+                "id": {
+                    "description": "Order id item (oid from order_item_response_object)",
+                    "type": "integer"
+                },
+                "value": {
+                    "description": "id of the accepted bid for the item",
+                    "type": "integer"
+                }
+            }
+        },
+        "order_item_response_object": {
+            "properties": {
+                "oid": {
+                    "description": "Order item id",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "Equipments id",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Equipments name",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "image": {
+                    "description": "Class OrderController",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "from": {
+                    "description": "Class OrderController",
+                    "type": "string",
+                    "format": "YYYY-MM-DD",
+                    "default": "YYYY-MM-DD"
+                },
+                "to": {
+                    "description": "Class OrderController",
+                    "type": "string",
+                    "format": "YYYY-MM-DD",
+                    "default": "YYYY-MM-DD"
+                },
+                "qty": {
+                    "description": "Desired quantity of this equipment",
+                    "type": "integer"
+                },
+                "bids": {
+                    "description": "Class OrderController",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/bid_item_response_object"
+                    }
+                },
+                "order_notes": {
+                    "description": "Order item notes",
+                    "type": "string"
+                }
+            }
+        },
+        "bid_order_item_response_object": {
+            "properties": {
+                "oid": {
+                    "description": "Order item id",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "Equipments id",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Equipments name",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "image": {
+                    "description": "Class OrderController",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "from": {
+                    "description": "Class OrderController",
+                    "type": "string",
+                    "format": "YYYY-MM-DD",
+                    "default": "YYYY-MM-DD"
+                },
+                "to": {
+                    "description": "Class OrderController",
+                    "type": "string",
+                    "format": "YYYY-MM-DD",
+                    "default": "YYYY-MM-DD"
+                },
+                "qty": {
+                    "description": "Desired quantity of this equipment",
+                    "type": "integer"
+                },
+                "bids": {
+                    "description": "Class OrderController",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/bid_item_response_object"
+                    }
+                },
+                "order_notes": {
+                    "description": "Order item notes",
+                    "type": "string"
+                },
+                "price": {
+                    "description": "Price set by the supplier",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "Per item bid status",
+                    "type": "string"
+                },
+                "pickup_fee": {
+                    "description": "Per item, Pickup fee set by supplier",
+                    "type": "integer"
+                },
+                "delivery_fee": {
+                    "description": "Per item, Delivery fee set by supplier",
+                    "type": "integer"
+                },
+                "insurance": {
+                    "description": "Per item, Insurance (%) fee set by supplier",
+                    "type": "integer"
+                },
+                "deliv_date": {
+                    "description": "Per item, Item delivery date set by supplier",
+                    "type": "string"
+                },
+                "return_date": {
+                    "description": "Per item, Item return date fee set by supplier",
+                    "type": "string"
+                },
+                "notes": {
+                    "description": "Per item, notes set by supplier",
+                    "type": "string"
+                },
+                "allow_attachments": {
+                    "description": "Per item, this item allows attachments",
+                    "type": "boolean"
+                },
+                "attachments": {
+                    "description": "Per item, attachments urls",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "accepted_bid": {
+                    "description": "Per item, this bid is accepeted",
+                    "type": "boolean"
+                }
+            }
+        },
+        "site_object": {
+            "required": [
+                "name",
+                "address",
+                "city",
+                "state",
+                "country",
+                "phone"
+            ],
+            "properties": {
+                "contractor": {
+                    "description": "Class SiteController",
+                    "type": "integer"
+                },
+                "nickname": {
+                    "description": "Class SiteController",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "name": {
+                    "description": "Class SiteController",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "address": {
+                    "description": "Class SiteController",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "city": {
+                    "description": "Class SiteController",
+                    "type": "integer"
+                },
+                "metro": {
+                    "description": "Class SiteController",
+                    "type": "integer"
+                },
+                "state": {
+                    "description": "Class SiteController",
+                    "type": "integer"
+                },
+                "country": {
+                    "description": "Class SiteController",
+                    "type": "integer"
+                },
+                "zip": {
+                    "description": "Class SiteController",
+                    "type": "string",
+                    "maxLength": 10
+                },
+                "phone": {
+                    "description": "Class SiteController",
+                    "type": "string",
+                    "maxLength": 15
+                },
+                "contact": {
+                    "description": "Class SiteController",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "special_instructions": {
+                    "description": "Class SiteController",
+                    "type": "string",
+                    "maxLength": 500
+                }
+            }
+        },
+        "city_object": {
+            "properties": {
+                "id": {
+                    "description": "Class CityController",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Class CityController",
+                    "type": "string",
+                    "maxLength": 100
+                }
+            }
+        },
+        "country_object": {
+            "properties": {
+                "id": {
+                    "description": "Class CountriesController",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Class CountriesController",
+                    "type": "string",
+                    "maxLength": 100
+                }
+            }
+        },
+        "state_object": {
+            "properties": {
+                "id": {
+                    "description": "Class StateController",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Class StateController",
+                    "type": "string",
+                    "maxLength": 100
+                }
+            }
+        },
+        "category_object": {
+            "required": [
+                "name",
+                "brand",
+                "image",
+                "model",
+                "description"
+            ],
+            "properties": {
+                "id": {
+                    "description": "Class CategoryController",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Class CategoryController",
+                    "type": "string",
+                    "maxLength": 50
+                },
+                "image": {
+                    "description": "Class CategoryController",
+                    "type": "string",
+                    "maxLength": 50
+                },
+                "description": {
+                    "description": "Class CategoryController",
+                    "type": "string",
+                    "maxLength": 500
+                },
+                "data": {
+                    "description": "Class CategoryController",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/category_object"
+                    }
+                }
+            }
+        },
+        "equipment_response_object": {
+            "required": [
+                "name",
+                "brand",
+                "image",
+                "model",
+                "description"
+            ],
+            "properties": {
+                "name": {
+                    "description": "Class EquipmentController",
+                    "type": "string",
+                    "maxLength": 50
+                },
+                "brand": {
+                    "description": "Class EquipmentController",
+                    "type": "integer"
+                },
+                "image": {
+                    "description": "Class EquipmentController",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "model": {
+                    "description": "Class EquipmentController",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "description": {
+                    "description": "Class EquipmentController",
+                    "type": "string",
+                    "maxLength": 5000
+                }
+            }
+        },
+        "bid_response_object": {
+            "properties": {
+                "id": {
+                    "description": "Bid id",
+                    "type": "integer"
+                },
+                "supplier": {
+                    "description": "Class BidController",
+                    "type": "objet",
+                    "$ref": "#/definitions/suppliers_in_range_object"
+                },
+                "amount": {
+                    "description": "request amount for the equipment",
+                    "type": "double"
+                }
+            }
+        },
+        "biding_item_request_object": {
+            "properties": {
+                "id": {
+                    "description": "order-item id",
+                    "type": "integer"
+                },
+                "price": {
+                    "description": "",
+                    "type": "number"
+                },
+                "pick": {
+                    "description": "Class BidController",
+                    "type": "number"
+                },
+                "delivery": {
+                    "description": "Class BidController",
+                    "type": "number"
+                },
+                "insurance": {
+                    "description": "insurance value",
+                    "type": "number"
+                },
+                "from": {
+                    "description": "Class BidController",
+                    "type": "string",
+                    "format": "YYYY-MM-DD",
+                    "default": "YYYY-MM-DD"
+                },
+                "to": {
+                    "description": "Class BidController",
+                    "type": "string",
+                    "format": "YYYY-MM-DD",
+                    "default": "YYYY-MM-DD"
+                },
+                "notes": {
+                    "description": "Class BidController",
+                    "type": "string"
+                }
+            }
+        },
+        "biding_item_detailed_response_object": {
+            "properties": {
+                "oid": {
+                    "description": "Order item id",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "Equipments id",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Equipments name",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "image": {
+                    "description": "Class BidController",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "from": {
+                    "description": "Class BidController",
+                    "type": "string",
+                    "format": "YYYY-MM-DD",
+                    "default": "YYYY-MM-DD"
+                },
+                "to": {
+                    "description": "Class BidController",
+                    "type": "string",
+                    "format": "YYYY-MM-DD",
+                    "default": "YYYY-MM-DD"
+                },
+                "qty": {
+                    "description": "Desired quantity of this equipment",
+                    "type": "integer"
+                },
+                "price": {
+                    "description": "",
+                    "type": "number"
+                },
+                "pick": {
+                    "description": "Class BidController",
+                    "type": "number"
+                },
+                "delivery": {
+                    "description": "Class BidController",
+                    "type": "number"
+                },
+                "insurance": {
+                    "description": "insurance value",
+                    "type": "number"
+                },
+                "deliv_date": {
+                    "description": "Class BidController",
+                    "type": "string",
+                    "format": "YYYY-MM-DD",
+                    "default": "YYYY-MM-DD"
+                },
+                "return_date": {
+                    "description": "Class BidController",
+                    "type": "string",
+                    "format": "YYYY-MM-DD",
+                    "default": "YYYY-MM-DD"
+                },
+                "notes": {
+                    "description": "Class BidController",
+                    "type": "string"
+                }
+            }
+        },
+        "bid_detailed_response_object": {
+            "properties": {
+                "id": {
+                    "description": "Bid id",
+                    "type": "integer"
+                },
+                "supplier": {
+                    "description": "Class BidController",
+                    "type": "objet",
+                    "$ref": "#/definitions/suppliers_in_range_object"
+                },
+                "amount": {
+                    "description": "request amount for the equipment",
+                    "type": "double"
+                },
+                "items": {
+                    "description": "Class BidController",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/biding_item_detailed_response_object"
+                    }
+                },
+                "order": {
+                    "description": "Class BidController",
+                    "type": "objet",
+                    "$ref": "#/definitions/order_response_object"
+                }
+            }
+        },
+        "user_object": {
+            "required": [
+                "email",
+                "first_name",
+                "last_name",
+                "city",
+                "country"
+            ],
+            "properties": {
+                "role": {
+                    "description": "Class UserController",
+                    "type": "integer"
+                },
+                "first_name": {
+                    "description": "Class UserController",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "last_name": {
+                    "description": "Class UserController",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "email": {
+                    "description": "Class UserController",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "phone": {
+                    "description": "Class UserController",
+                    "type": "string",
+                    "maxLength": 15
+                },
+                "city_id": {
+                    "description": "Class UserController",
+                    "type": "integer"
+                },
+                "metro_id": {
+                    "description": "Class UserController",
+                    "type": "integer"
+                },
+                "state_id": {
+                    "description": "Class UserController",
+                    "type": "integer"
+                },
+                "country_id": {
+                    "description": "Class UserController",
+                    "type": "integer"
+                },
+                "postal_code": {
+                    "description": "Class UserController",
+                    "type": "string",
+                    "maxLength": 8
+                },
+                "secondary_phone": {
+                    "description": "Class UserController",
+                    "type": "string",
+                    "maxLength": 15
+                },
+                "address": {
+                    "description": "Class UserController",
+                    "type": "string",
+                    "maxLength": 200
+                },
+                "company_position": {
+                    "description": "Class UserController",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "company_name": {
+                    "description": "Class UserController",
+                    "type": "string",
+                    "maxLength": 100
+                }
+            }
+        },
+        "user_object_request": {
+            "required": [
+                "email",
+                "first_name",
+                "last_name",
+                "city",
+                "country"
+            ],
+            "properties": {
+                "role": {
+                    "description": "Class UserController",
+                    "type": "integer"
+                },
+                "first_name": {
+                    "description": "Class UserController",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "last_name": {
+                    "description": "Class UserController",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "email": {
+                    "description": "Class UserController",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "status": {
+                    "description": "User status: 1 => Active 2=>Inactive",
+                    "type": "integer"
+                },
+                "office_id": {
+                    "description": "id of the office the user belongs to",
+                    "type": "integer"
+                }
+            }
+        },
+        "role_object": {
+            "properties": {
+                "id": {
+                    "description": "Class UserController",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Class UserController",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

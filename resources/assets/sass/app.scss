@@ -1,0 +1,27 @@
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i");
+
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "node_modules/bootstrap/scss/bootstrap";
+
+@import "resources/assets/css/parsley";
+@import "node_modules/select2/dist/css/select2";
+@import "node_modules/datatables.net-bs4/css/dataTables.bootstrap4";
+@import "node_modules/datatables.net-responsive-bs4/css/responsive.bootstrap4";
+@import "node_modules/datatables.net-scroller-bs4/css/scroller.bootstrap4";
+//@import "~font-awesome/scss/font-awesome.scss";
+@import "node_modules/alertifyjs/build/css/alertify";
+@import "resources/assets/css/alertify";
+@import "resources/assets/css/datatables";
+@import "resources/assets/css/eqbids";
+
+@import "node_modules/summernote/dist/summernote-bs4";
+@import "node_modules/weatherstar-switch/dist/switch";
+@import "node_modules/dropzone/dist/dropzone";
