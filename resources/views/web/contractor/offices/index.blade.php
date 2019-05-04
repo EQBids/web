@@ -20,6 +20,9 @@
                     </tr>
                     </thead>
                     <tbody>
+                    @php 
+                        $flag = true ;
+                    @endphp
                     @foreach($offices as $office)
                         <tr>
                             <td>{{ $office->company_name }}</td>
@@ -27,7 +30,12 @@
                             <td>
                                 <a class="btn btn-primary btn-sm" href="{{ route('contractor.offices.workers',[$office->id]) }}">{{__('Workers')}}</a>
                                 <a class="btn btn-primary btn-sm" href="{{ route('contractor.offices.edit',[$office->id]) }}">{{__('Edit')}}</a>
-                                <a class="btn btn-danger btn-sm" href="{{ route('contractor.offices.delete',[$office->id]) }}">{{__('Delete')}}</a>
+                            @if( !$flag)
+                                <a class="btn btn-danger btn-sm" href="{{ route('contractor.offices.delete',[$office->id]) }}">{{__('Delete')}}</a>    
+                            @endif
+                            @php 
+                                $flag = false ;
+                            @endphp
                             </td>
                         </tr>
                     @endforeach

@@ -48,7 +48,7 @@ class pinUserProvider extends EloquentUserProvider {
 				throw ValidationException::withMessages(['pin'=>'Account doesn\'t exists or deleted']);
 			}
 			if($user->status==User::STATUS_ON_APPROVAL){
-				throw ValidationException::withMessages(['pin'=>'Your account has not been approved by the administrator']);
+				throw ValidationException::withMessages(['pin'=>'Your account has not been approved by the administrator, contact admin@eqbids.com for more information"']);
 			}
 
 			return true;

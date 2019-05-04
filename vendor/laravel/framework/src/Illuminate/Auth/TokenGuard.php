@@ -40,7 +40,6 @@ class TokenGuard implements Guard
      */
     public function __construct(UserProvider $provider, Request $request)
     {
-        echo "oi;";
         $this->request = $request;
         $this->provider = $provider;
         $this->inputKey = 'api_token';

@@ -102,11 +102,12 @@ class OfficeRepository extends BaseRepository implements officeRepositoryInterfa
         //TODO check if there's a more efficient way to do this.
 
        $usersBelongingToContractor = DB::table('contractor_user')->select('user_id')->where('contractor_id',$id);
-
+       
        $usersIds = DB::table('site_user')->select('site_user.user_id')
                                                 ->join('sites','sites.id','=','site_user.site_id')
                                                 ->join('contractors','sites.contractor_id','=','contractors.id')
-                                                ->where('contractors.id',$id)->union($usersBelongingToContractor)->get();
+                                                ->where('contractors.id',$id)
+                                                ->union($usersBelongingToContractor)->get();
 
        if(isset($usersIds) && count($usersIds) > 0){
 
@@ -221,6 +222,7 @@ class OfficeRepository extends BaseRepository implements officeRepositoryInterfa
 	        $exists->select(DB::raw(1))->from('contractor_user')
 	                                   ->whereRaw('contractor_user.contractor_id = contractors.id')
 	                                   ->where('contractor_user.user_id',$userId);
-        })->orWhere('contractors.user_id',$userId)->get();
+        })->whereRaw('contractors.deleted_at is null')->where('contractors.user_id',$userId)
+        ->orderBy('created_at')->get();
     }
 }

@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Route;
  *  routes for admins only
  *
  */
+
+
+
+
 Route::group(['middleware'=>['auth:api','log'],'namespace'=>'Api'],function (){
 	Route::apiResource('/user','UserController');
 
@@ -36,8 +40,12 @@ Route::group(['middleware'=>['auth:api','log'],'namespace'=>'Api'],function (){
 
 
 	//equipment
-	Route::apiResource('/cart','Buyer\CartController',['only'=>['store','destroy']])->middleware(['rols:contractor-superadmin,contractor-admin,contractor-manager,contractor-worker']);
-	Route::delete('/cart','Buyer\CartController@flush')->name('cart.flush');
+
+
+	//Route::post('/cart','Buyer\CartController@store');
+	//Route::group(['middleware' => 'guest'], function () {
+	//	Route::get('/cart', 'Buyer\CartController@store');
+	//});
 
 	Route::prefix('/orders/process')->name('orders.process.')->group(function (){
 
@@ -107,6 +115,12 @@ Route::group(['namespace'=>'Api'],function (){
 
 
 	Route::apiResource('/equipments','Product\EquipmentController',['only'=>['index','show']]);
+	//Route::apiResource('/cart','Buyer\CartController',['only'=>['store']]);
+	
+	
+});
 
-
+Route::group(['middleware' => ['rols:contractor-superadmin,contractor-admin,contractor-manager,contractor-worker'],'namespace'=>'Api'],function (){
+	Route::apiResource('/cart','Buyer\CartController',['only'=>['index','store','destroy']])->middleware('rols');;
+	Route::delete('/cart','Buyer\CartController@flush')->name('cart.flush');
 });

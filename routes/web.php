@@ -65,7 +65,7 @@ Route::middleware([IsLoggedIn::class])->group(function(){
 		    Route::get('/orders/{order}/delete','Web\Contractor\orderController@delete')->name('orders.delete');
 		    Route::get('/orders/{order}/approval','Web\Contractor\orderController@approval')->name('orders.approval');
 		    Route::post('/orders/{order}/approve','Web\Contractor\orderController@approve')->name('orders.approve');
-
+			
 		    Route::prefix('/orders/{order}/edit')->name('orders.edit.')->group(function (){
 			    Route::post('/begin','Web\Contractor\orderController@edit_begin')->name('begin');
 			    Route::post('/cancel','Web\Contractor\orderController@edit_cancel')->name('cancel');

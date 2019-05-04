@@ -138,8 +138,7 @@ class orderRepository extends BaseRepository implements orderRepositoryInterface
 		if (!$user){
 			$this->query->whereIn('site_id',[0]); //nothing
 		}
-
-		if($user->is_contractor){
+		if($user->is_contractor && $user->contractor != null){
 			if ($user->hasAnyRol(['contractor-worker','contractor-manager'])){
 				$sites = $user->sites()->pluck('id');
 				$this->query->whereIn('site_id',$sites);

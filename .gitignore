@@ -1,0 +1,13 @@
+/bootstrap/cache
+/node_modules
+/public/hot
+/public/storage
+/storage/*
+/.idea
+/.vagrant
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+.env
+.DS_Store

@@ -46,8 +46,13 @@
                         <!-- menu links -->
                         <div class="menu-bar">
                             <ul class="menu-links">
-                                <li><a href="{{ url('/') }}">Home </a> </li>
-
+                                <!--<li><a href="{{ url('/') }}">Home </a> </li>-->
+                                @if(Auth::check())
+                                    @if(Auth::user()->contractors->count()>0)
+                                        <li><a href="{{ route('contractors_dashboard') }}"><i class="fa fa-dashboard"></i>{{ __('Contractor\'s Dashboard') }} </a> </li>
+                                    @endif
+                                @endif
+                                @yield('menu_entries')
                                 <li><a href="javascript:void(0)">About us <i class="fa fa-angle-down fa-indicator"></i> </a>
                                     <ul class="drop-down-multilevel left-side">
                                         <li><a href="#">About Company </a>  </li>
@@ -55,12 +60,7 @@
                                         <li><a href="#">About Projects</a> </li>
                                     </ul>
                                 </li>
-                                @if(Auth::check())
-                                    @if(Auth::user()->contractors->count()>0)
-                                        <li><a href="{{ route('contractors_dashboard') }}"><i class="fa fa-dashboard"></i>{{ __('Contractor\'s Dashboard') }} </a> </li>
-                                    @endif
-                                @endif
-                                    @yield('menu_entries')
+                                
                                 @if(Auth::check())
                                         <li><a href="{{ route('logout') }}" ><i class="fa fa-user"></i> {{__('Logout')}}</a></li>
                                 @else

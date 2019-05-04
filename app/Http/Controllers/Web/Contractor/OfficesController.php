@@ -21,7 +21,7 @@ class OfficesController extends Controller
     }
 
     public function index(){
-
+        
     	$offices = $this->officeRepo->findAllWhereUserBelongsTo(Auth::user()->id);
         return view('web.contractor.offices.index',compact('offices'));
     }
