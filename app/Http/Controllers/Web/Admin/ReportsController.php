@@ -116,7 +116,7 @@ class ReportsController extends Controller
 				],
 				'industries'  => $industries,
 				'items'       => $contractors
-			], compact( 'country', 'state', 'city' ) ) );
+			] ) );
 		}
 	}
 
@@ -243,7 +243,7 @@ class ReportsController extends Controller
 					]
 				],
 
-			], compact( 'country', 'state', 'city' ) ) );
+			] ) );
 		}
 	}
 
@@ -391,7 +391,8 @@ class ReportsController extends Controller
 					]
 				],
 
-			], compact( 'country', 'state', 'city' ) ) );
+			] ) );
+			//, compact( 'country', 'state', 'city' )
 		}
 	}
 
