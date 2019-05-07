@@ -12,15 +12,27 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Jimmyjs\ReportGenerator\Facades\PdfReportFacade as PdfReport;
+use App\Models\Geo\City;
 
 class ReportsController extends Controller
 {
+	private $country;
+	private $state;
+	private $city;
 
+	public function __construct(){
+		$country=Country::query()->selectRaw('select name from countries');
+		$state = State::query()->selectRaw('select name from states');
+		$city = City::query()->selectRaw('select name from cities');
+	}
 
 	public function contractors(baseReportRequest $request){
 		$industries = Industry::query()->orderBy('name')->get();
 		$contractors=Contractor::query();
+		
+		
 		if($request->exists('country_id') && $request->get('country_id')){
+			
 			$contractors->where('country_id',$request->get('country_id'));
 			$country=Country::find($request->get('country_id'));
 		}
@@ -116,7 +128,7 @@ class ReportsController extends Controller
 				],
 				'industries'  => $industries,
 				'items'       => $contractors
-			] ) );
+			], ['country' => $country ,'state' => $state , 'city' => $city ] ) );
 		}
 	}
 
@@ -243,7 +255,7 @@ class ReportsController extends Controller
 					]
 				],
 
-			] ) );
+			], ['country' => $country ,'state' => $state , 'city' => $city ] ) );
 		}
 	}
 
@@ -391,8 +403,7 @@ class ReportsController extends Controller
 					]
 				],
 
-			] ) );
-			//, compact( 'country', 'state', 'city' )
+			], ['country' => $country ,'state' => $state , 'city' => $city ] ) );
 		}
 	}
 
