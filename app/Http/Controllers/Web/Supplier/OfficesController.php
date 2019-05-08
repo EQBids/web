@@ -30,17 +30,17 @@ class OfficesController extends Controller
     }
 
     public function index(){
+       
         $offices = $this->officeRepo->offices(Auth::user());
         return view('web.supplier.offices.index',compact('offices'));
     }
 
     public function create(){
-
         return view('web.supplier.offices.create');
     }
 
     public function store(SupplierOfficeRequest $request){
-
+    
         $data = [
             'name'          =>  $request->get('location'),
             'address'       =>  $request->get('address'),

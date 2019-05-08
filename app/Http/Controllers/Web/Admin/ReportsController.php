@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Admin;
 use App\Http\Requests\Admin\Reports\baseReportRequest;
 use App\Models\Buyer\Contractor;
 use App\Models\Geo\Country;
+use App\Models\Geo\State;
 use App\Models\Industry;
 use App\Models\Product\Equipment;
 use App\Models\Supplier\Supplier;
@@ -16,17 +17,11 @@ use App\Models\Geo\City;
 
 class ReportsController extends Controller
 {
-	private $country;
-	private $state;
-	private $city;
 
-	public function __construct(){
-		$country=Country::query()->selectRaw('select name from countries');
-		$state = State::query()->selectRaw('select name from states');
-		$city = City::query()->selectRaw('select name from cities');
-	}
 
 	public function contractors(baseReportRequest $request){
+
+		
 		$industries = Industry::query()->orderBy('name')->get();
 		$contractors=Contractor::query();
 		
@@ -128,11 +123,13 @@ class ReportsController extends Controller
 				],
 				'industries'  => $industries,
 				'items'       => $contractors
-			], ['country' => $country ,'state' => $state , 'city' => $city ] ) );
+			], [ 'country', 'state', 'city' ] ) );
 		}
 	}
 
 	public function equipments(baseReportRequest $request){
+
+		
 		$industries = Industry::query()->orderBy('name')->get();
 
 		$equipment_orders = DB::table('order_items')
@@ -255,12 +252,11 @@ class ReportsController extends Controller
 					]
 				],
 
-			], ['country' => $country ,'state' => $state , 'city' => $city ] ) );
+			],  [ 'country', 'state', 'city' ] ) );
 		}
 	}
 
 	public function suppliers(baseReportRequest $request){
-
 		$suppliers = Supplier::query();
 		$suppliers_invitations=DB::table('order_supplier')
 		                         ->groupBy('order_supplier.supplier_id')
@@ -403,7 +399,7 @@ class ReportsController extends Controller
 					]
 				],
 
-			], ['country' => $country ,'state' => $state , 'city' => $city ] ) );
+			], [ 'country', 'state', 'city' ] ) );
 		}
 	}
 
