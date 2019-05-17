@@ -39,7 +39,7 @@ class AuthServiceProvider extends ServiceProvider
 
 
 		//passport conf
-	    Passport::routes();
+		Passport::routes();
 	    app(AuthorizationServer::class)->enableGrantType($this->makeEqbidsPinGrant(),Passport::tokensExpireIn());
 
 	    //pin guard and provider
@@ -54,7 +54,7 @@ class AuthServiceProvider extends ServiceProvider
 		    $provider = Auth::createUserProvider($config['provider']);
 
 //		    $provider = $this->createUserProvider($config['provider'] ?? null);
-
+			
 		    $guard = new SessionGuard('web', $provider, $app['session.store']);
 
 		    // When using the remember me functionality of the authentication services we

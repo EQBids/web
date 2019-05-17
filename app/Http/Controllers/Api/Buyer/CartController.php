@@ -111,7 +111,6 @@ class CartController extends Controller
      */
     public function store(itemRequest $request)
     {
-      echo "oixxx";
 		$res = $this->cart_repository->addEquipment(Auth::user()->id,$request->get('equipment'));
 		if($res==-1){
 			return response()->json(['message'=>'The equipment already added to the cart.'],400);
