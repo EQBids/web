@@ -7,11 +7,11 @@ $(document).ready(function () {
 
     var current_cart_count=0;
     alertify=window.alertify;
-    $('.add-item-cart').removeClass('d-none').click(function () {
+    $('.add-item-cart').click(function () {
         addItemToCart($(this).attr('data-equipment-id'));
     });
 
-    $('.remove-item-cart').addClass('d-none').click(function () {
+    $('.remove-item-cart').click(function () {
         removeItemToCart($(this).attr('data-equipment-id'));
     });
 
@@ -35,21 +35,21 @@ $(document).ready(function () {
 });
 
     function toggleButtons(id){
-        $('.add-item-cart[data-equipment-id="'+id+'"]').toggleClass('d-none');
-        $('.remove-item-cart[data-equipment-id="'+id+'"]').toggleClass('d-none');
+       // $('.add-item-cart[data-equipment-id="'+id+'"]').toggleClass('d-none');
+       // $('.remove-item-cart[data-equipment-id="'+id+'"]').toggleClass('d-none');
 
     }
 
     function updateCartCount(count) {
         current_cart_count=count;
         $('#shopping_cart_count').html(count);
-        if(current_cart_count==0){
+       /* if(current_cart_count==0){
             $('#shopping_cart_count').addClass('d-none');
             $('.shpping-cart').addClass('d-none');
         }else{
             $('#shopping_cart_count').removeClass('d-none');
             $('.shpping-cart').removeClass('d-none');
-        }
+        }*/
     }
 
 
@@ -79,7 +79,7 @@ $(document).ready(function () {
 
 
             //for the shopping cart view
-            $('.remove-item-cart[data-equipment-id="'+id+'"]').parents('tr').toggleClass('d-none');
+         //   $('.remove-item-cart[data-equipment-id="'+id+'"]').parents('tr').toggleClass('d-none');
 
         }).catch(function (error) {
             if(error.response.status==400){
@@ -98,7 +98,7 @@ $(document).ready(function () {
             alertify.notify(response.data.message,'warning');
 
             //for the shopping cart view
-            $('.remove-item-cart').parents('tr').toggleClass('d-none');
+            //$('.remove-item-cart').parents('tr').toggleClass('d-none');
 
         }).catch(function (error) {
             if(error.response.status==400){

@@ -39514,13 +39514,13 @@ $(document).ready(function () {
     function updateCartCount(count) {
         current_cart_count = count;
         $('#shopping_cart_count').html(count);
-        if (current_cart_count == 0) {
+        /*if (current_cart_count == 0) {
             $('#shopping_cart_count').addClass('d-none');
             $('.shpping-cart').addClass('d-none');
         } else {
             $('#shopping_cart_count').removeClass('d-none');
             $('.shpping-cart').removeClass('d-none');
-        }
+        }*/
     }
 
     function addItemToCart(id) {
