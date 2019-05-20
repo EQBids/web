@@ -40,7 +40,8 @@ class supplierRepository extends BaseRepository  implements supplierRepositoryIn
 					->whereIn('inventories.equipment_id',$inner_equipments);
 			});
 		}
-		return $q->orderBy('distance','desc')->get();
+		//return $q->orderBy('distance','desc')->get();
+		return $q->get();
 	}
 
 	public function supplierUsers( $supplier_id,$columns=['*'] ) {

@@ -23,9 +23,12 @@
                         <label>Select an existing job site</label>
                         <select id="site" name="site" class="fancyselect wide">
                             <option value="">-</option>
+                            @if(isset($sites)) 
                             @foreach($sites as $_site)
+                                
                                 <option value="{{ $_site->id }}" {{ (old('site')==$_site->id) || (isset($site_id) && $site_id==$_site->id)?'selected':'' }}> {{ $_site->nickname }}</option>
                             @endforeach
+                            @endif
                         </select>
                     </div>
 
@@ -51,12 +54,12 @@
 
 @push('footer_scripts')
     @include('web.partials.geo')
-
+    @if(isset($sites)) 
     <script type="text/javascript">
         var sites = {!! \App\Http\Resources\Buyer\siteResource::collection($sites)->keyBy('id') !!};
 
     </script>
-
+    @endif
 @endpush
 
 

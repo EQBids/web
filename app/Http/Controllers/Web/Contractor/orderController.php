@@ -202,10 +202,13 @@ class orderController extends Controller
     	$user = Auth::user();
 	    $cart = Auth::user()->cart;
     	if($user->hasAnyRol(['contractor-superadmin','contractor-admin'])){
+			
     		$sites = $user->ownedSites;
 	    }else{
+			
     		$sites = $user->sites;
-	    }
+		}
+		$site_id=0;
 	    if(isset($cart->details['site_id'])){
     		$site_id = $cart->details['site_id'];
 	    }
@@ -213,8 +216,8 @@ class orderController extends Controller
 
 	    $country = $this->country_repository->findOneBy(old('country',null));
 	    $state = $this->state_repository->findOneBy(old('state',null));
-	    $city = $this->city_repository->findOneBy(old('city',null));
-
+		$city = $this->city_repository->findOneBy(old('city',null));
+		
 	    if($country){
 		    $viewData['country']=$country;
 	    }
@@ -225,9 +228,10 @@ class orderController extends Controller
 
 	    if($city){
 		    $viewData['city']=$city;
-	    }
+		}
 
-    	return view('web.contractor.orders.process.location')->with(compact('state','sites','site_id','country','city','state'));
+		return view('web.contractor.orders.process.location')
+		->with( ['state','sites' => $sites,'site_id','country','city']  );
     }
 
     public function location_store(locationRequest $request){
@@ -281,10 +285,11 @@ class orderController extends Controller
     	$site = $this->site_repository->findOneBy($site_id);
     	$radius = $this->settings_repository->getValue('radius_in_km_from_site',100);
     	$suppliers = $this->supplier_repository->suppliersInRange($site->lat,$site->lon,$radius,$site->country_id,$cart->items);
+
 		if(isset($cart->details['suppliers'])){
 			$old_suppliers=$cart->details['suppliers'];
 		}
-	    return view('web.contractor.orders.process.suppliers')->with(compact('suppliers','old_suppliers'));
+	    return view('web.contractor.orders.process.suppliers')->with( ['suppliers' => $suppliers,'old_suppliers']);
 
     }
 
