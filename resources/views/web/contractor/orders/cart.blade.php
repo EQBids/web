@@ -23,7 +23,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if($cart != "")
+                        @if(count($cart->items) > 0)
                         @foreach($cart->items as $item)
                             <tr>
                                 <td class="image">
@@ -42,7 +42,7 @@
                                     </ul>
                                 </td>
                                 <td>
-                                    <button data-equipment-id="{{$item->id}}" class="btn btn-sm btn-danger remove-item-cart d-none" ><i class="fa fa-remove"></i></button>
+                                    <button data-equipment-id="{{$item->id}}" class="btn btn-sm btn-danger remove-item-cart" ><i class="fa fa-remove"></i></button>
                                 </td>
                             </tr>
                         @endforeach
@@ -55,9 +55,9 @@
     <div class="row">
         <div class="col-lg-12">
         <a href="{{ route('contractor.equipment.index') }}" class="btn btn-primary"><i class="fa fa-icon-shopping-cart"></i>{{ __('Add more Equipment') }}</a>
-            @if($cart != "")
+            @if(count($cart->items) > 0)
                 <button  class="flush-item-cart btn btn-warning"><i class="fa fa-cart-arrow-down"></i> {{ __('Empty the order') }}</button>
-                <a href="{{ route('contractor.orders.process.location') }}" class="btn btn-success"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> {{ __('Continue with Order') }}</a>
+                <a href="{{ route('contractor.orders.process.location') }}" class="btn btn-success continue-with-order"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> {{ __('Continue with Order') }}</a>
             @endif
         </div>
     </div>
@@ -79,6 +79,7 @@
 
 @push('footer_scripts')
     <script type="text/javascript">
+        current_cart_count = "{{ count($cart->items) }}";
         $('#shopping-table').dataTable();
     </script>
 @endpush

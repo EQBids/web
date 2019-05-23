@@ -39478,6 +39478,29 @@ __webpack_require__(63);
 alertify = __webpack_require__(36);
 
 $(document).ready(function () {
+	$('#shopping_cart_count').html(getCookie("shopping_cart_count"));
+		function setCookie(name,value,days) {
+				var expires = "";
+				if (days) {
+						var date = new Date();
+						date.setTime(date.getTime() + (days*24*60*60*1000));
+						expires = "; expires=" + date.toUTCString();
+				}
+				document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+		}
+		function getCookie(name) {
+				var nameEQ = name + "=";
+				var ca = document.cookie.split(';');
+				for(var i=0;i < ca.length;i++) {
+						var c = ca[i];
+						while (c.charAt(0)==' ') c = c.substring(1,c.length);
+						if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+				}
+				return null;
+		}
+		function eraseCookie(name) {   
+				document.cookie = name+'=; Max-Age=-99999999;';  
+		}
 
     var current_cart_count = 0;
     alertify = window.alertify;
@@ -39485,7 +39508,7 @@ $(document).ready(function () {
         addItemToCart($(this).attr('data-equipment-id'));
     });
 
-    $('.remove-item-cart').addClass('d-none').click(function () {
+    $('.remove-item-cart').addClass('').click(function () {
         removeItemToCart($(this).attr('data-equipment-id'));
     });
 
@@ -39513,7 +39536,8 @@ $(document).ready(function () {
 
     function updateCartCount(count) {
         current_cart_count = count;
-        $('#shopping_cart_count').html(count);
+				setCookie("shopping_cart_count", count, 365);
+				$('#shopping_cart_count').html(getCookie("shopping_cart_count"));
         /*if (current_cart_count == 0) {
             $('#shopping_cart_count').addClass('d-none');
             $('.shpping-cart').addClass('d-none');
@@ -39527,7 +39551,7 @@ $(document).ready(function () {
         axios.post(route('api.cart.store'), {
             equipment: id
         }).then(function (response) {
-            updateCartCount(current_cart_count + 1);
+            updateCartCount(parseInt(getCookie("shopping_cart_count")) + 1);
             toggleButtons(id);
             alertify.notify(response.data.message, 'success');
         }).catch(function (error) {
@@ -39542,12 +39566,15 @@ $(document).ready(function () {
 
     function removeItemToCart(id) {
         axios.delete(route('api.cart.destroy', [id])).then(function (response) {
-            updateCartCount(current_cart_count - 1);
+            updateCartCount(getCookie("shopping_cart_count") - 1);
             toggleButtons(id);
             alertify.notify(response.data.message, 'warning');
 
             //for the shopping cart view
-            $('.remove-item-cart[data-equipment-id="' + id + '"]').parents('tr').toggleClass('d-none');
+						$('.remove-item-cart[data-equipment-id="' + id + '"]').parents('tr').toggleClass('d-none');
+						
+						if(getCookie("shopping_cart_count") == "")
+							$(".flush-item-cart,.continue-with-order").addClass('d-none');
         }).catch(function (error) {
             if (error.response.status == 400) {
                 alertify.notify(error.response.data.error_message, 'error');
