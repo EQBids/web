@@ -23,7 +23,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if(count($cart->items) > 0)
+                        @if(isset($cart) && count($cart->items) > 0)
                         @foreach($cart->items as $item)
                             <tr>
                                 <td class="image">
@@ -55,7 +55,7 @@
     <div class="row">
         <div class="col-lg-12">
         <a href="{{ route('contractor.equipment.index') }}" class="btn btn-primary"><i class="fa fa-icon-shopping-cart"></i>{{ __('Add more Equipment') }}</a>
-            @if(count($cart->items) > 0)
+            @if(isset($cart) && count($cart->items) > 0)
                 <button  class="flush-item-cart btn btn-warning"><i class="fa fa-cart-arrow-down"></i> {{ __('Empty the order') }}</button>
                 <a href="{{ route('contractor.orders.process.location') }}" class="btn btn-success continue-with-order"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> {{ __('Continue with Order') }}</a>
             @endif
@@ -79,7 +79,17 @@
 
 @push('footer_scripts')
     <script type="text/javascript">
-        current_cart_count = "{{ count($cart->items) }}";
+        function setCookie(name,value,days) {
+				var expires = "";
+				if (days) {
+						var date = new Date();
+						date.setTime(date.getTime() + (days*24*60*60*1000));
+						expires = "; expires=" + date.toUTCString();
+				}
+				document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+        }
+        
+        setCookie("shopping_cart_count", "{{ isset($cart) ? count($cart->items) : '0' }}", 365);
         $('#shopping-table').dataTable();
     </script>
 @endpush

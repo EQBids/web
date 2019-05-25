@@ -306,22 +306,25 @@ class orderRepository extends BaseRepository implements orderRepositoryInterface
 		throw new \Exception("Order is not being edited");
 	}
 
-	public function updateBids( Order $order, $bids ) {
+	public function updateBids( Order $order, $bidItems ) {
 		if(!$order->can_assign_bids){
 			throw new \Error('Invalid access');
 		}
-
+		
 		$items = $order->items->keyBy('id');
+		$allBids = $order->bids()->get()->toArray();
+		$i=0;
 		DB::beginTransaction();
 		try{
-			foreach ($bids as $bid){
-				if(isset($bid['id']) && isset($bid['bid'])  && $bid['bid'] && isset($items[$bid['id']])){
-					$item = $items[$bid['id']];
-					$itemBid=$item->bids()->where('bids.id',$bid['bid'])->first();
-					if($itemBid){
-						BidItem::query()->where('order_item_id',$bid['id'])->update(['status'=>BidItem::STATUS_DEFAULT]);
-						$item->bids()->updateExistingPivot($bid['bid'],['status'=>BidItem::STATUS_ACCEPTED]);
-					}
+			foreach ($bidItems as $bidItem ){
+				$bidId = $allBids[$i]['id'];
+				$i++;
+				if($bidId > 0 && isset($bidItem['id']) && isset($items[$bidItem['id']])){
+					
+					$item = $items[$bidItem['id']];
+					//BidItem::query()->where('order_item_id',$bid['id'])->update(['status'=>BidItem::STATUS_DEFAULT]);
+					$item->bids()->updateExistingPivot($bidId,['status'=>BidItem::STATUS_ACCEPTED]);
+					
 				}
 			}
 			DB::commit();

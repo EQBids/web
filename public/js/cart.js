@@ -39503,7 +39503,10 @@ $(document).ready(function () {
 		}
 
     var current_cart_count = 0;
-    alertify = window.alertify;
+		alertify = window.alertify;
+		if(getCookie("shopping_cart_count") <= 0 || getCookie("shopping_cart_count") == ""){
+			setCookie("shopping_cart_count", '0', 365);
+		}
     $('.add-item-cart').removeClass('d-none').click(function () {
         addItemToCart($(this).attr('data-equipment-id'));
     });
@@ -39536,7 +39539,7 @@ $(document).ready(function () {
 
     function updateCartCount(count) {
         current_cart_count = count;
-				setCookie("shopping_cart_count", count, 365);
+				setCookie("shopping_cart_count", count.toString(), 365);
 				$('#shopping_cart_count').html(getCookie("shopping_cart_count"));
         /*if (current_cart_count == 0) {
             $('#shopping_cart_count').addClass('d-none');
@@ -39566,14 +39569,14 @@ $(document).ready(function () {
 
     function removeItemToCart(id) {
         axios.delete(route('api.cart.destroy', [id])).then(function (response) {
-            updateCartCount(getCookie("shopping_cart_count") - 1);
+            updateCartCount(parseInt(getCookie("shopping_cart_count") - 1));
             toggleButtons(id);
             alertify.notify(response.data.message, 'warning');
 
             //for the shopping cart view
 						$('.remove-item-cart[data-equipment-id="' + id + '"]').parents('tr').toggleClass('d-none');
 						
-						if(getCookie("shopping_cart_count") == "")
+						if(getCookie("shopping_cart_count") == "0" || getCookie("shopping_cart_count") == "")
 							$(".flush-item-cart,.continue-with-order").addClass('d-none');
         }).catch(function (error) {
             if (error.response.status == 400) {
@@ -39587,11 +39590,12 @@ $(document).ready(function () {
 
     function flushCart() {
         axios.delete(route('api.cart.flush')).then(function (response) {
-            updateCartCount(0);
+            updateCartCount('0');
             alertify.notify(response.data.message, 'warning');
 
             //for the shopping cart view
-            $('.remove-item-cart').parents('tr').toggleClass('d-none');
+						$('.remove-item-cart').parents('tr').toggleClass('d-none');
+						$(".flush-item-cart,.continue-with-order").addClass('d-none');
         }).catch(function (error) {
             if (error.response.status == 400) {
                 alertify.notify(error.response.data.error_message, 'error');
