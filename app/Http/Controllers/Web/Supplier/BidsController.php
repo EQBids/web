@@ -35,6 +35,7 @@ class BidsController extends Controller
      */
     public function index()
     {
+		
 	    $bids = $this->bid_repository->accesibleBids(Auth::user());
 	    return view('web.supplier.bids.index')->with(compact('bids'));
     }

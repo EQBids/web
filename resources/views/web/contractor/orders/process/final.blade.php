@@ -160,7 +160,7 @@
                     <a class="btn btn-warning pull-right" href="{{ route('contractor.orders.process.details') }}" ><i class="fa fa-angle-double-left" ></i> {{ __('Back') }}</a>
                 </div>
                 <div class="col-lg-4">
-                    <input type="submit" class="btn btn-success" value="{{ __('Finish the order') }}" />
+                    <input type="submit" class="btn btn-success finish-order" value="{{ __('Finish the order') }}" />
                 </div>
 
         </div>

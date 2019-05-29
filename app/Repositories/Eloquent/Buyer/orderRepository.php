@@ -355,7 +355,6 @@ class orderRepository extends BaseRepository implements orderRepositoryInterface
 		if($order->status != Order::STATUS_VALID){
 			throw new \Exception('Invalid status');
 		}
-
 		$suppliers = $order->suppliers()->get(['id'])->pluck('id');
 		$winning_suppliers = $order->bids()->whereHas('items',function ($query){
 				$query->where('bid_order_item.status',BidItem::STATUS_ACCEPTED);
@@ -380,7 +379,9 @@ class orderRepository extends BaseRepository implements orderRepositoryInterface
 		Mail::bcc($emails)->send(new closureWinner($order));
 
 		//losing suppliers
-		$users = $this->supplier_repository->supplierUsers($no_winning_suppliers,['email']);
+		if( count($no_winning_suppliers) > 0 ) 
+			$users = $this->supplier_repository->supplierUsers($no_winning_suppliers,['email']);
+		
 		$emails = $users->pluck('email')->unique();
 
 		Mail::bcc($emails)->send(new lossingBid($order));

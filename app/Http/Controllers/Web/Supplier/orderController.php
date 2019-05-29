@@ -27,7 +27,7 @@ class orderController extends Controller
     public function index()
     {
 	    $order_suppliers = $this->supplier_repository->accesibleOrderInvitations(Auth::user());
-	    return view('web.supplier.orders.index')->with(compact('order_suppliers'));
+	    return view('web.supplier.orders.index')->with( ['order_suppliers' => $order_suppliers ] );
     }
 
     /**

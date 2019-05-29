@@ -39478,6 +39478,9 @@ __webpack_require__(63);
 alertify = __webpack_require__(36);
 
 $(document).ready(function () {
+
+
+
 	$('#shopping_cart_count').html(getCookie("shopping_cart_count"));
 		function setCookie(name,value,days) {
 				var expires = "";

@@ -132,7 +132,7 @@ class siteController extends Controller
     {
     	$site = Site::findOrFail($id);
 
-	    $viewData=compact('contractors','site');
+	    $viewData=['contractors','site'];
 	    $country = $this->country_repository->findOneBy(old('country',$site->country_id));
 	    $state = $this->state_repository->findOneBy(old('state',$site->state_id));
 	    $metro = $this->metro_repository->findOneBy(old('metro',$site->metro_id));
@@ -153,7 +153,8 @@ class siteController extends Controller
 	    if($city){
 		    $viewData['city']=$city;
 	    }
-	    return view('web.contractor.job_sites.edit',$viewData);
+        return view('web.contractor.job_sites.edit',$viewData)
+        ->with([ 'country' =>  $country, 'state' => $state, 'metro' => $metro, 'city' => $city, 'contractors','site' => $site]);
     }
 
     /**
