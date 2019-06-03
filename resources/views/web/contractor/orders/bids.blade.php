@@ -148,7 +148,10 @@
                 return html;
         }
 
+        
+
         $(document).ready(function() {
+            $(".btn-success").hide();
             var table = $('#equipment-table').DataTable( {
                 data:equipments,
                 "columns": [
@@ -179,28 +182,45 @@
                 "order": [[1, 'asc']]
             } );
 
+            $( "tbody tr" ).each(function( index ) {
+                var tr = $(this).closest('tr');
+                var row = table.row( tr );
+                row.child( format(row.data()) ).show();
+                
+                $('.pick_btn',row.child()).on('click',function(){
+                    $(".btn-success").show();
+                    var _tr = $(this).closest('tr');
+                    //var _row = table.row( _tr );
+                    $('input.bid',_tr).val($(this).attr('data-id'));
+                    $('.card-body',_tr).removeClass('picked-bid');
+                    $(this).closest('.card-body').addClass('picked-bid');
+                });
+
+            });
+
+            
             // Add event listener for opening and closing details
             $('#equipment-table tbody').on('click', 'td.details-control', function () {
                 var tr = $(this).closest('tr');
                 var row = table.row( tr );
                 var first_col =  $('td:first i',tr).toggleClass('fa-plus-circle fa-minus-circle text-success text-danger');
-                if ( row.child.isShown() ) {
+                //if ( row.child.isShown() ) {
                     // This row is already open - close it
-                    row.child.hide();
-                    tr.removeClass('shown');
-                }
-                else {
+                    //row.child.hide();
+                    //tr.removeClass('');
+                //}
+                //else {
                     // Open this row
-                    row.child( format(row.data()) ).show();
-                    tr.addClass('shown');
-                    $('.pick_btn',row.child()).on('click',function(){
-                        var _tr = $(this).closest('tr');
-                        //var _row = table.row( _tr );
-                        $('input.bid',_tr).val($(this).attr('data-id'));
-                        $('.card-body',_tr).removeClass('picked-bid');
-                        $(this).closest('.card-body').addClass('picked-bid');
-                    });
-                }
+                    //row.child( format(row.data()) ).show();
+                /*$('.pick_btn',row.child()).on('click',function(){
+                    alert("x");
+                    var _tr = $(this).closest('tr');
+                    //var _row = table.row( _tr );
+                    $('input.bid',_tr).val($(this).attr('data-id'));
+                    $('.card-body',_tr).removeClass('picked-bid');
+                    $(this).closest('.card-body').addClass('picked-bid');
+                });*/
+                //}
             } );
 
         } );
