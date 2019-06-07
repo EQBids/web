@@ -31,6 +31,7 @@
                                     <div class="control">
                                         {!! Form::text('first_name',null,[
                                             'class'=>'form-control',
+                                            'pattern' =>'[A-Za-z]+',
                                             'data-parsley-required'=>'true'
                                         ]) !!}
                                     </div>
@@ -43,6 +44,7 @@
                                     <div class="control">
                                         {!! Form::text('last_name',null,[
                                             'class'=>'form-control',
+                                            'pattern' =>'[A-Za-z]+',
                                             'data-parsley-required'=>'true'
                                         ]) !!}
                                     </div>
@@ -75,13 +77,14 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="" class="label">@lang('signup.postal_code_label')</label>
                                     <div class="control">
                                         {!! Form::text('postal_code',null,[
-                                            'class'=>'form-control zip'
+                                            'class'=>'form-control zip',
+                                            'id'=>'autocomplete',
+                                            'onfocus'=>'geolocate();'
                                         ]) !!}
                                     </div>
                                 </div>
@@ -205,8 +208,44 @@
                 });
             }
         }
+        
+
+        
+        
 
 
     </script>
+<script>
+      // This example retrieves autocomplete predictions programmatically from the
+      // autocomplete service, and displays them as an HTML list.
 
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+      function initService() {
+        var displaySuggestions = function(predictions, status) {
+          if (status != google.maps.places.PlacesServiceStatus.OK) {
+            alert("This postal code does not exist");
+            document.getElementById('autocomplete').value = "";
+            return;
+          }
+
+          predictions.forEach(function(prediction) {
+            //var li = document.createElement('li');
+            //li.appendChild(document.createTextNode(prediction.description));
+            //document.getElementById('results').appendChild(li);
+          });
+        };
+        var service = new google.maps.places.AutocompleteService();
+        service.getQueryPredictions({ input: document.getElementById('autocomplete').value + " Canada"}, displaySuggestions);
+      }
+
+      $("#autocomplete").blur(function(){
+        initService();
+
+      })
+    </script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtd3X36RZ89MYzAhEJ_2LJX0pb_j1-iYc&libraries=places&callback=initService"
+        async defer></script>
 @endpush

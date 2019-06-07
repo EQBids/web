@@ -176,6 +176,19 @@
 
 @push('footer_scripts')
     <script type="application/javascript">
+        function setCookie(name,value,days) {
+				var expires = "";
+				if (days) {
+						var date = new Date();
+						date.setTime(date.getTime() + (days*24*60*60*1000));
+						expires = "; expires=" + date.toUTCString();
+				}
+				document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+        }
+        $(".finish-order").click(function(){
+            setCookie("shopping_cart_count", "0", 365);
+        })
+        
 
         var equipments_map={!! json_encode(\App\Http\Resources\Product\CartEquipmentResource::collection($cart->items)->keyBy('id'))  !!};
 
