@@ -4,3 +4,5 @@
 <p>Telephone, Day: {{$data['phoneday']}}</p>
 <p>Telephone, Night: {{$data['phonenight']}}</p>
 <p>Message: {{$data['message']}}</p>
+
+@extends('emails.footer')

@@ -4,3 +4,5 @@
 
     you can <a href="{{ route('show_login') }}">login here</a>
 </p>
+
+@extends('emails.footer')

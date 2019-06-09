@@ -31,5 +31,11 @@ class EquipmentsController extends Controller {
 		$this->category_repository=$category_repository;
 	}
 
+	public function show($id,Request $request){
+		$equipment = $this->equipment_repository->with(['brand','categories'])->findOneBy($id,'id');
+		
+		return view('web.supplier.inventory.show',compact('equipment'));
+	}
+
 
 }
