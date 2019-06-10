@@ -28,6 +28,7 @@ Route::get('on-approval',['uses'=>'Auth\SignupController@supplier_on_approval','
 
 Route::get('contact',['uses'=>'Web\IndexController@contact', 'as'=>'contact']);
 Route::post('contact-message',['uses'=>'Web\IndexController@process_contact_form','as'=>'contactMessage']);
+Route::get('about',['uses'=>'Web\IndexController@about', 'as'=>'about']);
 
 Route::middleware([IsLoggedIn::class])->group(function(){
 

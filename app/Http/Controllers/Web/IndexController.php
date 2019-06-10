@@ -42,6 +42,9 @@ class IndexController extends Controller
 	public function contact(){
     	return view('web.contact.index');
 	}
+	public function about(){
+		return view('web.contact.about');
+	}
 
     public function process_contact_form(Request $request){
 		$rules = (new ContactRequest)->rules();

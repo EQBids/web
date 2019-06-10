@@ -53,12 +53,8 @@
                                     @endif
                                 @endif
                                 @yield('menu_entries')
-                                <li><a href="javascript:void(0)">About us <i class="fa fa-angle-down fa-indicator"></i> </a>
-                                    <ul class="drop-down-multilevel left-side">
-                                        <li><a href="#">About Company </a>  </li>
-                                        <li><a href="#">About CEO</a> </li>
-                                        <li><a href="#">About Projects</a> </li>
-                                    </ul>
+                                <li><a href="{{ route('about') }}">About us  </a>
+                                  
                                 </li>
                                 
                                 @if(Auth::check())

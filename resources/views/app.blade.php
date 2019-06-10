@@ -68,7 +68,7 @@
                         <h6 class="text-white mb-30 mt-10 text-uppercase">Navigation</h6>
                         <ul>
                             <li><a href="#">Home</a></li>
-                            <li><a href="#">About Us</a></li>
+                            <li><a href="{{ route('about') }}">About Us</a></li>
                             <li><a href="#">Service</a></li>
                             <li><a href="#">Team</a></li>
                             <li><a href="/contact">Contact Us</a></li>
