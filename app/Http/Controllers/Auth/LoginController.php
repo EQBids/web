@@ -94,9 +94,11 @@ class LoginController extends Controller
         }
 
         $pinNumber = $this->pinRepository->generatePin($user->id,$request->ip());
-
-        Mail::to($user->email)->send(new PinGenerated($pinNumber));
-
+        try{
+            Mail::to($user->email)->send(new PinGenerated($pinNumber));
+        }catch(Exception $ex){
+            return redirect()->route('show_login')->withErrors(['message'=>'some error has occurred!']);
+        }
         return redirect()->route('login_enter_pin')
                          ->withInput(['email'=>$request->input('email')])->with('notifications',collect([
 		        [
