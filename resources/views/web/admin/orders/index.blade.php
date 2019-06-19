@@ -15,7 +15,7 @@
                 <tr>
                     <td>{{ $order->id }}</td>
                     <td>{{ $order->created_at->format('Y-m-d H:i') }}</td>
-                    <td>{{ $order->site->contractor->company_name }}</td>
+                    <td>{{ isset($order->site->contractor) ? $order->site->contractor->company_name : '' }}</td>
                     <td>{{ $order->getStatusName() }}</td>
                     <td>
                         <a href="{{ route('admin.orders.show',[$order->id]) }}"><span class="fa fa-eye"></span></a>
