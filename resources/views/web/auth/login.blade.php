@@ -86,9 +86,15 @@
                                     <span>Request pin</span>
                                     <i class="fa fa-check"></i>
                                 </button>
+                                
                             </div>
+                            <a href="{{ route('home') }}">
+                                            <i class="far fa-id-badge"></i>
+                                            {{ __('Back To Home') }}
+                                        </a>
                             <p class="mt-20 mb-0">Don't have an account?
                                 <ul>
+                                    
                                     <li><a href="{{ route('signup_contractor') }}">
                                             <i class="far fa-id-badge"></i>
                                             {{ __('Signup as contractor') }}

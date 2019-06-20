@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::post('oauth/pin','Auth\PinController@generatePin');
 
-Route::get('/',['uses'=>'Web\IndexController@index']);
+Route::get('/',['uses'=>'Web\IndexController@index', 'as'=>'home']);
 
 Route::get('login',['uses'=>'Auth\LoginController@show_login','as'=>'show_login']);
 
