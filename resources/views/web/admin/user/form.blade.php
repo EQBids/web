@@ -79,7 +79,7 @@
         <div class="form-group">
             <label>{{ __('Zip/Postal Code') }}</label>
             <input type="text" class="form-control zip" name="postal_code"
-                   value="{{ old('postal_code',isset($user)?$user->settings['postal_code']:'') }}"
+                   value="{{ old('postal_code',isset($user->settings['postal_code'])?$user->settings['postal_code']:'') }}"
             />
         </div>
 
