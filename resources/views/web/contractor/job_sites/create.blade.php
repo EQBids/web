@@ -90,16 +90,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3">
-
-                    <div class="form-group">
-
-                        <label for="">Metro area</label>
-                        <select name="metro" id="metro" class="form-control">
-                            <option value="">Choose</option>
-                        </select>
-                    </div>
-                </div>
+                
 
                 <div class="col-lg-3">
                     <div class="form-group">
