@@ -91,7 +91,7 @@
                     <h6 class="text-white mb-30 mt-10 text-uppercase">Contact Us</h6>
                     <ul class="addresss-info">
                         <li><i class="fa fa-map-marker"></i> <p>Address: 17504 Carlton Cuevas Rd, Gulfport, MS, 39503</p> </li>
-                        <li><i class="fa fa-phone"></i> <a href="tel:7042791249"> <span>+(704) 279-1249 </span> </a> </li>
+                        <li><i class="fa fa-phone"></i> <a href="tel:5196572671 "> <span>519-657-2671</span> </a> </li>
                         <li><i class="fa fa-envelope-o"></i>Email: letstalk@webster.com</li>
                     </ul>
                 </div>
