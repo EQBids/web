@@ -93,38 +93,27 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="" class="label" style="display: block">@lang('signup.country_label') <span class="required-symbol">*</span></label>
-                            <select name="country" id="country" class="wide fancyselect" data-parsley-required>
+                            <select name="country" id="country" class="form-control" data-parsley-required>
                                 <option value="">Choose</option>
-                                @foreach($countries as $country)
-                                    <option value="{{$country->id}}">{{$country->name}}</option>
-                                @endforeach
                             </select>
-                        </div>
-                    </div>
+                        </div></div>
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="" class="label" style="display: block">@lang('signup.state_label') <span class="required-symbol">*</span></label>
-                            <select name="state" id="state" class="wide fancyselect" data-parsley-required>
+                            <select name="state" id="state" class="form-control" data-parsley-required>
                                 <option value="">Choose</option>
-                                @foreach($states as $state)
-                                    <option value="{{$state->id}}">{{$state->name}}</option>
-                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="" class="label" style="display: block">@lang('signup.city_label') <span class="required-symbol">*</span></label>
-                            <select name="city" id="city" class="wide fancyselect" data-parsley-required>
+                            <select name="city" id="city" class="form-control" data-parsley-required>
                                 <option value="">Choose</option>
-                                @foreach($cities as $city)
-                                    <option value="{{$city->id}}">{{$city->name}}</option>
-                                @endforeach
                             </select>
                         </div>
                     </div>
                 </div>
-
 
                 <div class="row">
                     <div class="col-lg-6">
@@ -172,4 +161,5 @@
 
 @push('footer_scripts')
     @include('web.partials.zip')
+    @include('web.partials.geo')
 @endpush
