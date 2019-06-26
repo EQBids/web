@@ -125,7 +125,7 @@
             var template= '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px; width: 100%" id="child_'+data.oid+'">'+
                 '<tr>'+
                 '<td>{{ __('Delivery date') }}:</td>'+
-                '<td><input type="text" style="position:relative" class="form-control date-from"\n' +
+                '<td><input disabled type="text" style="position:relative" class="form-control date-from"\n' +
                 '                                           data-index="'+data.oid+'"\n' +
                 '                                           name="equipments['+data.oid+'][from]"\n' +
                 '                                           value="'+data.from+'"\n' +
@@ -133,7 +133,7 @@
                 '</tr>'+
                 '<tr>'+
                 '<td>{{ __('Return date') }}:</td>'+
-                '<td><input type="text" style="position:relative" class="form-control date-to"\n' +
+                '<td><input disabled type="text" style="position:relative" class="form-control date-to"\n' +
                 '                                           data-index="'+data.oid+'"\n' +
                 '                                           name="equipments['+data.oid+'][to]"\n' +
                 '                                           value="'+data.to+'"\n' +
