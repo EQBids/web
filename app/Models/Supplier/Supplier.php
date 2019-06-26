@@ -55,8 +55,15 @@ class Supplier extends Model
 	}
 
 	public function scopeInRange(Builder $query,$radius,$lat,$lon,$country_id,$earthRadius=6378.388){
-    	$query->selectRaw('suppliers.*, GEODIST(?,?,`suppliers`.`lat`,`suppliers`.`lon`) as distance ',[$lat,$lon])
-		      ->whereRaw('GEODIST(?,?,`suppliers`.`lat`,`suppliers`.`lon`) <= 200 ',[$lat,$lon]);
+    	//$query->selectRaw('suppliers.*, GEODIST(?,?,`suppliers`.`lat`,`suppliers`.`lon`) as distance ',[$lat,$lon])
+		//	  ->whereRaw('GEODIST(?,?,`suppliers`.`lat`,`suppliers`.`lon`) <= 200 ',[$lat,$lon]);
+		$query->selectRaw('suppliers.*, GEODIST(?,?,`suppliers`.`lat`,`suppliers`.`lon`) as distance ',[$lat,$lon])
+		      ->leftJoin('supplier_setting',function ($join){
+			      $join->on('suppliers.id','=','supplier_setting.supplier_id')
+			           ->where('supplier_setting.name','distance');
+		      })
+		      ->whereRaw('GEODIST(?,?,`suppliers`.`lat`,`suppliers`.`lon`) <= CONVERT(SUBSTRING_INDEX(ifnull(supplier_setting.value,?),"-",-1),UNSIGNED INTEGER)  ',[$lat,$lon, $radius]);
+		
 		if ($country_id){
 			$query->where('country_id',$country_id);
 		}
