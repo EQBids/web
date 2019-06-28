@@ -67,7 +67,7 @@ class bidRepository extends BaseRepository implements bidRepositoryInterface {
 
 		$amount=0;
 		foreach ($data['equipments'] as $equipment){
-			$amount+=$equipment['price'];
+			$amount+=($equipment['price'] + $equipment['pick'] + $equipment['delivery']);
 		}
 		$data['amount']=$amount;
 		$data['status']=Bid::STATUS_ACTIVE;
@@ -80,12 +80,14 @@ class bidRepository extends BaseRepository implements bidRepositoryInterface {
 		$insurance/=100.0;
 
 		$bid_items=[];
+
 		foreach ($data['equipments'] as $key=>$equipment){
+			$ins = (isset($equipment['insurance']) && $equipment['insurance'])?($insurance*$equipment['price']):0;
 			$bid_items[$key]=[
 				'price'=>$equipment['price'],
 				'dropoff_fee'=>isset($equipment['pick'])?$equipment['pick']:0,
 				'pickup_fee'=>isset($equipment['delivery'])?$equipment['delivery']:0,
-				'insurance'=>(isset($equipment['insurance']) && $equipment['insurance'])?($insurance*$equipment['price']):0, //TODO: change to supplier settings
+				'insurance'=> $ins, //TODO: change to supplier settings
 				'deliv_date'=>isset($equipment['from'])?$equipment['from']:null,
 				'return_date'=>isset($equipment['to'])?$equipment['to']:null,
 				'notes'=>isset($equipment['notes'])?$equipment['notes']:null,
@@ -94,8 +96,8 @@ class bidRepository extends BaseRepository implements bidRepositoryInterface {
 					'attachments'=>isset($equipment['attachments'])?$equipment['attachments']:[],
 				]
 			];
+			$data['amount'] = $data['amount'] + $ins;
 		}
-
 		DB::beginTransaction();
 		$bid = Bid::create($data);
 		$bid->items()->attach($bid_items);
