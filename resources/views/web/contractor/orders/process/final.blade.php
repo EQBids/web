@@ -78,7 +78,7 @@
                             {{ $supplier->name }}
                         </td>
                         <td>
-                            <a href="#" class="btn-primary btn text-center" target="_blank" >View</a>
+                            <a href="{{ route('contractor.suppliers.view',[$supplier->id]) }}" class="btn-primary btn text-center" target="_blank" >View</a>
                         </td>
                     </tr>
                 @endforeach
