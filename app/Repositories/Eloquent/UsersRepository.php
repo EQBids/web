@@ -152,6 +152,7 @@ class UsersRepository extends BaseRepository implements usersRepositoryInterface
 
 			$user = $user=$this->findOneBy($id);
 			if (isset($data['email']) && $data['email']!=$user->email){
+		
 				$email_change=$data['email'];
 			}
 			$user->fill($data);
@@ -162,16 +163,20 @@ class UsersRepository extends BaseRepository implements usersRepositoryInterface
 
 
 			if(isset($data['site_id'])){
+		
 				$user->sites()->sync([$data['site_id']=>['role_id'=>$role->id]]);
 			}
 
 			if(isset($data['contractor_id'])){
+			
 				$user->contractors()->sync([$data['contractor_id']=>['role_id'=>$role->id]]);
 			}elseif(isset($data['supplier_id'])){
+		
 				$user->suppliers()->sync($data['supplier_id'],['role_id'=>$role->id]);
 			}
-
+			
 			if(preg_match('/contractor-.*/',$role->name)) {
+		
 				if ($user->contractors->count() == 0 ) {
 					if ($role->name=='contractor-superadmin'){
 						if ($user->ownedContractors()->count()==0){
@@ -187,9 +192,8 @@ class UsersRepository extends BaseRepository implements usersRepositoryInterface
 					}
 				}
 			}
-			elseif ($role->name == 'supplier-superadmin'  && $user->suppliers->count()==0){
-
-				$this->createAndAddSupplier($user,$data['supplier']);
+			elseif (preg_match('/supplier-.*/',$role->name)){
+				$this->createAndAddSupplier($user,$data);
 			}
 
 			if(Auth::user()->is_admin && isset($data['company_name']) && $user->contractor){
@@ -203,7 +207,13 @@ class UsersRepository extends BaseRepository implements usersRepositoryInterface
 				$contractor->address=$data['address'];
 				$contractor->save();
 			}
-
+			if(Auth::user()->is_admin  && $user->suppliers->count() > 0 ){
+	
+				$supplier = $user->suppliers[0];
+				$supplier->address = $data['address'];
+				$supplier->name = $data['company_name'];
+				$supplier->save();
+			}
 			DB::commit();
 			if ($email_change){
 				Mail::to($email_change)->send(new emailChangeMessage($user));

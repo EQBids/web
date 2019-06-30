@@ -210,7 +210,7 @@ class UserController extends Controller
      */
     public function update(updateSubUserRequest $request, User $user)
     {
-    	if(!$user){
+		if(!$user){
     		return redirect('/');
 	    }
 	    $role = Role::find($request->get('role'));
@@ -226,8 +226,7 @@ class UserController extends Controller
 	    }
 
 	    $coordinates = $this->geocoding_repository->getAddressCoordinates($address,$city);
-
-
+		
 	    if($role->name == 'contractor-superadmin' && $user->contractors->count()==0 && $request->get('address')){
 		    $contractorData = [
 
@@ -242,6 +241,8 @@ class UserController extends Controller
 	    }
 	    elseif ($role->name == 'supplier-superadmin' && $user->suppliers->count()==0 && $request->get('address')){
 		    $supplierData = [
+				'company_name'      =>  $request->get('company_name')?$request->get('company_name')
+				    :$request->get('first_name').' '.$request->get('last_name'),
 			    'details'       =>  array(),
 			    'status'        =>  0,
 			    'name'          =>  $request->get('first_name').' '.$request->get('last_name'),
@@ -262,7 +263,6 @@ class UserController extends Controller
 	    ];
 
 	    $userData['settings'] = $jsonData;
-
 	    $user = $this->user_repository->updateWithRole($user->id,$userData,$role);
 	    return redirect(route('admin.users.index'))->with('notifications',collect([
 	    	[
