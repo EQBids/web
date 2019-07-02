@@ -129,7 +129,7 @@ class orderRepository extends BaseRepository implements orderRepositoryInterface
 		$suppliers_to_notify=array_diff($suppliers_to_notify,$suppliers_ids['attached']);
 		$users = $this->supplier_repository->supplierUsers($suppliers_to_notify,['email']);
 		$emails = $users->pluck('email')->unique();
-
+	
 		Mail::bcc($emails)->send(new updatedOrder($order));
 
 	}
@@ -373,19 +373,17 @@ class orderRepository extends BaseRepository implements orderRepositoryInterface
 
 	private function sendCloseOrderEmails($order,$winning_suppliers,$no_winning_suppliers){
 		//winning suppliers
-		$users = $this->supplier_repository->supplierUsers($winning_suppliers,['email']);
-		$emails = $users->pluck('email')->unique();
-
-		Mail::bcc($emails)->send(new closureWinner($order));
-
+		if(count($winning_suppliers) > 0){
+			$users = $this->supplier_repository->supplierUsers($winning_suppliers,['email']);
+			$emails = $users->pluck('email')->unique();
+			Mail::bcc($emails)->send(new closureWinner($order));
+		}
 		//losing suppliers
-		if( count($no_winning_suppliers) > 0 ) 
+		if( count($no_winning_suppliers) > 0 ) {
 			$users = $this->supplier_repository->supplierUsers($no_winning_suppliers,['email']);
-		
-		$emails = $users->pluck('email')->unique();
-
-		Mail::bcc($emails)->send(new lossingBid($order));
-
+			$emails = $users->pluck('email')->unique();
+			Mail::bcc($emails)->send(new lossingBid($order));
+		}
 	}
 
 

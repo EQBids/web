@@ -67,7 +67,7 @@ class bidRepository extends BaseRepository implements bidRepositoryInterface {
 
 		$amount=0;
 		foreach ($data['equipments'] as $equipment){
-			$amount+=($equipment['price'] + $equipment['pick'] + $equipment['delivery']);
+			$amount+=($equipment['price'] + (isset($equipment['pick']) ? $equipment['pick'] : 0 ) + (isset($equipment['delivery']) ? $equipment['delivery'] : 0) ) ;
 		}
 		$data['amount']=$amount;
 		$data['status']=Bid::STATUS_ACTIVE;
