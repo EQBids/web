@@ -57,7 +57,8 @@ class CountryController extends Controller
      */
     public function index(Request $resquest)
     {
-	    $data = $this->country_repository->paginateByName($resquest->input('name'),10);
+      $data = $this->country_repository->paginateByName($resquest->input('name'),10);
+      
     	return CountryResource::collection($data);
     }
 
@@ -121,8 +122,8 @@ class CountryController extends Controller
     public function update(CountryUpdateRequest $request, Country $country)
     {
     	$country->status=$request->input('status');
-		$country->save();
-		return new CountryResource($country);
+		  $country->save();
+		  return new CountryResource($country);
     }
 
 }

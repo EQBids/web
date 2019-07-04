@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://blog.pusher.com/build-rest-api-laravel-api-resources/ -->
+<html lang="en-US" prefix="og: http://ogp.me/ns#" class="js gr__blog_pusher_com"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width">
+  <title>Learn to build a REST API with Laravel API resources</title>
+  <link rel="profile" href="https://gmpg.org/xfn/11">
+  <link rel="pingback" href="https://blog.pusher.com/xmlrpc.php">
+  <link rel="stylesheet" href="./Learn to build a REST API with Laravel API resources_files/style.css">
+<link rel="stylesheet" id="prism-css" href="./Learn to build a REST API with Laravel API resources_files/prism.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Learn to build a REST API with Laravel API resources_files/ionicons.min.css">
+  
+<!-- This site is optimized with the Yoast SEO plugin v7.0.3 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="description" content="This tutorial shows how to use Laravel API resources feature to build a REST API. You will build a book review app in Laravel. You will create a REST API to handle adding, updating and deleting books. You will learn how use JSON Web Tokens to make the API secure.">
+<link rel="canonical" href="https://blog.pusher.com/build-rest-api-laravel-api-resources/">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Learn to build a REST API with Laravel API resources">
+<meta property="og:description" content="This tutorial shows how to use Laravel API resources feature to build a REST API. You will build a book review app in Laravel. You will create a REST API to handle adding, updating and deleting books. You will learn how use JSON Web Tokens to make the API secure.">
+<meta property="og:url" content="https://blog.pusher.com/build-rest-api-laravel-api-resources/">
+<meta property="og:site_name" content="Pusher Blog">
+<meta property="article:tag" content="API">
+<meta property="article:tag" content="laravel">
+<meta property="article:tag" content="laravel api">
+<meta property="article:tag" content="php">
+<meta property="article:tag" content="rest">
+<meta property="article:tag" content="RESTful api">
+<meta property="article:section" content="Tutorial">
+<meta property="article:published_time" content="2018-03-28T15:43:41+01:00">
+<meta property="article:modified_time" content="2018-08-15T04:03:12+01:00">
+<meta property="og:updated_time" content="2018-08-15T04:03:12+01:00">
+<meta property="og:image" content="https://blog.pusher.com/wp-content/uploads/2018/05/advanced-laravel-eloquent-usage-header.png">
+<meta property="og:image:secure_url" content="https://blog.pusher.com/wp-content/uploads/2018/05/advanced-laravel-eloquent-usage-header.png">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="600">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="This tutorial shows how to use Laravel API resources feature to build a REST API. You will build a book review app in Laravel. You will create a REST API to handle adding, updating and deleting books. You will learn how use JSON Web Tokens to make the API secure.">
+<meta name="twitter:title" content="Learn to build a REST API with Laravel API resources">
+<meta name="twitter:site" content="@pusher">
+<meta name="twitter:image" content="https://blog.pusher.com/wp-content/uploads/2018/05/advanced-laravel-eloquent-usage-header.png">
+<meta name="twitter:creator" content="@pusher">
+<!-- / Yoast SEO plugin. -->
+
+<link rel="dns-prefetch" href="https://s0.wp.com/">
+<link rel="dns-prefetch" href="https://secure.gravatar.com/">
+<link rel="dns-prefetch" href="https://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="Pusher Blog » Feed" href="http://feeds.feedburner.com/pusherb">
+<link rel="alternate" type="application/rss+xml" title="Pusher Blog » Comments Feed" href="https://blog.pusher.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Pusher Blog » Build a REST API with Laravel API resources Comments Feed" href="https://blog.pusher.com/build-rest-api-laravel-api-resources/feed/">
+		<div class="fit-vids-style" id="fit-vids-style" style="display: none;">­<style>.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style></div><script type="text/javascript" async="" src="./Learn to build a REST API with Laravel API resources_files/linkid.js"></script><script type="text/javascript" async="" src="./Learn to build a REST API with Laravel API resources_files/analytics.js"></script><script type="text/javascript" async="" src="./Learn to build a REST API with Laravel API resources_files/insight.min.js"></script><script type="text/javascript" async="" src="./Learn to build a REST API with Laravel API resources_files/analytics.min.js"></script><script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11.2.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11.2.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/blog.pusher.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.1.1"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56760,9792,65039],[55358,56760,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./Learn to build a REST API with Laravel API resources_files/wp-emoji-release.min.js" type="text/javascript" defer=""></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel="stylesheet" id="wp-block-library-css" href="./Learn to build a REST API with Laravel API resources_files/style.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="mashsb-styles-css" href="./Learn to build a REST API with Laravel API resources_files/mashsb.min.css" type="text/css" media="all">
+<style id="mashsb-styles-inline-css" type="text/css">
+.mashsb-count {color:#cccccc;}.mashicon-twitter {
+  background: transparent;
+  background-image: url(http://blog.pusher.com/wp-content/uploads/2014/09/twitter.png);
+  background-size: cover;
+}
+
+.mashicon-buffer {
+  background: transparent;
+  background-image: url(http://blog.pusher.com/wp-content/uploads/2014/09/buffer.png);
+  background-size: cover;
+}
+
+.mashicon-facebook {
+  background: transparent;
+  background-image: url(http://blog.pusher.com/wp-content/uploads/2014/09/facebook.png);
+  background-size: cover;
+}
+
+.mashsb-count {
+  display: none;
+}
+
+.mashsb-buttons a {
+  margin-left: 10px;
+  min-width: 0;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.mashsb-buttons a:first-of-type {
+  margin-left: 0;
+}
+
+.search .mashsb-container, .home .mashsb-container {
+    padding: 0 11% 10px;
+}
+
+@media only screen and (max-width:768px) {
+    .search .mashsb-container, .home .mashsb-container {
+        padding: 0 5% 10px;
+    }
+}
+</style>
+<link rel="stylesheet" id="publisher-style-css" href="./Learn to build a REST API with Laravel API resources_files/style(1).css" type="text/css" media="all">
+<link rel="stylesheet" id="publisher-fontawesome-css-css" href="./Learn to build a REST API with Laravel API resources_files/font-awesome.css" type="text/css" media="all">
+<link rel="stylesheet" id="tablepress-default-css" href="./Learn to build a REST API with Laravel API resources_files/default.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack_css-css" href="./Learn to build a REST API with Laravel API resources_files/jetpack.css" type="text/css" media="all">
+<script type="text/javascript" src="./Learn to build a REST API with Laravel API resources_files/jquery.js"></script>
+<script type="text/javascript" src="./Learn to build a REST API with Laravel API resources_files/jquery-migrate.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var mashsb = {"shares":"253","round_shares":"1","animate_shares":"0","dynamic_buttons":"0","share_url":"https:\/\/blog.pusher.com\/build-rest-api-laravel-api-resources\/","title":"Build+a+REST+API+with+Laravel+API+resources","image":"https:\/\/blog.pusher.com\/wp-content\/uploads\/2018\/05\/advanced-laravel-eloquent-usage-header.png","desc":"This tutorial shows how to use Laravel API resources feature to build a REST API. API resources were introduced in Laravel 5.5. Before the introduction of API resources, we often used a package like fractal \u2026","hashtag":"pusher","subscribe":"content","subscribe_url":"","activestatus":"1","singular":"1","twitter_popup":"1","refresh":"0"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Learn to build a REST API with Laravel API resources_files/mashsb.min.js"></script>
+<script type="text/javascript" src="./Learn to build a REST API with Laravel API resources_files/wp-hide-post-public.js"></script>
+<link rel="https://api.w.org/" href="https://blog.pusher.com/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://blog.pusher.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://blog.pusher.com/wp-includes/wlwmanifest.xml"> 
+<link rel="shortlink" href="https://blog.pusher.com/?p=4237">
+<link rel="alternate" type="application/json+oembed" href="https://blog.pusher.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fblog.pusher.com%2Fbuild-rest-api-laravel-api-resources%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://blog.pusher.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fblog.pusher.com%2Fbuild-rest-api-laravel-api-resources%2F&amp;format=xml">
+
+<link rel="dns-prefetch" href="https://v0.wordpress.com/">
+<style type="text/css">img#wpstats{display:none}</style><!-- All in one Favicon 4.5 --><link rel="icon" href="https://blog.pusher.com/wp-content/uploads/2019/03/Favicon.png" type="image/png">
+			<style type="text/css" id="wp-custom-css">
+				/*
+Welcome to Custom CSS!
+
+CSS (Cascading Style Sheets) is a kind of code that tells the browser how
+to render a web page. You may delete these comments and get started with
+your customizations.
+
+By default, your stylesheet will be loaded after the theme stylesheets,
+which means that your rules can take precedence and override the theme CSS
+rules. Just write here what you want to change, you don't need to copy all
+your theme's stylesheet content.
+*/
+#infinite-handle {
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 12px;
+	left: 46%;
+}
+
+.infinite-scroll .infinite-loader, #infinite-handle {
+	position: absolute;
+	bottom: -20px;
+	left: 49%;
+}
+			</style>
+		<script async="" type="text/javascript" src="./Learn to build a REST API with Laravel API resources_files/count.js"></script><script type="text/javascript" async="" src="./Learn to build a REST API with Laravel API resources_files/embed.js"></script><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./Learn to build a REST API with Laravel API resources_files/hovercard.min.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./Learn to build a REST API with Laravel API resources_files/services.min.css"><link rel="preload" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.73c498778035470a16f391458a5d5cc4.css"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.5e2845671155c097129ebd8a2aeb308d.js"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.b8bf14b0bfe753b64dddaad74e2e663a.js"><link rel="preload" as="script" href="https://disqus.com/next/config.js"></head>
+
+<body class="post-template-default single single-post postid-4237 single-format-standard" data-gr-c-s-loaded="true">
+
+<div id="page">
+  <div class="navigation-wrap clearfix">
+    <div class="navigation-wrap-inside clearfix">
+      <div class="nav-left">
+        <a href="https://pusher.com/"><img class="pusher-logo" src="./Learn to build a REST API with Laravel API resources_files/pusher_logo_blog.png"></a>
+        <span class="small-menu-break"></span>
+        <nav role="navigation" class="site-navigation main-navigation">
+          <h1 class="assistive-text"><i class="fa fa-bars"></i> <span class="menu-toggle-text">X CLOSE</span></h1>
+          <div class="assistive-text skip-link"><a href="https://blog.pusher.com/build-rest-api-laravel-api-resources/#content">Skip to content</a></div>
+          <div class="menu-head-navigation-container"><ul id="menu-head-navigation" class="menu"><li id="menu-item-1110" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1110"><a href="http://blog.pusher.com/">Blog Home</a></li>
+<li id="menu-item-2734" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2734"><a href="https://pusher.com/tutorials">Tutorials</a></li>
+<li id="menu-item-2733" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2733"><a href="https://pusher.com/docs">Docs</a></li>
+</ul></div>        </nav><!-- .site-navigation .main-navigation -->
+      </div>
+
+      <div class="nav-right">
+        <a href="https://pusher.com/" target="_blank" class="signup-cta">Get started</a>
+      </div>
+    </div><!-- .navigation-wrap-inside -->
+  </div><!-- .navigation-wrap -->
+
+
+<div id="main" class="site-main clearfix">
+  <div id="primary">
+    <div id="content" class="site-content container clearfix" role="main">
+
+              
+        <!-- Get post format -->
+        
+<div class="block-standard post-4237 post type-post status-publish format-standard has-post-thumbnail hentry category-tutorial tag-api tag-laravel tag-laravel-api tag-php tag-rest tag-restful-api">
+			      <a class="block-thumb" href="https://blog.pusher.com/build-rest-api-laravel-api-resources/" title="Permalink to Build a REST API with Laravel API resources" rel="bookmark"><div class="post-header-image" style="background-image: url(https://blog.pusher.com/wp-content/uploads/2018/05/advanced-laravel-eloquent-usage-header.png)"></div></a>
+			
+
+	
+<div class="block-titles-wrap">
+	<div class="block-titles">
+					<div class="block-date">
+				<a href="https://blog.pusher.com/author/mezie/" title="Posts by Chimezie Enyinnaya" rel="author">Chimezie Enyinnaya</a>			</div>
+		
+					<h1 class="block-entry-title"><a href="https://blog.pusher.com/build-rest-api-laravel-api-resources/" rel="bookmark">Build a REST API with Laravel API resources</a></h1>
+		
+		<!-- Jim 2016-09-01: modify theme to add published date -->
+            <div class="block-date" style="margin-top: 3%;">
+            March 28, 2018        </div>
+    		<!-- Jim 2016-09-01: end modification -->
+	</div><!-- .block-titles -->
+
+	<div class="block-text">
+					<p>This tutorial shows how to use Laravel API resources feature to build a REST API. API resources were introduced in Laravel 5.5. Before the introduction of API resources, we often used a package like <a href="https://github.com/thephpleague/fractal">fractal</a> as a transformation layer to output JSON responses when building REST APIs. So, in this tutorial, I’ll be showing how to build a robust API in Laravel using <a href="https://laravel.com/docs/5.6/eloquent-resources">API resources</a>.</p>
+<h2>Prerequisites</h2>
+<p>This tutorial assumes you already have the following:</p>
+<ul>
+<li>A basic knowledge of Laravel.</li>
+<li>A basic knowledge of REST APIs.</li>
+<li>Have the <a href="https://laravel.com/docs/5.6/installation#installing-laravel">Laravel i</a><a href="https://laravel.com/docs/5.6/installation#installing-laravel">nstaller</a> installed on your computer.</li>
+</ul>
+<h2>What are API resources</h2>
+<p>API resources present a way to easily transform our models into JSON responses. It acts as a transformation layer that sits between our Eloquent models and the JSON responses that are actually returned by our API. API resources is made of two entities: a resource class and a resource collection. A resource class represents a single model that needs to be transformed into a JSON structure, while a resource collection is used for transforming collections of models into a JSON structure.</p>
+<p>Both the resource class and the resource collection can be created using artisan commands:</p>
+<pre><code> // create a resource class
+    $ php artisan make:resource UserResource
+
+    // create a resource collection using either of the two commands
+    $ php artisan make:resource Users --collection
+    $ php artisan make:resource UserCollection
+</code></pre>
+<h2>What we’ll be building</h2>
+<p>For the purpose of this demonstration, we’ll be building a book reviews API. Users will be able to add new books, update books and delete books. Users will also be able to view a list of all books and rate a book. Then an average rating will be computed based on the ratings on a particular book. Finally, we’ll add authentication with JSON Web Tokens (JWT) to make the API secured.</p>
+<h2>Create a new Laravel app</h2>
+<p>We’ll start by creating a new Laravel app, I’ll be making use of the Laravel installer:</p>
+<pre><code>    $ laravel new book-reviws-api
+</code></pre>
+<h2>Create models and migrations</h2>
+<p>The book reviews API will have three models: User, Book and Rating. Luckily for us, a User model already comes with Laravel by default. So, we’ll create the remaining two and their corresponding migrations. We’ll start by creating the Book model:</p>
+<pre><code>    $ php artisan make:model Book -m
+</code></pre>
+<blockquote><p>
+  <img draggable="false" class="emoji" alt="💡" src="./Learn to build a REST API with Laravel API resources_files/1f4a1.svg"> The <code>-m</code> flag will create the corresponding migration file for the model.
+</p></blockquote>
+<p>Next, let’s open the migration file generated for the Book model and update the <code>up()</code> method as below:</p>
+<pre class=" language-php"><code class=" language-php">   <span class="token comment" spellcheck="true"> // database/migrations/TIMESTAMP_create_books_table.php
+</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">up<span class="token punctuation">(</span></span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      <span class="token scope">Schema<span class="token punctuation">::</span></span><span class="token function">create<span class="token punctuation">(</span></span><span class="token string">'books'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>Blueprint <span class="token variable">$table</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token variable">$table</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">increments<span class="token punctuation">(</span></span><span class="token string">'id'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token variable">$table</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">unsignedInteger<span class="token punctuation">(</span></span><span class="token string">'user_id'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token variable">$table</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">string<span class="token punctuation">(</span></span><span class="token string">'title'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token variable">$table</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">text<span class="token punctuation">(</span></span><span class="token string">'description'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token variable">$table</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">timestamps<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>We define the fields for the <code>books</code> table which are an auto increment ID, the ID of the user that added the book, the title of the book and the description of the book. Then some timestamps (<code>created_at</code> and <code>updated_at</code>).</p>
+<p>We’ll do the same for the Rating model:</p>
+<pre><code>    $ php artisan make:model Rating -m
+</code></pre>
+<p>Open the migration file generated for the Rating model and update the <code>up()</code> method as below:</p>
+<pre class=" language-php"><code class=" language-php">   <span class="token comment" spellcheck="true"> // database/migrations/TIMESTAMP_create_ratings_table.php
+</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">up<span class="token punctuation">(</span></span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      <span class="token scope">Schema<span class="token punctuation">::</span></span><span class="token function">create<span class="token punctuation">(</span></span><span class="token string">'ratings'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>Blueprint <span class="token variable">$table</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token variable">$table</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">increments<span class="token punctuation">(</span></span><span class="token string">'id'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token variable">$table</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">unsignedInteger<span class="token punctuation">(</span></span><span class="token string">'user_id'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token variable">$table</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">unsignedInteger<span class="token punctuation">(</span></span><span class="token string">'book_id'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token variable">$table</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">unsignedInteger<span class="token punctuation">(</span></span><span class="token string">'rating'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token variable">$table</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">timestamps<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>We define the fields for the <code>ratings</code> table which are an auto increment ID, the ID of the user that rated the book, the ID of the book that was rated and the rating itself (ranging from 0-5). Then some timestamps (<code>created_at</code> and <code>updated_at</code>).</p>
+<p>Run the the command below to run the migrations:</p>
+<pre><code>    $ php artisan migrate
+</code></pre>
+<p>Remember to enter your database details in the <code>.env</code> file before running the command above.</p>
+<h2>Define relationships between models</h2>
+<p>A user can add as many books as they wish, but a book can only belong to one user. So, the relationship between the User model and Book model is a <code>one-to-many</code> relationship. Let’s define that. Add the code below inside the User model:</p>
+<pre class=" language-php"><code class=" language-php">   <span class="token comment" spellcheck="true"> // app/User.php
+</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">books<span class="token punctuation">(</span></span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">hasMany<span class="token punctuation">(</span></span><span class="token scope">Book<span class="token punctuation">::</span></span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>Next, let’s define the inverse relationship on the Book model:</p>
+<pre class=" language-php"><code class=" language-php">   <span class="token comment" spellcheck="true"> // app/Book.php
+</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">user<span class="token punctuation">(</span></span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">belongsTo<span class="token punctuation">(</span></span><span class="token scope">User<span class="token punctuation">::</span></span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>Likewise, a book can be rated by various users, hence a book can have many ratings. A rating can only belong to one book. This is also a <code>one-to-many</code> relationship. Add the code below in the Book model:</p>
+<pre class=" language-php"><code class=" language-php">   <span class="token comment" spellcheck="true"> // app/Book.php
+</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">ratings<span class="token punctuation">(</span></span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">hasMany<span class="token punctuation">(</span></span><span class="token scope">Rating<span class="token punctuation">::</span></span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>Then we define the inverse relationship inside the Rating model:</p>
+<pre class=" language-php"><code class=" language-php">   <span class="token comment" spellcheck="true"> // app/Rating.php
+</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">book<span class="token punctuation">(</span></span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">belongsTo<span class="token punctuation">(</span></span><span class="token scope">Book<span class="token punctuation">::</span></span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<h2>Allowing mass assignment on some fields</h2>
+<p>We’ll be using the <code>create()</code> method to save new model in a single line. To avoid getting the mass assignment error which Laravel will throw by default, we need to specify the columns we want to be mass assigned. To do this, let’s add the snippet below to our models respectively:</p>
+<pre class=" language-php"><code class=" language-php">   <span class="token comment" spellcheck="true"> // app/Book.php
+</span>
+    <span class="token keyword">protected</span> <span class="token variable">$fillable</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'user_id'</span><span class="token punctuation">,</span> <span class="token string">'title'</span><span class="token punctuation">,</span> <span class="token string">'description'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-php"><code class=" language-php">   <span class="token comment" spellcheck="true"> // app/Rating.php
+</span>
+    <span class="token keyword">protected</span> <span class="token variable">$fillable</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'book_id'</span><span class="token punctuation">,</span> <span class="token string">'user_id'</span><span class="token punctuation">,</span> <span class="token string">'rating'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+</code></pre>
+<h2>Adding user authentication</h2>
+<p>As already mentioned, we’ll be securing our API by adding user authentication with JWT. For this, we’ll make use of a package called <a href="https://github.com/tymondesigns/jwt-auth">jwt-auth</a>. Let’s install and set it up:</p>
+<pre><code>    $ composer require tymon/jwt-auth "1.0.*"
+</code></pre>
+<blockquote><p>
+  <strong>Note:</strong>  If you are using Laravel 5.4 and below, you will need to manually register the service provider by adding it in the <code>providers</code> array in your <code>app.php</code> config file.
+</p></blockquote>
+<p>Once that’s done installing, let’s run the command below to publish the package’s config file:</p>
+<pre><code>    $ php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+</code></pre>
+<p>This will create a <code>config/jwt.php</code> file that will allow us to configure the basics of the package.</p>
+<p>Next, run the command below to generate a secret key:</p>
+<pre><code>    $ php artisan jwt:secret
+</code></pre>
+<p>This will update the <code>.env</code> file with something like <code>JWT_SECRET=some_random_key</code>. This key will be used to sign our tokens.</p>
+<p>Before we can start to use the <code>jwt-auth</code> package, we need to update our User model to implement the <code>Tymon\JWTAuth\Contracts\JWTSubject</code> contract as below:</p>
+<pre class=" language-php"><code class=" language-php">   <span class="token comment" spellcheck="true"> // app/User.php
+</span>
+    <span class="token keyword">use</span> <span class="token package">Tymon<span class="token punctuation">\</span>JWTAuth<span class="token punctuation">\</span>Contracts<span class="token punctuation">\</span>JWTSubject</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token keyword">extends</span> <span class="token class-name">Authenticatable</span> <span class="token keyword">implements</span> <span class="token class-name">JWTSubject</span>
+    <span class="token punctuation">{</span>
+      <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>This requires that we implement two methods: <code>getJWTIdentifier()</code> and <code>getJWTCustomClaims()</code>. So add the code below to the User model:</p>
+<pre class=" language-php"><code class=" language-php">   <span class="token comment" spellcheck="true"> // app/User.php
+</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">getJWTIdentifier<span class="token punctuation">(</span></span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">getKey<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">getJWTCustomClaims<span class="token punctuation">(</span></span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>The first method gets the identifier that will be stored in the subject claim of the JWT and the second method allow us to add any custom claims we want added to the JWT. We won’t be adding any custom claims in this tutorial.</p>
+<p>Next, let’s configure the auth guard to make use of the <code>jwt</code> guard. Update <code>config/auth.php</code> as below:</p>
+<pre class=" language-php"><code class=" language-php">   <span class="token comment" spellcheck="true"> // config/auth.php
+</span>
+    <span class="token string">'defaults'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span>
+      <span class="token string">'guard'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token string">'api'</span><span class="token punctuation">,</span>
+      <span class="token string">'passwords'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token string">'users'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+    <span class="token string">'guards'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span>
+      <span class="token string">'api'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span>
+        <span class="token string">'driver'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token string">'jwt'</span><span class="token punctuation">,</span>
+        <span class="token string">'provider'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token string">'users'</span><span class="token punctuation">,</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+</code></pre>
+<p>Here we are telling the <code>api</code> guard to use the <code>jwt</code> driver, and we are setting the <code>api</code> guard as the default.</p>
+<p>Now we can start to make use of the <code>jwt-auth</code> package. Create a new <code>AuthController</code>:</p>
+<pre><code>    $ php artisan make:controller AuthController
+</code></pre>
+<p>Then paste the code below into it:</p>
+<pre class=" language-php"><code class=" language-php">   <span class="token comment" spellcheck="true"> // app/Http/Controllers/AuthController.php
+</span>
+   <span class="token comment" spellcheck="true"> // remember to add this to the top of the file
+</span>    <span class="token keyword">use</span> <span class="token package">App<span class="token punctuation">\</span>User</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">register<span class="token punctuation">(</span></span>Request <span class="token variable">$request</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      <span class="token variable">$user</span> <span class="token operator">=</span> <span class="token scope">User<span class="token punctuation">::</span></span><span class="token function">create<span class="token punctuation">(</span></span><span class="token punctuation">[</span>
+        <span class="token string">'name'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token variable">$request</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">name</span><span class="token punctuation">,</span>
+        <span class="token string">'email'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token variable">$request</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">email</span><span class="token punctuation">,</span>
+        <span class="token string">'password'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token function">bcrypt<span class="token punctuation">(</span></span><span class="token variable">$request</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">password</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token variable">$token</span> <span class="token operator">=</span> <span class="token function">auth<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">login<span class="token punctuation">(</span></span><span class="token variable">$user</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">return</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">respondWithToken<span class="token punctuation">(</span></span><span class="token variable">$token</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">login<span class="token punctuation">(</span></span>Request <span class="token variable">$request</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      <span class="token variable">$credentials</span> <span class="token operator">=</span> <span class="token variable">$request</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">only<span class="token punctuation">(</span></span><span class="token punctuation">[</span><span class="token string">'email'</span><span class="token punctuation">,</span> <span class="token string">'password'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token variable">$token</span> <span class="token operator">=</span> <span class="token function">auth<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">attempt<span class="token punctuation">(</span></span><span class="token variable">$credentials</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">response<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">json<span class="token punctuation">(</span></span><span class="token punctuation">[</span><span class="token string">'error'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token string">'Unauthorized'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">401</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">return</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">respondWithToken<span class="token punctuation">(</span></span><span class="token variable">$token</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">protected</span> <span class="token keyword">function</span> <span class="token function">respondWithToken<span class="token punctuation">(</span></span><span class="token variable">$token</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token function">response<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">json<span class="token punctuation">(</span></span><span class="token punctuation">[</span>
+        <span class="token string">'access_token'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token variable">$token</span><span class="token punctuation">,</span>
+        <span class="token string">'token_type'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token string">'bearer'</span><span class="token punctuation">,</span>
+        <span class="token string">'expires_in'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token function">auth<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">factory<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">getTTL<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">60</span>
+      <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>We define the methods to register a new user and to log users in respectively. Both methods returns a response with a JWT by calling a <code>respondWithToken()</code> method which gets the token array structure.</p>
+<p>Next, let’s add the register and login routes. Add the code below inside <code>routes/api.php</code>:</p>
+<pre class=" language-php"><code class=" language-php">   <span class="token comment" spellcheck="true"> // routes/api.php
+</span>
+    <span class="token scope">Route<span class="token punctuation">::</span></span><span class="token function">post<span class="token punctuation">(</span></span><span class="token string">'register'</span><span class="token punctuation">,</span> <span class="token string">'AuthController@register'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token scope">Route<span class="token punctuation">::</span></span><span class="token function">post<span class="token punctuation">(</span></span><span class="token string">'login'</span><span class="token punctuation">,</span> <span class="token string">'AuthController@login'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2>Defining API routes</h2>
+<p>Let’s define our routes. Open <code>routes/api.php</code> and add the line below to it:</p>
+<pre class=" language-php"><code class=" language-php">   <span class="token comment" spellcheck="true"> // routes/api.php
+</span>
+    <span class="token scope">Route<span class="token punctuation">::</span></span><span class="token function">apiResource<span class="token punctuation">(</span></span><span class="token string">'books'</span><span class="token punctuation">,</span> <span class="token string">'BookController'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token scope">Route<span class="token punctuation">::</span></span><span class="token function">post<span class="token punctuation">(</span></span><span class="token string">'books/{book}/ratings'</span><span class="token punctuation">,</span> <span class="token string">'RatingController@store'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Since we are building an API, we make use of <code>apiResource()</code> to generate API only routes. Also, we define a route that will be used to rate a specified book. For instance, <code>/books/53/ratings</code> will be used to rate the book with the ID of <code>53</code>.</p>
+<blockquote><p>
+  <strong>Tips:</strong>  When building APIs with Laravel, it is recommended to use the <code>apiResource()</code> method while defining resourceful routes, this will generate only API specific routes (<code>index</code>, <code>store</code>, <code>show</code>, <code>update</code> and <code>destroy</code>). Unlike when you use the <code>resource()</code> method, which will in addition to generating API specific routes, also generate <code>create</code> and <code>edit</code> routes, which aren’t needed when building an API.
+</p></blockquote>
+<h2>Creating the book resource</h2>
+<p>Before we move on to create the <code>BooksController</code>, let’s create a book resource class. We’ll make use of the artisan command <code>make:resource</code> to generate a new book resource class. By default, resources will be placed in the <code>app/Http/Resources</code> directory of our application.</p>
+<pre><code>    $ php artisan make:resource BookResource
+</code></pre>
+<p>Once that is created, let’s open it and update the <code>toArray()</code> method as below:</p>
+<pre class=" language-php"><code class=" language-php">   <span class="token comment" spellcheck="true"> // app/Http/Resources/BookResource.php
+</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">toArray<span class="token punctuation">(</span></span><span class="token variable">$request</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">[</span>
+        <span class="token string">'id'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">id</span><span class="token punctuation">,</span>
+        <span class="token string">'title'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">title</span><span class="token punctuation">,</span>
+        <span class="token string">'description'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">description</span><span class="token punctuation">,</span>
+        <span class="token string">'created_at'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span>string<span class="token punctuation">)</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">created_at</span><span class="token punctuation">,</span>
+        <span class="token string">'updated_at'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span>string<span class="token punctuation">)</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">updated_at</span><span class="token punctuation">,</span>
+        <span class="token string">'user'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">user</span><span class="token punctuation">,</span>
+        <span class="token string">'ratings'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">ratings</span><span class="token punctuation">,</span>
+      <span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>As the name suggests, this will transform the resource into an array. The array is made up of the attributes we want to be converted to JSON when sending the response. So the response will, in addition to containing the details about a book, also contain the user that added the book and all the ratings of the book. Any details we don’t want included in the JSON response, we simply remove it from the <code>toArray()</code> method. You’ll notice we are casting the dates (<code>created_at</code> and <code>update_at</code>) to strings because otherwise the dates will be returned as objects in the response.</p>
+<p>As you can see, we can access the model properties directly from the <code>$this</code> variable because a resource class will automatically proxy property and method access down to the underlying model for convenient access. Now we can make use of the <code>BookResource</code> class in our controller.</p>
+<h2>Creating the book controller</h2>
+<p>Let’s create the <code>BookController</code>. For this, we’ll make use of the API controller generation feature that was introduced in the Laravel 5.6.</p>
+<pre><code>    $ php artisan make:controller BookController --api
+</code></pre>
+<p>Next, open it up and paste the following code into it:</p>
+<pre class=" language-php"><code class=" language-php">   <span class="token comment" spellcheck="true"> // app/Http/Controllers/BookController.php
+</span>
+   <span class="token comment" spellcheck="true"> // add these at the top of the file
+</span>    <span class="token keyword">use</span> <span class="token package">App<span class="token punctuation">\</span>Book</span><span class="token punctuation">;</span>
+    <span class="token keyword">use</span> <span class="token package">App<span class="token punctuation">\</span>Http<span class="token punctuation">\</span>Resources<span class="token punctuation">\</span>BookResource</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">index<span class="token punctuation">(</span></span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token scope">BookResource<span class="token punctuation">::</span></span><span class="token function">collection<span class="token punctuation">(</span></span><span class="token scope">Book<span class="token punctuation">::</span></span><span class="token function">with<span class="token punctuation">(</span></span><span class="token string">'ratings'</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">paginate<span class="token punctuation">(</span></span><span class="token number">25</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">store<span class="token punctuation">(</span></span>Request <span class="token variable">$request</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      <span class="token variable">$book</span> <span class="token operator">=</span> <span class="token scope">Book<span class="token punctuation">::</span></span><span class="token function">create<span class="token punctuation">(</span></span><span class="token punctuation">[</span>
+        <span class="token string">'user_id'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token variable">$request</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">user<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">id</span><span class="token punctuation">,</span>
+        <span class="token string">'title'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token variable">$request</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">title</span><span class="token punctuation">,</span>
+        <span class="token string">'description'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token variable">$request</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">description</span><span class="token punctuation">,</span>
+      <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">BookResource</span><span class="token punctuation">(</span><span class="token variable">$book</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">show<span class="token punctuation">(</span></span>Book <span class="token variable">$book</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">BookResource</span><span class="token punctuation">(</span><span class="token variable">$book</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">update<span class="token punctuation">(</span></span>Request <span class="token variable">$request</span><span class="token punctuation">,</span> Book <span class="token variable">$book</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+     <span class="token comment" spellcheck="true"> // check if currently authenticated user is the owner of the book
+</span>      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$request</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">user<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">id</span> <span class="token operator">!</span><span class="token operator">==</span> <span class="token variable">$book</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">user_id</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">response<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">json<span class="token punctuation">(</span></span><span class="token punctuation">[</span><span class="token string">'error'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token string">'You can only edit your own books.'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">403</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token variable">$book</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">update<span class="token punctuation">(</span></span><span class="token variable">$request</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">only<span class="token punctuation">(</span></span><span class="token punctuation">[</span><span class="token string">'title'</span><span class="token punctuation">,</span> <span class="token string">'description'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">BookResource</span><span class="token punctuation">(</span><span class="token variable">$book</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">destroy<span class="token punctuation">(</span></span>Book <span class="token variable">$book</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      <span class="token variable">$book</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">delete<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">return</span> <span class="token function">response<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">json<span class="token punctuation">(</span></span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token number">204</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>The <code>index()</code> method fetches and returns a list of the books that have been added. We are making use of the <code>BookResource</code> created earlier. Because we are fetching a list of books, we make use of the <code>collection()</code> which is available on the resource class. This allows us to fetch a collection of resources. We could have a created an additional resource collection (e.g. <code>php artisan make:resource BookCollection</code>) which will allow us to customize the meta data returned with the collection, but since we won’t be customizing the meta data returned we’ll just stick with the <code>collection()</code>.</p>
+<p>The <code>store()</code> method creates a new book with the ID of the currently authenticated user along with the details of the book, and persists it to the database. Then we return a book resource based on the newly created book.</p>
+<p>The <code>show()</code> method accepts a Book model (we are using <a href="https://laravel.com/docs/5.6/routing#route-model-binding">route model binding</a> here) and simply returns a book resource based on the specified book.</p>
+<p>The <code>update()</code> method first checks to make sure the user trying to update a book is the owner of the book (that is, the user is the one who created the book). If the user is not the owner of the book, we return an appropriate error message and set the HTTP status code to <code>403</code> (which indicates: <strong>Forbidden</strong> – the user is authenticated, but does not have the permissions to perform an action). Otherwise we update the book with the new details and return a book resource with the updated details.</p>
+<p>Lastly, the <code>destroy()</code> method deletes a specified book from the database. Since the specified book has been deleted and no longer available, we set the HTTP status code of the response returned to <code>204</code> (which indicates: <strong>No content</strong> – the action was executed successfully, but there is no content to return).</p>
+<h2>Creating the rating resource</h2>
+<p>Just as we did with the <code>BookResource</code>, we’ll also create a rating resource class:</p>
+<pre><code>    $ php artisan make:resource RatingResource
+</code></pre>
+<p>Once that is created, let’s open it and update the <code>toArray()</code> method as below:</p>
+<pre class=" language-php"><code class=" language-php">   <span class="token comment" spellcheck="true"> // app/Http/Resources/RatingResource.php
+</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">toArray<span class="token punctuation">(</span></span><span class="token variable">$request</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">[</span>
+        <span class="token string">'user_id'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">user_id</span><span class="token punctuation">,</span>
+        <span class="token string">'book_id'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">book_id</span><span class="token punctuation">,</span>
+        <span class="token string">'rating'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">rating</span><span class="token punctuation">,</span>
+        <span class="token string">'created_at'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span>string<span class="token punctuation">)</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">created_at</span><span class="token punctuation">,</span>
+        <span class="token string">'updated_at'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span>string<span class="token punctuation">)</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">updated_at</span><span class="token punctuation">,</span>
+        <span class="token string">'book'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">book</span><span class="token punctuation">,</span>
+      <span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>Again, we pass along the attributes we want to be converted to JSON when sending the response. The response will also contain the book the rating is for.</p>
+<h2>Creating the rating controller</h2>
+<p>Next, create the <code>RatingController</code> that will make use of the <code>RatingResource</code>:</p>
+<pre><code>    $ php artisan make:controller RatingController
+</code></pre>
+<p>Next, open it up and paste the following code into it:</p>
+<pre class=" language-php"><code class=" language-php">   <span class="token comment" spellcheck="true"> // app/Http/Controllers/RatingController.php
+</span>
+   <span class="token comment" spellcheck="true"> // add these at the top of the file
+</span>    <span class="token keyword">use</span> <span class="token package">App<span class="token punctuation">\</span>Book</span><span class="token punctuation">;</span>
+    <span class="token keyword">use</span> <span class="token package">App<span class="token punctuation">\</span>Rating</span><span class="token punctuation">;</span>
+    <span class="token keyword">use</span> <span class="token package">App<span class="token punctuation">\</span>Http<span class="token punctuation">\</span>Resources<span class="token punctuation">\</span>RatingResource</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">store<span class="token punctuation">(</span></span>Request <span class="token variable">$request</span><span class="token punctuation">,</span> Book <span class="token variable">$book</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      <span class="token variable">$rating</span> <span class="token operator">=</span> <span class="token scope">Rating<span class="token punctuation">::</span></span><span class="token function">firstOrCreate<span class="token punctuation">(</span></span>
+        <span class="token punctuation">[</span>
+          <span class="token string">'user_id'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token variable">$request</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">user<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">id</span><span class="token punctuation">,</span>
+          <span class="token string">'book_id'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token variable">$book</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">id</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token string">'rating'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token variable">$request</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">rating</span><span class="token punctuation">]</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">RatingResource</span><span class="token punctuation">(</span><span class="token variable">$rating</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>The <code>store()</code> is used to rate a specified book. We are using the <code>firstOrCreate()</code> which checks if a user has already rated a specified book. If the user has, we simply return a rating resource based on the rating. Otherwise, we add the user rating to the specified book and persist it to the database. Then we return a rating resource based on the newly added rating.</p>
+<h2>Getting average rating</h2>
+<p>As it stands, we are almost done with all the features for our API. The last feature that’s left is getting the average rating made on a book. This is straightforward to do since the API is already well structured.</p>
+<p>Add the line of code below to the <code>toArray()</code> method of <code>app/Http/Resources/BookResource.php</code>:</p>
+<pre class=" language-php"><code class=" language-php">   <span class="token comment" spellcheck="true"> // app/Http/Resources/BookResource.php
+</span>
+    <span class="token string">'average_rating'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">ratings</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">avg<span class="token punctuation">(</span></span><span class="token string">'rating'</span><span class="token punctuation">)</span>
+</code></pre>
+<p>We are using the <code>ratings</code> relationship defined of the Book model to fetch all the ratings that have be made on the specified book. Then, using collection <code>avg()</code>, we get the average of the ratings. Passing <code>rating</code> to the <code>avg()</code> function indicates that we want to calculate the average based on the book rating.</p>
+<p>Now, whenever the <code>BookResource</code> is used, the response will contain the average rating of the book.</p>
+<p>A sample book resource response will look like below:</p>
+<p><img src="./Learn to build a REST API with Laravel API resources_files/build-robust-api-with-laravel-api-resources_book_resource_response_preview.png" alt="book response preview" width="437" height="540" class="alignnone size-full wp-image-4238" srcset="https://blog.pusher.com/wp-content/uploads/2018/03/build-robust-api-with-laravel-api-resources_book_resource_response_preview.png 437w, https://blog.pusher.com/wp-content/uploads/2018/03/build-robust-api-with-laravel-api-resources_book_resource_response_preview-243x300.png 243w" sizes="(max-width: 437px) 100vw, 437px"></p>
+<p>A sample rating resource response will look like below:<br>
+<img src="./Learn to build a REST API with Laravel API resources_files/build-robust-api-with-laravel-api-resources_rating_resource_response_preview.png" alt="rating response preview" width="379" height="268" class="alignnone size-full wp-image-4239"></p>
+<p>You can see how the responses are well formatted.</p>
+<h2>Securing the API endpoints</h2>
+<p>Before we wrap up this tutorial, let’s secure our API endpoints using middleware. To secure the <code>books</code> endpoint, add the code below to <code>app/Http/Controllers/BookController.php</code>:</p>
+<pre class=" language-php"><code class=" language-php">   <span class="token comment" spellcheck="true"> // app/Http/Controllers/BookController.php
+</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">__construct<span class="token punctuation">(</span></span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">middleware<span class="token punctuation">(</span></span><span class="token string">'auth:api'</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">except<span class="token punctuation">(</span></span><span class="token punctuation">[</span><span class="token string">'index'</span><span class="token punctuation">,</span> <span class="token string">'show'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>As you can see, we are making use of the <code>auth:api</code>  middleware. Here, we are exempting the <code>index()</code> and <code>show()</code> methods from using the middleware. That way, users will be able to see a list of all books and a particular book without needing to be authenticated.</p>
+<p>Let’s also secure the endpoint to rate a book, add the code below to <code>app/Http/Controllers/RatingController.php</code>:</p>
+<pre><code class="php">    // app/Http/Controllers/RatingController.php
+
+    public function __construct()
+    {
+      $this-&gt;middleware('auth:api');
+    }
+</code></pre>
+<h2>Handling resource not found</h2>
+<p>By default when a specified model is not found, Laravel will throw a <code>ModelNotFoundException</code> and renders a <code>404</code> page. Since we are building an API, we want to handle the exception and throw an API friendly error message.</p>
+<p>Add the code below to the <code>render)</code> method of <code>app/Exceptions/Handler.php</code>:</p>
+<pre class=" language-php"><code class=" language-php">   <span class="token comment" spellcheck="true"> // app/Exceptions/Handler.php
+</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$exception</span> <span class="token keyword">instanceof</span> <span class="token class-name">ModelNotFoundException</span> <span class="token operator">&amp;&amp;</span> <span class="token variable">$request</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">wantsJson<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token function">response<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">json<span class="token punctuation">(</span></span><span class="token punctuation">[</span>
+        <span class="token string">'error'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token string">'Resource not found'</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">404</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>This checks if the exception thrown is an instance of <code>ModelNotFoundException</code> and the request wants JSON, then we simply return a response with an error message of <strong>Resource not found</strong> and set the HTTP status code to <code>404</code> (which indicates: <strong>Not Found</strong> – the server has not found anything matching the Request-URI).</p>
+<blockquote><p>
+  <strong>Tips:</strong> For the above to work, the API requests will need the header <code>Accept: application/json</code>.
+</p></blockquote>
+<h2>Conclusion</h2>
+<p>That’s it! In this tutorial, we have seen what API resources are and how we can build an API with them. Also, we covered how to add authentication with JWT to an API in Laravel.</p>
+<p>Do check the official docs to learn more about <a href="https://laravel.com/docs/5.6/eloquent-resources">API resources</a>. The complete code for this tutorial is available on <a href="https://github.com/ammezie/book-reviews-api">GitHub</a>.</p>
+									</div><!-- .block-text -->
+</div><!-- .block-titles-wrap -->
+</div>
+		<div class="social-bar-inner single-post">
+		<p class="share-this">Share this post</p>
+
+<div class="facebook-share share-this">
+<a style="width: 50px;" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fblog.pusher.com%2Fbuild-rest-api-laravel-api-resources%2F">
+    <div class="box-left"></div>
+    <div class="box-middle">
+    	<i class="fa fa-facebook"></i>
+    </div>
+    <div class="box-right"></div>
+</a>
+<div class="bubble"><p style="height:100%">0</p></div>
+</div>
+
+<div class="twitter-share share-this">
+<a style="width: 50px;" href="https://twitter.com/intent/tweet?text=This%20tutorial%20shows%20how%20to%20use%20Laravel%27s%20API%20resources%20feature%20to%20build%20a%20REST%20API.%20Build%20a%20book%20review%20app%20in%20Laravel.%20You%20will%20create%20a%20REST%20API%20to%20handle%20adding%2C%20updating%20and%20deleting%20books.%20Learn%20how%20use%20JSON%20Web%20Tokens%20to%20make%20the%20API%20secure.&amp;url=https://blog.pusher.com/build-rest-api-laravel-api-resources/&amp;via=pusher">
+    <div class="box-left"></div>
+    <div class="box-middle">
+    	<i class="fa fa-twitter"></i>
+    </div>
+    <div class="box-right"></div>
+</a>
+<div class="bubble"><p style="height:100%"></p></div>
+</div>
+
+<link rel="stylesheet" href="./Learn to build a REST API with Laravel API resources_files/ionicons.min.css">
+
+<div class="buffer-share share-this">
+<a style="width: 50px;" href="https://blog.pusher.com/build-rest-api-laravel-api-resources/">
+    <div class="box-left"></div>
+    <div class="box-middle">
+    	<i class="ionicons ion-social-buffer"></i>
+    </div>
+    <div class="box-right"></div>
+</a>
+<div class="bubble"><p style="height:100%">5</p></div>
+</div>
+</div>
+
+<div class="full-width-pane signup-pane front-page-signup-pane">
+
+  <div class="cta-inner">
+
+      <div class="header">
+     Getting started with Pusher is <span class="red-accent lightweight"><i>FREE</i></span>
+   </div>
+     <p class="subheading">
+       Join more than 250,000 happy developers.
+     </p>
+     <a href="https://pusher.com/"><button class="btn btn-primary btn-lg">Sign up</button></a>
+
+   </div>
+
+ </div>
+
+
+        <div class="adjacent-post-links">
+          <div class="previous-post-link">
+            <div class="adjacent-post-text">
+              PREVIOUS <span class="dark-accent">POST</span>
+            </div>
+            <div class="link-arrow-container">
+              <a href="https://blog.pusher.com/beginners-guide-react-component-lifecycle/" rel="prev"><div class="left-arrow arrow">←</div> <div class="previous-post-text">A beginner’s guide to the React component lifecycle</div></a>            </div>
+          </div>
+		<div class="vertical-divide" style="
+    height: 50px;
+    width: 1px;
+    background-color: rgba(225,225,225,0.6);
+    position: absolute;
+    left: 49%;
+margin-top:20px;
+"></div>
+          <div class="next-post-link">
+            <div class="adjacent-post-text">
+              NEXT <span class="dark-accent">POST</span>
+            </div>
+            <div class="link-arrow-container">
+              <a href="https://blog.pusher.com/slack-clone-laravel-tailwindcss-vuejs/" rel="next"><div class="right-arrow arrow">→</div> <div class="next-post-text">Building a Slack clone using Laravel, Tailwind CSS and Vue.js</div></a>            </div>
+          </div>
+        </div>
+
+
+
+        <div class="content-section">
+
+
+          <div id="content-wrap">
+
+
+            <div class="single-tab">
+
+<div style="display:none">
+ <aside class="mashsb-container mashsb-main "><div class="mashsb-box"><div class="mashsb-count" style="float:left;"><div class="counts mashsbcount">253</div><span class="mashsb-sharetext">SHARES</span></div><div class="mashsb-buttons"><a class="mashicon-twitter mashsb-noshadow" href="https://twitter.com/intent/tweet?text=This%20tutorial%20shows%20how%20to%20use%20Laravel%27s%20API%20resources%20feature%20to%20build%20a%20REST%20API.%20Build%20a%20book%20review%20app%20in%20Laravel.%20You%20will%20create%20a%20REST%20API%20to%20handle%20adding%2C%20updating%20and%20deleting%20books.%20Learn%20how%20use%20JSON%20Web%20Tokens%20to%20make%20the%20API%20secure.&amp;url=https://blog.pusher.com/build-rest-api-laravel-api-resources/&amp;via=pusher" target="_blank" rel="nofollow"><span class="icon"></span><span class="text">Twitter</span></a><a class="mashicon-facebook mashsb-noshadow" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fblog.pusher.com%2Fbuild-rest-api-laravel-api-resources%2F" target="_blank" rel="nofollow"><span class="icon"></span><span class="text">Facebook</span></a><a class="mashicon-buffer mashsb-noshadow" href="https://blog.pusher.com/build-rest-api-laravel-api-resources/" target="_blank" rel="nofollow"><span class="icon"></span><span class="text">Buffer</span></a><div class="onoffswitch2 mashsb-noshadow" style="display:none;"></div></div>
+            </div>
+                <div style="clear:both;"></div><div class="mashsb-toggle-container"></div></aside>
+            <!-- Share buttons by mashshare.net - Version: 3.4.9--></div>
+
+
+
+              <div id="single-tabs">
+	
+
+
+                <ul class="single-tab-nav">
+                                    <li class="post-content-tab active"><a href="https://blog.pusher.com/build-rest-api-laravel-api-resources/#tab-1"><i class="fa fa-comment"></i> <span>Comments</span></a></li>
+                                    <li class="post-content-tab"><a href="https://blog.pusher.com/build-rest-api-laravel-api-resources/#tab-2"><i class="fa fa-user"></i> <span>Author</span></a></li>
+                </ul>
+
+                <!-- If comments are open or we have at least one comment, load up the comment template. -->
+                                <div id="tab-1" class="comments-section post-tab clearfix" style="display: block;">
+                  
+<div id="disqus_thread"><iframe id="dsq-app1798" name="dsq-app1798" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./Learn to build a REST API with Laravel API resources_files/saved_resource.html" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 3731px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+                </div><!-- comment section -->
+                
+                <div id="tab-2" class="author-section post-tab clearfix" style="display: none;">
+                  <div id="author-info">
+                    <!-- If author has a bio, show it. -->
+                    
+                            <div class="author-posts">
+                              <h3>Latest Posts By Chimezie Enyinnaya</h3>
+                              <ul><li><span>06.21.18</span><a href="https://blog.pusher.com/react-laravel-application/">Using React in a Laravel application</a></li><li><span>06.14.18</span><a href="https://blog.pusher.com/optimizing-performance-laravel/">Optimizing the performance of a Laravel application</a></li><li><span>06.08.18</span><a href="https://blog.pusher.com/graphql-laravel/">Getting started with GraphQL in Laravel</a></li><li><span>05.28.18</span><a href="https://blog.pusher.com/fullstack-graphql-app-prisma-apollo-vue/">Build a fullstack GraphQL app with Prisma, Apollo and Vue</a></li><li><span>05.16.18</span><a href="https://blog.pusher.com/building-apis-laravel-graphql/">Building APIs with Laravel and GraphQL</a></li></ul>                            </div><!-- author-posts -->
+                          </div><!-- author-info -->
+                        </div><!-- author-section -->
+                      </div><!-- #single-tabs -->
+                    </div><!-- .single-tab -->
+                  </div><!-- #content-wrap -->
+                </div><!-- .content-section -->
+              
+            </div><!-- #content .site-content -->
+          </div><!-- #primary .content-area -->
+
+
+
+        </div><!-- #main .site-main -->
+
+
+        
+	</div><!-- #main .site-main -->
+        <script src="./Learn to build a REST API with Laravel API resources_files/jquery-2.1.1.min.js"></script>
+        <script src="./Learn to build a REST API with Laravel API resources_files/jquery-ui.min.js"></script>
+        <script src="./Learn to build a REST API with Laravel API resources_files/prism.js"></script>
+	<footer id="colophon" class="site-footer clearfix">
+		<!-- Blocks Post Navigation -->
+		
+		<!-- Footer Text -->
+		<div class="copyright">
+			<div class="site-info">
+								© 2019 <a href="https://blog.pusher.com/">Pusher Blog</a><span class="sep"> | </span>Enjoy our helpful resources &amp; Industry insights.			</div><!-- .site-info -->
+		</div>
+	</footer><!-- #colophon .site-footer -->
+<!-- #page .hfeed .site -->
+	<div style="display:none">
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var countVars = {"disqusShortname":"pusherblog"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Learn to build a REST API with Laravel API resources_files/comment_count.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var embedVars = {"disqusConfig":{"integration":"wordpress 3.0.15"},"disqusIdentifier":"4237 http:\/\/blog.pusher.com\/?p=4237","disqusShortname":"pusherblog","disqusTitle":"Build a REST API with Laravel API resources","disqusUrl":"https:\/\/blog.pusher.com\/build-rest-api-laravel-api-resources\/","postId":"4237"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Learn to build a REST API with Laravel API resources_files/comment_embed.js"></script>
+<script type="text/javascript" src="./Learn to build a REST API with Laravel API resources_files/devicepx-jetpack.js"></script>
+<script type="text/javascript" src="./Learn to build a REST API with Laravel API resources_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Learn to build a REST API with Laravel API resources_files/wpgroho.js"></script>
+<script type="text/javascript" src="./Learn to build a REST API with Laravel API resources_files/imagesloaded.min.js"></script>
+<script type="text/javascript" src="./Learn to build a REST API with Laravel API resources_files/masonry.min.js"></script>
+<script type="text/javascript" src="./Learn to build a REST API with Laravel API resources_files/jquery.masonry.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var publisher_bg_js_vars = {"bg_image":""};
+var publisher_custom_js_vars = {"bg_image_url":"https:\/\/blog.pusher.com\/wp-content\/uploads\/2018\/05\/advanced-laravel-eloquent-usage-header.png"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Learn to build a REST API with Laravel API resources_files/custom.js"></script>
+<script type="text/javascript" src="./Learn to build a REST API with Laravel API resources_files/jquery.fitvids.js"></script>
+<script type="text/javascript" src="./Learn to build a REST API with Laravel API resources_files/small-menu.js"></script>
+<script type="text/javascript" src="./Learn to build a REST API with Laravel API resources_files/html5shiv.js"></script>
+<script type="text/javascript" src="./Learn to build a REST API with Laravel API resources_files/comment-reply.min.js"></script>
+<script type="text/javascript" src="./Learn to build a REST API with Laravel API resources_files/wp-embed.min.js"></script>
+<script type="text/javascript" src="./Learn to build a REST API with Laravel API resources_files/e-201927.js" async="async" defer="defer"></script>
+<script type="text/javascript">
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:5.9',blog:'144028687',post:'4237',tz:'1',srv:'blog.pusher.com'} ]);
+	_stq.push([ 'clickTrackerInit', '144028687', '4237' ]);
+</script>
+<script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t,e){var n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(n,o);analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.1.0";
+  analytics.load("civb3ud3rl");
+  analytics.page();  
+ 
+  }}();
+</script>
+
+
+<script>
+   $(document).ready(function(){
+
+   // social button hovers
+   $('div.share-this a').hover(function(){
+   $(this).addClass('social-hovered');
+   }, function(){
+   $(this).removeClass('social-hovered');
+   });
+
+   // get share counts
+   var urls = [
+   {
+   name: 'facebook',
+   href:'https://graph.facebook.com/?id='
+   },
+   {
+   name: 'twitter',
+   href: 'https://cdn.api.twitter.com/1/urls/count.json?url='
+   },
+   {
+   name: 'buffer',
+   href: 'https://api.bufferapp.com/1/links/shares.json?url='
+   }
+   ]
+   var getShareCount = function(service, url){
+   url += window.location.href;
+   var selector = 'div.' + service + '-share div.bubble p'
+   $.ajax({
+   url: url,
+   method: 'GET',
+   dataType:'jsonp'
+   }).success(function(data){
+   var shareCount = data.shares || data.count || 0;
+   var element = $(selector);
+   element.text(shareCount);
+   })
+   }
+
+   getShareCount('facebook', 'https://graph.facebook.com/?id=');
+   getShareCount('twitter', 'https://cdn.api.twitter.com/1/urls/count.json?url=');
+   getShareCount('buffer', 'https://api.bufferapp.com/1/links/shares.json?url=');
+   //attach share urls to buttons
+   var twitterShareUrl = $('a.mashicon-twitter').attr('href');
+   var facebookShareUrl = $('a.mashicon-facebook').attr('href');
+   var bufferShareUrl = $('a.mashicon-buffer').attr('href');
+   $('div.facebook-share a').attr('href', facebookShareUrl);
+   $('div.twitter-share a').attr('href', twitterShareUrl);
+   $('div.buffer-share a').attr('href', bufferShareUrl);
+
+});
+
+
+</script>
+
+<script>
+
+
+</script><img src="./Learn to build a REST API with Laravel API resources_files/g.gif" alt=":)" width="6" height="5" id="wpstats"><iframe style="display: none;" src="./Learn to build a REST API with Laravel API resources_files/saved_resource(2).html"></iframe><script src="./Learn to build a REST API with Laravel API resources_files/saved_resource" type="text/javascript"></script></body></html>

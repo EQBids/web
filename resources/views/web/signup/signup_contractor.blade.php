@@ -90,28 +90,6 @@
                                 </div>
                             </div>
                         </div>
-
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="" class="label" style="display: block">{{ _('Industry') }}</label>
-                                <select name="industry" id="industry" class="form-control" onchange="industrySelected()">
-                                    <option value="">Choose</option>
-                                    @foreach($industries as $industry)
-                                        <option value="{{$industry->id}}">{{$industry->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="" class="label" style="display: block">{{ _('Sub category') }}</label>
-                                <select name="sub_industry" id="sub_industry" class="form-control">
-                                </select>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="form-group">
@@ -137,7 +115,29 @@
                             </div>
                         </div>
                     </div>
+               
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="" class="label" style="display: block">{{ _('Industry') }}</label>
+                                <select name="industry" id="industry" class="form-control" onchange="industrySelected()">
+                                    <option value="">Choose</option>
+                                    @foreach($industries as $industry)
+                                        <option value="{{$industry->id}}">{{$industry->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
 
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="" class="label" style="display: block">{{ _('Sub category') }}</label>
+                                <select name="sub_industry" id="sub_industry" class="form-control">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
 
                     <div class="row">
                         <div class="col-lg-6">
@@ -233,7 +233,7 @@
 
           predictions.forEach(function(prediction) {
             //var li = document.createElement('li');
-            //li.appendChild(document.createTextNode(prediction.description));
+            console.log(prediction.description);
             //document.getElementById('results').appendChild(li);
           });
         };
