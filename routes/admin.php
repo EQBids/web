@@ -75,7 +75,8 @@ Route::name('admin.')->middleware('admin.authenticated')->group(function(){
     Route::prefix('reports')->name('reports.')->group(function (){
     	Route::get('contractors','Web\Admin\ReportsController@contractors')->name('contractors');
 	    Route::get('equipments','Web\Admin\ReportsController@equipments')->name('equipments');
-	    Route::get('suppliers','Web\Admin\ReportsController@suppliers')->name('suppliers');
+        Route::get('suppliers','Web\Admin\ReportsController@suppliers')->name('suppliers');
+        Route::get('quotes','Web\Admin\ReportsController@quotes')->name('quotes');
     });
 
 	Route::get('/logout','Web\Admin\LoginController@logout')->name('logout');
