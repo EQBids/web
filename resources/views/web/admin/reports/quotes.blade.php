@@ -28,6 +28,29 @@
         </div>
 
         <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>{{ __('From') }}:</label>
+                    <input type="text" id="from" class="form-control date-from"
+                           name="from"
+                           value="{{ request()->get('from') }}"
+                    />
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>{{ __('To') }}:</label>
+                    <input type="text" id="to" class="form-control date-from"
+                           name="to"
+                           value="{{ request()->get('to') }}"
+                    />
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
             <div class="offset-lg-8 col-lg-4">
                 <button type="submit" class="btn btn-primary btn-lg mt-30">{{ __('Filter') }}</button>
                 <button type="submit" class="btn btn-primary btn-lg mt-30" name="export" value="pdf">{{ __('Export') }}</button>
@@ -71,6 +94,22 @@
     </div>
     @endif
 @endsection
+
+@push('footer_scripts')
+
+    <script src="{{ asset('js/plugins/bootstrap-datetimepicker/moment-datepicker.js') }}" type="application/javascript"></script>
+    <script src="{{ asset('js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') }}" type="application/javascript"></script>
+
+    <script type="application/javascript">
+        $("#from").datetimepicker({
+            'format':'YYYY-MM-DD',
+        });
+        $("#to").datetimepicker({
+            'format':'YYYY-MM-DD',
+            useCurrent: false
+        });
+    </script>
+@endpush
 
 @push('footer_scripts')
 

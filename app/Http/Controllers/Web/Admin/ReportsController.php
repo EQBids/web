@@ -421,6 +421,8 @@ class ReportsController extends Controller
 									inner join users u on u.id = o.user_id
 									inner join contractors co on co.user_id = u.id
 									where s.id = '".$request->get("supplier_id")."'
+									and o.created_at <= '" . $request->get("to") . "'
+									and o.created_at >= '" . $request->get("from") . "'
 									group by bo.bid_id
 									order by bo.bid_id
 									

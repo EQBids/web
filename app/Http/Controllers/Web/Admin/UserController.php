@@ -177,6 +177,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+			
     	$user=User::findOrFail($id);
     	$role = Auth::user()->rols()->first();
 	    $roles = $this->role_repository->allowedCrudRoles($role);
@@ -210,7 +211,7 @@ class UserController extends Controller
      */
     public function update(updateSubUserRequest $request, User $user)
     {
-		if(!$user){
+			if(!$user){
     		return redirect('/');
 	    }
 	    $role = Role::find($request->get('role'));
@@ -226,7 +227,7 @@ class UserController extends Controller
 	    }
 
 	    $coordinates = $this->geocoding_repository->getAddressCoordinates($address,$city);
-		
+			
 	    if($role->name == 'contractor-superadmin' && $user->contractors->count()==0 && $request->get('address')){
 		    $contractorData = [
 
@@ -234,7 +235,7 @@ class UserController extends Controller
 				    :$request->get('first_name').' '.$request->get('last_name'),
 			    'address'           =>  $request->get('address'),
 			    'lat'=> $coordinates->getLatitude(),
-			    'lon'=> $coordinates->getLatitude(),
+					'lon'=> $coordinates->getLatitude(),
 			    'details'           =>  array(),
 		    ];
 		    $userData['contractor'] = $contractorData;
@@ -244,7 +245,6 @@ class UserController extends Controller
 				'company_name'      =>  $request->get('company_name')?$request->get('company_name')
 				    :$request->get('first_name').' '.$request->get('last_name'),
 			    'details'       =>  array(),
-			    'status'        =>  0,
 			    'name'          =>  $request->get('first_name').' '.$request->get('last_name'),
 			    'address'       =>  $request->get('address'),
 			    'lat'=> $coordinates->getLatitude(),
@@ -261,7 +261,7 @@ class UserController extends Controller
 		    'address'    =>  $request->get('address'),
 		    'company_position'          =>  $request->get('company_position'),
 	    ];
-
+			$userData['status'] = $request->get('status');
 	    $userData['settings'] = $jsonData;
 	    $user = $this->user_repository->updateWithRole($user->id,$userData,$role);
 	    return redirect(route('admin.users.index'))->with('notifications',collect([

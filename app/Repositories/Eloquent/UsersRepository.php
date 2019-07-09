@@ -155,12 +155,12 @@ class UsersRepository extends BaseRepository implements usersRepositoryInterface
 		
 				$email_change=$data['email'];
 			}
+			$user->status = $data['status'];
 			$user->fill($data);
 			$user->save();
 			if($role){
 				$user->rols()->sync([$role->id]);
 			}
-
 
 			if(isset($data['site_id'])){
 		
@@ -205,6 +205,7 @@ class UsersRepository extends BaseRepository implements usersRepositoryInterface
 			if(Auth::user()->is_admin && isset($data['address']) && $user->contractor){
 				$contractor=$user->contractor;
 				$contractor->address=$data['address'];
+				
 				$contractor->save();
 			}
 			if(Auth::user()->is_admin  && $user->suppliers->count() > 0 ){
