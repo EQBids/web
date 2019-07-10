@@ -77,6 +77,7 @@ Route::name('admin.')->middleware('admin.authenticated')->group(function(){
 	    Route::get('equipments','Web\Admin\ReportsController@equipments')->name('equipments');
         Route::get('suppliers','Web\Admin\ReportsController@suppliers')->name('suppliers');
         Route::get('quotes','Web\Admin\ReportsController@quotes')->name('quotes');
+        Route::get('quotesStatus','Web\Admin\ReportsController@quotesStatus')->name('quotesStatus');
     });
 
 	Route::get('/logout','Web\Admin\LoginController@logout')->name('logout');

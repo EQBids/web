@@ -53,7 +53,7 @@
         <div class="row">
             <div class="offset-lg-8 col-lg-4">
                 <button type="submit" class="btn btn-primary btn-lg mt-30">{{ __('Filter') }}</button>
-                <button type="submit" class="btn btn-primary btn-lg mt-30" name="export" value="pdf">{{ __('Export') }}</button>
+               
             </div>
         </div>
     </form>

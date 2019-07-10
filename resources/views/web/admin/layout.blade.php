@@ -96,6 +96,7 @@
                             <a class="list-group-item" href="{{ route('admin.reports.equipments') }}" data-parent="#menu_reports"><i class="fa fa-circle"></i>{{ __('Equipments') }}</a>
                             <a class="list-group-item" href="{{ route('admin.reports.suppliers') }}" data-parent="#menu_reports"><i class="fa fa-circle"></i>{{ __('Suppliers') }}</a>
                             <a class="list-group-item" href="{{ route('admin.reports.quotes') }}" data-parent="#menu_reports"><i class="fa fa-circle"></i>{{ __('Quotes') }}</a>
+                            <a class="list-group-item" href="{{ route('admin.reports.quotesStatus') }}" data-parent="#menu_reports"><i class="fa fa-circle"></i>{{ __('Quotes Status') }}</a>
                         </div>
 
                         <a href="{{ route('admin.orders.index') }}" class="list-group-item" ><i class="fa fa-list-ul"></i> {{__('Orders')}}</a>

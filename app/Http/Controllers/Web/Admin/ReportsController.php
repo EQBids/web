@@ -438,4 +438,50 @@ class ReportsController extends Controller
 
 	}
 
+	public function quotesStatus(baseReportRequest $request){
+		
+		$suppliers        = Supplier::orderBy( 'name' )->get();
+		if($request->get("supplier_id") == ""){
+			
+			return view( 'web.admin.reports.quotesStatus' )->with( array_merge( ['suppliers'  => $suppliers]));
+		}
+
+		$quotesReceived=DB::select(DB::raw(" 
+						select count(*) as result from order_supplier s
+						where  s.supplier_id = '".$request->get("supplier_id")."'
+						"
+							));
+
+		$quotesReplied=DB::select(DB::raw(" 
+						select count(*) as result from bids b
+						where  b.supplier_id = '".$request->get("supplier_id")."'
+						"
+							));
+
+		$quotesActive=DB::select(DB::raw(" 
+						select count(*) as result from bids b
+						where  b.supplier_id = '".$request->get("supplier_id")."'
+							and b.status = 1"
+							));
+		$quotesCancel=DB::select(DB::raw(" 
+						select count(*) as result from bids b
+						where  b.supplier_id = '".$request->get("supplier_id")."'
+							and b.status = 2"
+							));	
+		$quotesClosed=DB::select(DB::raw(" 
+						select count(*) as result from bids b
+						where  b.supplier_id = '".$request->get("supplier_id")."'
+							and b.status = 3"
+							));										
+		return view( 'web.admin.reports.quotesStatus' )->with( array_merge( [
+			'suppliers'  => $suppliers,
+			'quotesReceived' => $quotesReceived,
+			'quotesReplied' => $quotesReplied,
+			'quotesActive' => $quotesActive,
+			'quotesCancel' => $quotesCancel,
+			'quotesClosed' => $quotesClosed
+		] ) );		 
+
+	}
+
 }
