@@ -22,7 +22,8 @@ class OfficesController extends Controller
 
     public function index(){
         
-    	$offices = $this->officeRepo->findAllWhereUserBelongsTo(Auth::user()->id);
+        $offices = $this->officeRepo->findAllWhereUserBelongsTo(Auth::user()->id);
+        //print_r($offices);die;
         return view('web.contractor.offices.index',compact('offices'));
     }
 
@@ -51,9 +52,9 @@ class OfficesController extends Controller
 	    if($request->hasFile('image')){
 		    $data['image']=$request->file('image')->store('contractors/'.$request->user()->id,'public');
 	    }
-
+    
 	    $this->officeRepo->update($id,$data);
-
+  
         return redirect()->route('contractor.offices.index')->with('notifications',collect([
             [
                 'text'=>__("The office was updated successfully"),

@@ -218,11 +218,7 @@ class OfficeRepository extends BaseRepository implements officeRepositoryInterfa
 
     public function findAllWhereUserBelongsTo($userId)
     {
-        return DB::table('contractors')->whereExists(function($exists) use ($userId){
-	        $exists->select(DB::raw(1))->from('contractor_user')
-	                                   ->whereRaw('contractor_user.contractor_id = contractors.id')
-	                                   ->where('contractor_user.user_id',$userId);
-        })->whereRaw('contractors.deleted_at is null')->where('contractors.user_id',$userId)
+        return DB::table('contractors')->whereRaw('contractors.deleted_at is null')->where('contractors.user_id',$userId)
         ->orderBy('created_at')->get();
     }
 }
