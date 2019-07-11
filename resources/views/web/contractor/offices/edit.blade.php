@@ -55,7 +55,7 @@
                 <div class="form-group">
                     <label for="country">{{__("Country")}}</label>
                     <select name="country" id="country" class="form-control" data-parsley-required>
-                        <option value="">{{__("Choose")}}</option>
+                        <option value="1">Canada</option>
                     </select>
                 </div>
             </div>
