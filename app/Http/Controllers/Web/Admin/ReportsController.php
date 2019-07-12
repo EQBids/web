@@ -484,4 +484,24 @@ class ReportsController extends Controller
 
 	}
 
+	public function whoQuoted(baseReportRequest $request){
+		$suppliers        = Supplier::orderBy( 'name' )->get();
+		if($request->get("supplier_id") == ""){
+			
+			return view( 'web.admin.reports.whoQuoted' )->with( array_merge( ['suppliers'  => $suppliers]));
+		}
+
+		$items=DB::select(DB::raw(" 
+						SELECT u.email , concat(u.first_name, u.last_name) as name, count(*)  as total FROM bids b 
+						inner join orders o on o.id = b.order_id
+						inner join users u on u.id = o.user_id
+						where b.supplier_id = '".$request->get("supplier_id")."'
+						group by o.user_id 
+						"
+							));
+		return view( 'web.admin.reports.whoQuoted' )->with( array_merge( [
+			'suppliers'  => $suppliers,
+			'items' => $items
+		] ) );	
+	}
 }
