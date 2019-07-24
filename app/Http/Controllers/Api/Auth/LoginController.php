@@ -62,8 +62,8 @@ class LoginController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function loginRequestPin(Request $request){
-
+    public function requestPin(Request $request){
+        
         $request->validate([
             'email' =>  'required|email'
         ]);
@@ -72,7 +72,7 @@ class LoginController extends Controller
 
 //        If the email is no where to be found, redirect him to the sign up page.
         if(!$user){
-            return Lresponse()->json(['message'=>'Account doesn\'t exists!']);
+            return response()->json(['message'=>'Account doesn\'t exist!']);
          
         }
 
@@ -83,6 +83,95 @@ class LoginController extends Controller
             return response()->json(['message'=>'some error has occurred!']);
         }
         return response()->json(['message'=>'The pin was sent successfully!']);
+    }
+
+    /** 
+     * login api 
+     * 
+     * @return \Illuminate\Http\Response 
+     **/
+    /*
+    public function login(){ 
+        if(Auth::attempt(['email' => request('email'), 'pin' => request('pin')])){ 
+            //$user = Auth::user(); 
+            //$success['token'] =  $user->createToken('MyApp')-> accessToken; 
+            return response()->json(['message'=>'xx!']);
+        } 
+        else{ 
+            return response()->json(['error'=>'Unauthorised'], 401); 
+        } 
+    }
+ */
+
+
+    public function maxAttempts() {
+        echo "oi1";
+    	return $this->settings_repository->getValue('num_failed_logins_before_block',5);
+    }
+
+    protected function validateLogin( Request $request ) {
+        echo "oi2";
+    	$request->validate([
+		    'pin'   =>  'required',
+		    'email' =>  'required|email',
+	    ]);
+    }
+
+    protected function guard() {
+        echo "oi3";
+    	return Auth::guard('pin');
+    }
+
+    protected function credentials( Request $request ) {
+        echo "oi4";
+    	return $request->only('email','pin');
+    }
+
+    protected function authenticated( Request $request, $user ) {
+        echo "oi5";
+    	$this->user=$user;
+	    if($user->status==User::STATUS_PENDING){
+		    $this->usersRepository->changeStatus($user->id,1);
+	    }
+    }
+
+	protected function redirectTo(){
+    	// IF the user had tried to get into an specific url but was found unlogged, we saved the intended url and first
+        // redirect to it
+        echo "oiered";die;
+	    $intendedUrl = RequestFacade::session()->get('intendedUrl');
+	    if($intendedUrl && $intendedUrl!=route('show_login')){
+		    RequestFacade::session()->forget('intendedUrl');
+		    return $intendedUrl;
+	    }
+
+		//Otherwise, we redirect him based on his role.
+	    if($this->user->is_contractor){
+		    return route('contractors_dashboard');
+	    }
+	    elseif ($this->user->hasRole('supplier-superadmin')){
+		    return route('suppliers_dashboard');
+	    }
+	    else
+		    return url('/');
+    }
+
+    protected function sendLockoutResponse( Request $request ) {
+	    throw ValidationException::withMessages([
+		    $this->username() => ['You have exceeded the number of permitted failed attempts to log in and your account is now suspended. Please contact us to get your account re-activated.'],
+	    ])->status(423);
+    }
+
+    //this is implemented here because only is used on this controller
+    protected function fireLockoutEvent( Request $request ) {
+    	$email = $request->get('email',null);
+    	if($email){
+    		$user=$this->usersRepository->findOneBy($email,'email');
+    		if($user){
+    			$this->usersRepository->changeStatus($user->id,User::STATUS_BLOCKED);
+		    }
+	    }
+	    event(new Lockout($request));
     }
 
 }

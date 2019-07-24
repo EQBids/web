@@ -504,4 +504,40 @@ class ReportsController extends Controller
 			'items' => $items
 		] ) );	
 	}
+
+	public function topEquipmentRequests(baseReportRequest $request){
+		$items=DB::select(DB::raw(" 
+						select e.name, count(*) as total from order_items oit
+						inner join equipments e on e.id = oit.equipment_id
+						group by oit.equipment_id
+						order by total desc limit 5
+						"
+							));
+		return view( 'web.admin.reports.topEquipmentRequests' )->with( array_merge( [
+			
+			'items' => $items
+		] ) );	
+	}
+
+	public function equipmentHistory(baseReportRequest $request){
+		$equipments        = Equipment::orderBy( 'name' )->get();
+		if($request->get("equipment_id") == ""){
+			
+			return view( 'web.admin.reports.equipmentHistory' )->with( array_merge( ['equipments'  => $equipments]));
+		}
+
+		$items=DB::select(DB::raw(" 
+					select o.id, concat(u.first_name, u.last_name) as name, s.name as site, oi.qty,oi.deliv_date, oi.return_date, b.price as bid from equipments e
+					inner join order_items oi on oi.equipment_id = e.id
+					inner join orders o on o.id = oi.order_id 
+					inner join users u on u.id = o.user_id
+					inner join sites s on o.site_id = s.id
+					left join bid_order_item b on b.order_item_id = oi.id
+					where e.id =" . $request->get("equipment_id") 
+							));
+		return view( 'web.admin.reports.equipmentHistory' )->with( array_merge( [
+			'equipments'  => $equipments,
+			'items' => $items
+		] ) );	
+	}
 }

@@ -21,6 +21,7 @@
     <meta name="keywords" content="homepage eqbids">
     <!-- Add to homescreen for Chrome ón Android -->
     <meta name="mobile-web-app-capable" content="yes">
+    <link rel="shortcut icon" href="/images/eqbids---canada-s-construction-marketplace-favicon.ico?3799077425"/>
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">

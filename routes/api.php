@@ -106,8 +106,8 @@ Route::group(['middleware'=>['auth:api','log'],'namespace'=>'Api'],function (){
 Route::group(['namespace'=>'Api'],function (){
 
 	//Route::apiResource('/requestPin','Auth\LoginController');
-	Route::get('/requestPin','Auth\LoginController@loginRequestPin');
-
+	Route::get('/requestPin','Auth\LoginController@requestPin');
+	Route::post('/login','Auth\LoginController@login');
 
 	Route::apiResource('/countries','Geo\CountryController',['only'=>['index','show']]);
 	Route::apiResource('/metros','Geo\MetroController',['only'=>['index','show']]);

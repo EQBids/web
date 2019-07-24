@@ -56,6 +56,7 @@ class LoginController extends Controller
         $this->pinRepository = $pinRepository;
         $this->usersRepository = $usersRepository;
         $this->settings_repository=$settings_repository;
+        
     }
 
     /**
@@ -73,7 +74,7 @@ class LoginController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function loginRequestPin(Request $request){
-
+        
         $request->validate([
             'email' =>  'required|email'
         ]);
@@ -130,6 +131,7 @@ class LoginController extends Controller
     }
 
     protected function validateLogin( Request $request ) {
+
     	$request->validate([
 		    'pin'   =>  'required',
 		    'email' =>  'required|email',
@@ -137,14 +139,17 @@ class LoginController extends Controller
     }
 
     protected function guard() {
+   
     	return Auth::guard('pin');
     }
 
     protected function credentials( Request $request ) {
+     
     	return $request->only('email','pin');
     }
 
     protected function authenticated( Request $request, $user ) {
+   
     	$this->user=$user;
 	    if($user->status==User::STATUS_PENDING){
 		    $this->usersRepository->changeStatus($user->id,1);
@@ -152,7 +157,6 @@ class LoginController extends Controller
     }
 
 	protected function redirectTo(){
-
     	// IF the user had tried to get into an specific url but was found unlogged, we saved the intended url and first
 		// redirect to it
 	    $intendedUrl = RequestFacade::session()->get('intendedUrl');
