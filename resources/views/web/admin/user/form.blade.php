@@ -1,3 +1,4 @@
+
 @if($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -43,11 +44,12 @@
             />
         </div>
 
+        
         <div class="form-group">
             <label>{{ __('Company name') }}:</label>
             <input name="company_name" class="form-control"
                 data-parsley-maxlength="150"
-                   value="{{ old('company_name',isset($user) && $user->contractors->first()?$user->contractors->first()->company_name: $user->suppliers->first()->name) }}"
+                   value="{{ old('company_name',(isset($user) && count($user->contractors) > 0)?$user->contractors->first()->company_name: ( count($user->suppliers) > 0 ) ? $user->suppliers->first()->name : '' ) }}"
             />
         </div>
 
@@ -55,7 +57,7 @@
             <label>{{ __('Address') }}:</label>
             <textarea name="address" class="form-control"
                       data-parsley-maxlength="200"
-            >{{ old('address',isset($user) && $user->contractors->first()?$user->contractors->first()->address: $user->suppliers->first()->address) }}</textarea>
+            >{{ old('address',isset($user) && count($user->contractors) > 0?$user->contractors->first()->address: ( count($user->suppliers) > 0 ) ? $user->suppliers->first()->name : '' ) }}</textarea>
         </div>
 
         <div class="form-group">
