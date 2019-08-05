@@ -8,7 +8,7 @@
     <title>EQBIDS</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="shortcut icon" href="images/eqbids---canada-s-construction-marketplace-favicon.ico" />
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <!-- font -->

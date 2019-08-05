@@ -8,6 +8,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('head_title','EQBIDS')</title>
 
+    <!-- Generic Icon -->
+    <link rel="shortcut icon" href="{{ asset('images/eqbids---canada-s-construction-marketplace-favicon.ico') }}">
+
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <!-- revoluation -->
     <link rel="stylesheet" type="text/css" href="{{ asset("css/revolution/settings.css")}}" media="screen" />

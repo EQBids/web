@@ -30,7 +30,7 @@
                 <div class="col-lg-12">
 
                     <div class="form-group">
-                        <label for="">Contractor<span class="required-symbol">*</span></label>
+                        <label for="">Office<span class="required-symbol">*</span></label>
                         <select name="contractor" id="contrator" class="form-control" data-parsley-required>
                             <option value="">Choose</option>
                             @foreach($contractors as $contractor)
