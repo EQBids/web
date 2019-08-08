@@ -57,7 +57,9 @@ class EquipmentsController extends Controller
         $imageName = $image->hashName();
 
         $imageName=$request->file('image')->store('equipment/images','public');
-
+        
+        $destinationPath = public_path('storage/equipment/images');
+        $image->move($destinationPath, $imageName);
         $data['details'] = [
         	'image'=>Storage::url($imageName),
 	        'description'=>htmlentities(clean($request->get('description'))),
@@ -100,9 +102,13 @@ class EquipmentsController extends Controller
         if($request->hasFile('image')){
             $image = $request->file('image');
             $imageName = $image->hashName();
-
-	        $imageName=$request->file('image')->store('equipment/images','public');
+            $destinationPath = public_path('storage/equipment/images');
+            
+            $imageName=$request->file('image')->store('equipment/images','public');
+            $image->move($destinationPath, $imageName);
+   
             $data['image_name'] = Storage::url($imageName);
+  
         }
 
         $this->equipmentRepo->updateBy($data,$id);
