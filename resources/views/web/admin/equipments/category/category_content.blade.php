@@ -41,7 +41,7 @@
     <div class="col-md-12">
         @if($equipments->count()>0)
             @foreach($equipments as $equipment)
-                @if($equipment->status==1)
+                @if($equipment->deleted_at == null)
                     <div class="product listing">
                         <div class="row">
                             <div class="col-lg-4 col-md-4 col-sm-4">
