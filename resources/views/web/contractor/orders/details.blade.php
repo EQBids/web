@@ -24,7 +24,7 @@
                             <td>{{ $supplier->name }}</td>
                             <td>{{ $supplier->city?$supplier->city->name:'' }}</td>
                             <td class="{{ $supplier->pivot->bid?'table-success':'table-danger' }}">{{ $supplier->pivot->bid?__('YES'):__('NO') }}</td>
-                            <td>{{ isset( $supplier->pivot->bid) ? $supplier->pivot->bid->amount : ''}}</td>
+                            <td>{{ isset( $supplier->pivot->bid) ? '$' . $supplier->pivot->bid->amount : ''}}</td>
                          
                         </tr>
                     @endforeach
