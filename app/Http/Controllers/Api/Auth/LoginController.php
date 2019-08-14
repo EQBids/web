@@ -72,7 +72,7 @@ class LoginController extends Controller
 
 //        If the email is no where to be found, redirect him to the sign up page.
         if(!$user){
-            return response()->json(['message'=>'Account doesn\'t exist!']);
+            return response()->json(['error'=>'0']);
          
         }
 
@@ -80,9 +80,9 @@ class LoginController extends Controller
         try{
             Mail::to($user->email)->send(new PinGenerated($pinNumber));
         }catch(Exception $ex){
-            return response()->json(['message'=>'some error has occurred!']);
+            return response()->json(['error'=>'10']);
         }
-        return response()->json(['message'=>'The pin was sent successfully!']);
+        return response()->json(['success'=>'1']);
     }
 
     /** 
