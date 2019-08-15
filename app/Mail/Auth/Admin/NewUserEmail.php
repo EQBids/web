@@ -31,7 +31,7 @@ class NewUserEmail extends Mailable
 	 */
 	public function build()
 	{
-		return $this->subject(__("Welcome to EQBIDS"))->from('eqbids@coderscoop.com')
+		return $this->subject(__("Welcome to EQBIDS"))->from('team@eqbids.com')
 		            ->view('emails.admin.users.welcome')
 		            ->with('user',$this->user);
 	}

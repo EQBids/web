@@ -30,7 +30,7 @@ class WelcomeMessage extends Mailable
      */
     public function build()
     {
-        $this->subject(__("Welcome to EQBIDS"))->from('eqbids@coderscoop.com')
+        $this->subject(__("Welcome to EQBIDS"))->from('team@eqbids.com')
                     ->with('user',$this->user);
 
         if($this->user->status==User::STATUS_ACTIVE){

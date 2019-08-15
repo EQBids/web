@@ -28,7 +28,7 @@ class ContractorSignedUp extends Mailable
      */
     public function build()
     {
-        return $this->from('eqbids@coderscoop.com')
+        return $this->from('team@eqbids.com')
                     ->subject(__("Contractor application on EQBids"))
                     ->view('emails.signup.notifications.contractor_signedup');
     }

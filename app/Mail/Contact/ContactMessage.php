@@ -29,6 +29,6 @@ class ContactMessage extends Mailable
      */
     public function build()
     {
-        return $this->from('eqbids@coderscoop.com')->view('emails.contact.message')->with('data',$this->data);
+        return $this->from('team@eqbids.com')->view('emails.contact.message')->with('data',$this->data);
     }
 }

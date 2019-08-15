@@ -31,6 +31,6 @@ class PinGenerated extends Mailable
     public function build()
     {
     	//TODO change
-        return $this->from('eqbids@coderscoop.com')->view('emails.auth.pin');
+        return $this->from('team@eqbids.com')->view('emails.auth.pin');
     }
 }

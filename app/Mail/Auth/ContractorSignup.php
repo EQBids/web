@@ -31,6 +31,6 @@ class ContractorSignup extends Mailable
      */
     public function build()
     {
-	    return $this->from('eqbids@coderscoop.com')->view('emails.auth.contractor.signup');
+	    return $this->from('team@eqbids.com')->view('emails.auth.contractor.signup');
     }
 }
