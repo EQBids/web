@@ -170,7 +170,7 @@
                 '<td>{{ __('Notes') }}:</td>'+
                 '<td><textarea class="form-control"\n' +
                 '                                           name="equipments['+data.oid+'][notes]"\n' +
-                '                                    ></textarea></td>' +
+                '                                    >'+data.order_notes+'</textarea></td>' +
                 '</tr>';
                 if(data.allow_attachments){
                     template=template+'<tr>'+
