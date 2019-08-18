@@ -124,14 +124,15 @@
         var equipment_route = "{{ route('contractor.equipment.show',[-1]) }}";
 
         function format ( data ) {
+            console.log(data);
             var template= '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px; width: 100%">'+
                 '<tr>'+
                 '<td>{{ __('Delivery date') }}:</td>'+
-                '<td><p>'+(data.deliv_date!=null?data.deliv_date:'')+'</p></td>' +
+                '<td><p>'+(data.from!=null?data.from:'')+'</p></td>' +
                 '</tr>'+
                 '<tr>'+
                 '<td>{{ __('Return date') }}:</td>'+
-                '<td><p>'+(data.return_date!=null?data.return_date:'')+'</p></td>' +
+                '<td><p>'+(data.to!=null?data.to:'')+'</p></td>' +
                 '</tr>'+
                 '<tr>'+
                 '<td>{{ __('Delivery fee') }}:</td>'+
