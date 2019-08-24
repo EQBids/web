@@ -284,8 +284,9 @@ class orderController extends Controller
 	    $site_id = $cart->details['site_id'];
     	$site = $this->site_repository->findOneBy($site_id);
     	$radius = $this->settings_repository->getValue('radius_in_km_from_site',100);
-    	$suppliers = $this->supplier_repository->suppliersInRange($site->lat,$site->lon,$radius,$site->country_id,$cart->items);
-
+    	//$suppliers = $this->supplier_repository->suppliersInRange($site->lat,$site->lon,$radius,$site->country_id,$cart->items);
+		$suppliers = $this->supplier_repository->findAll();
+		//print_r($suppliers);
 		if(isset($cart->details['suppliers'])){
 			$old_suppliers=$cart->details['suppliers'];
 		}
@@ -549,6 +550,7 @@ class orderController extends Controller
 	}
 
 	public function save_bid(updateOrderBidsRequest $request,Order $order){
+		
     	try {
 		    $this->order_repository->updateBids( $order, $request->get( 'bids', [] ) );
 		    return redirect()->back()->with('notifications',collect([
@@ -568,11 +570,13 @@ class orderController extends Controller
 	}
 
 	public function closing(Request $request,Order $order){
+		
     	$order->load('items.bids');
     	return view('web.contractor.orders.close')->with(compact('order'));
 	}
 
 	public function close(Request $request,Order $order){
+		
 		try {
 			$this->order_repository->close( $order);
 			return redirect(route('contractor.orders.index'))->with('notifications',collect([

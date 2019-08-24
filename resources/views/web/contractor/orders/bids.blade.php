@@ -94,8 +94,12 @@
         var equipments = {!! \App\Http\Resources\Buyer\orderItemResource::collection($order->items)->toJson() !!}
         var equipment_route = "{{ route('contractor.equipment.show',[-1]) }}";
         var suppliers = {{ $order->suppliers->count() }};
+
+        function bid_chosen(id){
+            $(".bid_id").val(id);
+        }
         function format ( data ) {
-            console.log(data);
+            console.log('');
             var accepted_bid_id=undefined;
             var html = '<div id="bids_'+data.id+'">' +
                     '<div class="card" style="width: 100%">';
@@ -106,6 +110,7 @@
                     if (bid.status=='ACCEPTED') {
                         accepted_bid_id = bid.id;
                     }
+                    console.log(bid);
                     html+='<div class="card-body row '+(bid.status=='ACCEPTED'?'picked-bid':'')+'">' +
                             '<div class="col-md-5">'+
                         '<p>' +
@@ -124,7 +129,7 @@
                                 '</p>'+
                             '</div>'+
                         '<div class="col-md-3">' +
-                        '<button type="button" class="btn btn-success pick_btn pull-right" role="button" data-id="'+bid.id+'" >{{ __('Accept') }}</button>' +
+                        '<button type="button" onclick="bid_chosen('+bid.id+')"; class="btn btn-success pick_btn pull-right" role="button" data-id="'+bid.id+'" >{{ __('Accept') }}</button>' +
                         '</div>' +
                         '</div>'+
                             '<div class="card-body row '+(bid.status=='ACCEPTED'?'picked-bid':'')+'">' +
@@ -135,11 +140,10 @@
                     '</div>'
 
 
-
                     ;
 
                 }
-
+                html+='<input type="hidden"  class="bid_id" name="bids['+data.oid+'][bid_id]" />';
                 html+='<input type="hidden" name="bids['+data.oid+'][id]" value="'+data.oid+'" />';
                 html+='<input type="hidden" class="bid" name="bids['+data.oid+'][bid]" value="'+((accepted_bid_id!=undefined)?accepted_bid_id:'')+' />';
 
@@ -188,6 +192,7 @@
                 row.child( format(row.data()) ).show();
                 
                 $('.pick_btn',row.child()).on('click',function(){
+                
                     $(".btn-success").show();
                     var _tr = $(this).closest('tr');
                     //var _row = table.row( _tr );
@@ -201,6 +206,7 @@
             
             // Add event listener for opening and closing details
             $('#equipment-table tbody').on('click', 'td.details-control', function () {
+                console.log("x");
                 var tr = $(this).closest('tr');
                 var row = table.row( tr );
                 var first_col =  $('td:first i',tr).toggleClass('fa-plus-circle fa-minus-circle text-success text-danger');

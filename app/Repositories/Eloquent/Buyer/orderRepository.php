@@ -307,25 +307,34 @@ class orderRepository extends BaseRepository implements orderRepositoryInterface
 	}
 
 	public function updateBids( Order $order, $bidItems ) {
+		
 		if(!$order->can_assign_bids){
 			throw new \Error('Invalid access');
 		}
+		
 		
 		$items = $order->items->keyBy('id');
 		$allBids = $order->bids()->get()->toArray();
 		$i=0;
 		DB::beginTransaction();
 		try{
+			
 			foreach ($bidItems as $bidItem ){
-				$bidId = $allBids[$i]['id'];
-				$i++;
-				if($bidId > 0 && isset($bidItem['id']) && isset($items[$bidItem['id']])){
+				
+				$bid_id_picked = $bidItem['bid_id'];
+				BidItem::query()->where('bid_id',$bid_id_picked)->update(['status'=>BidItem::STATUS_ACCEPTED]);
+				for($i=0;$i< count($allBids); $i++){
+					$bidId = $allBids[$i]['id'];
 					
-					$item = $items[$bidItem['id']];
-					//BidItem::query()->where('order_item_id',$bid['id'])->update(['status'=>BidItem::STATUS_DEFAULT]);
-					$item->bids()->updateExistingPivot($bidId,['status'=>BidItem::STATUS_ACCEPTED]);
-					
+					if($bid_id_picked !=$bidId ){
+						
+						$item = $items[$bidItem['id']];
+						$item->bids()->updateExistingPivot($bidId,['status'=>BidItem::STATUS_DEFAULT]);
+						//BidItem::query()->where('order_item_id',$bidId)->update(['status'=>BidItem::STATUS_DEFAULT]);
+						
+					}
 				}
+				
 			}
 			DB::commit();
 			return $order;
@@ -349,6 +358,7 @@ class orderRepository extends BaseRepository implements orderRepositoryInterface
 	}
 
 	public function close( Order $order ) {
+		
 		if(!$order){
 			throw new \Exception('invalid order');
 		}
@@ -356,12 +366,16 @@ class orderRepository extends BaseRepository implements orderRepositoryInterface
 			throw new \Exception('Invalid status');
 		}
 		$suppliers = $order->suppliers()->get(['id'])->pluck('id');
+		
 		$winning_suppliers = $order->bids()->whereHas('items',function ($query){
 				$query->where('bid_order_item.status',BidItem::STATUS_ACCEPTED);
 		})->get()->map(function ($bid){
 			return $bid->supplier_id;
 		})->unique();
+		
 		$no_winners = $suppliers->diff($winning_suppliers);
+		print_r($no_winners);
+		die;
 		$this->sendCloseOrderEmails($order,$winning_suppliers,$no_winners);
 
 		$this->updateBy([
