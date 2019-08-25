@@ -441,6 +441,7 @@ class ReportsController extends Controller
 	public function quotesStatus(baseReportRequest $request){
 		
 		$suppliers        = Supplier::orderBy( 'name' )->get();
+		
 		if($request->get("supplier_id") == ""){
 			
 			return view( 'web.admin.reports.quotesStatus' )->with( array_merge( ['suppliers'  => $suppliers]));
