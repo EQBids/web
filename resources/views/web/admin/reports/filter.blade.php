@@ -59,7 +59,7 @@
     <div class="col-lg-8">
         <div class="form-group">
             <label>{{ __('Industry') }}:</label>
-            <select class="wide fancyselect" name="industry_id" id="industry">
+            <select class="" name="industry_id" id="industry">
                 <option value="">----</option>
                 @foreach($industries as $industry)
                     <option value="{{ $industry->id }}" {{ request()->get('industry_id')==$industry->id?'selected':'' }}>{{ $industry->name }}</option>
