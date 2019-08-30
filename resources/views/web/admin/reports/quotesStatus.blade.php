@@ -35,6 +35,7 @@
             </div>
         </div>
     </form>
+    @if (isset($quotesReceived))
     <div class="row mt-50 table-responsive" >
         <table class="table table-striped table-bordered" id="report_table">
             <thead>
@@ -58,6 +59,7 @@
             </tbody>
         </table>
     </div>
+    @endif
 @endsection
 
 
