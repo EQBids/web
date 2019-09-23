@@ -8,19 +8,19 @@
             <div class="col-lg-6 col-md-6 xs-mb-10">
                 <div class="topbar-call text-center text-md-left">
                     <ul>
-                        <li><i class="fa fa-envelope-o theme-color"></i> team@eqbids.com</li>
-                        <li><i class="fa fa-phone"></i> <a href="tel:+7042791249"> <span>+(123) 456-7890 </span> </a> </li>
+                        <li><i class="fa fa-envelope-o theme-color"></i> <a href="mailto:team@eqbids.com"> <span>team@eqbids.com</span> </a> </li>
+                        <li><i class="fa fa-phone"></i> <a href="tel:+5196572671"> <span>+(519) 657-2671 </span> </a> </li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="topbar-social text-center text-md-right">
                     <ul>
-                        <li><a href="#"><span class="fa fa-facebook"></span></a></li>
-                        <li><a href="#"><span class="fa fa-instagram"></span></a></li>
-                        <li><a href="#"><span class="fa fa-google"></span></a></li>
-                        <li><a href="#"><span class="fa fa-twitter"></span></a></li>
-                        <li><a href="#"><span class="fa fa-linkedin"></span></a></li>
+                        <li><a href="https://www.facebook.com/EQBids/"target="_blank""><span class="fa fa-facebook"></span></a></li>
+                        <li><a href="https://www.instagram.com/eqbids/"target="_blank"><span class="fa fa-instagram"></span></a></li>
+                        
+                        <li><a href="https://www.twitter.com/eqbids"target="_blank"><span class="fa fa-twitter"></span></a></li>
+                        <li><a href="https://www.linkedin.com/company/eqbids/"target="_blank"><span class="fa fa-linkedin"></span></a></li>
                     </ul>
                 </div>
             </div>

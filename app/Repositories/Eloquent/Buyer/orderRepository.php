@@ -374,8 +374,7 @@ class orderRepository extends BaseRepository implements orderRepositoryInterface
 		})->unique();
 		
 		$no_winners = $suppliers->diff($winning_suppliers);
-		print_r($no_winners);
-		die;
+	
 		$this->sendCloseOrderEmails($order,$winning_suppliers,$no_winners);
 
 		$this->updateBy([

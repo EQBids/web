@@ -12,7 +12,7 @@
                     <th class="w-20">{{ __('Has bid') }}
                         @if($order->can_assign_bids)
                             <a class="btn btn-sm btn-info pull-right" href="{{ route('contractor.orders.bids',[$order->id]) }}">
-                                <i class="fa fa-gavel fa-bold "></i>Assign bids
+                                <i class="fa fa-gavel fa-bold "></i>Accept bids
                             </a>
                         @endif
                     </th>

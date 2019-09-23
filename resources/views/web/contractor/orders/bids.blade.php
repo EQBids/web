@@ -13,7 +13,7 @@
         <div class="col-md-12">
             <form method="post" action="{{ route('contractor.orders.bid',[$order->id]) }}">
                 @include('web.partials.show_errors')
-                <h2>{{ __('Assign bids for order#') }} {{$order->id}}</h2>
+                <h2>{{ __('Accept bids for order#') }} {{$order->id}}</h2>
 
                 <div class="card mt-20">
                     <div class="card-body">

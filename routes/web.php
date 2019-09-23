@@ -30,6 +30,23 @@ Route::get('contact',['uses'=>'Web\IndexController@contact', 'as'=>'contact']);
 Route::post('contact-message',['uses'=>'Web\IndexController@process_contact_form','as'=>'contactMessage']);
 Route::get('about',['uses'=>'Web\IndexController@about', 'as'=>'about']);
 
+
+Route::get('design',['uses'=>'Web\IndexController@design', 'as'=>'design']);
+
+Route::get('terms',['uses'=>'Web\IndexController@terms', 'as'=>'terms']);
+
+Route::get('privacy',['uses'=>'Web\IndexController@privacy', 'as'=>'privacy']);
+
+Route::get('design',['uses'=>'Web\IndexController@design', 'as'=>'design']);
+
+Route::get('custom',['uses'=>'Web\IndexController@custom', 'as'=>'custom']);
+
+Route::get('support',['uses'=>'Web\IndexController@support', 'as'=>'support']);
+
+Route::get('perform',['uses'=>'Web\IndexController@perform', 'as'=>'perform']);
+
+
+
 Route::middleware([IsLoggedIn::class])->group(function(){
 
     Route::prefix('contractors')->group(function(){

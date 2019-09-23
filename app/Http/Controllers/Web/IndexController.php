@@ -43,8 +43,27 @@ class IndexController extends Controller
     	return view('web.contact.index');
 	}
 	public function about(){
-		return view('web.contact.about');
+		return view('web.about.index');
 	}
+	public function terms(){
+		return view('web.terms.index');
+	}
+	public function privacy(){
+		return view('web.privacy.index');
+	}
+    public function design(){
+		return view('web.services.design');
+	}
+    public function custom(){
+		return view('web.services.custom');
+	}
+    public function support(){
+		return view('web.services.support');
+	}
+    public function perform(){
+		return view('web.services.perform');
+	}
+
 
     public function process_contact_form(Request $request){
 		$rules = (new ContactRequest)->rules();

@@ -38,7 +38,7 @@
                         <td>{{$order->getStatusName() }}</td>
                         <td>
                             @if($order->can_assign_bids)
-                                <a class="btn btn-sm btn-info" href="{{ route('contractor.orders.bids',[$order->id]) }}"><i class="fa fa-gavel fa-bold "></i>Assign bids</a>
+                                <a class="btn btn-sm btn-info" href="{{ route('contractor.orders.bids',[$order->id]) }}"><i class="fa fa-gavel fa-bold "></i>Accept bids</a>
                                 <br/>
                             @endif
                             @if($order->is_approvable)

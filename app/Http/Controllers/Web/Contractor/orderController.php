@@ -284,8 +284,8 @@ class orderController extends Controller
 	    $site_id = $cart->details['site_id'];
     	$site = $this->site_repository->findOneBy($site_id);
     	$radius = $this->settings_repository->getValue('radius_in_km_from_site',100);
-    	//$suppliers = $this->supplier_repository->suppliersInRange($site->lat,$site->lon,$radius,$site->country_id,$cart->items);
-		$suppliers = $this->supplier_repository->findAll();
+    	$suppliers = $this->supplier_repository->suppliersInRange($site->lat,$site->lon,$radius,$site->country_id,$cart->items);
+		//$suppliers = $this->supplier_repository->findAll();
 		//print_r($suppliers);
 		if(isset($cart->details['suppliers'])){
 			$old_suppliers=$cart->details['suppliers'];

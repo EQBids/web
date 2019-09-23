@@ -46,6 +46,7 @@ class Equipment extends Model
 
 	public function scopeWithSupplierInRange(Builder $query,$lat,$lon,$country_id,$earthRadius=6378.388){
 		$limits = coordinatesBoundaries($lat,$lon,$radius);
+		
 		return $query->whereExists(function ($inventories_exists) use ($lat,$limits,$lon,$earthRadius,$radius,$country_id){
 			$inventories_exists->select(DB::raw(1))
                ->from('inventories')

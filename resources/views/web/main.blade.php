@@ -11,12 +11,12 @@
 <!--[if IE 8]><html lang="en" class="no-js oldie ie8"><![endif]-->
 <!--[if gt IE 8]><!-->
 <html lang="es" class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"> <!--<![endif]-->
-<head>
-    <meta charset="utf-8">
+<head><meta http-equiv="Content-Type" content="text/html; charset=gb18030">
+    
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>EQBids</title>
+    <title>EQBids - Rentals and Purchases Made Easy</title>
     <meta name="description" content="eqbids homepage">
     <meta name="keywords" content="homepage eqbids">
     <!-- Add to homescreen for Chrome ón Android -->
@@ -132,15 +132,19 @@
                         <div class="col-lg-6 col-md-6 xs-mb-10">
                             <div class="topbar-call text-center text-md-left">
                                 <ul>
-                                    <li><i class="fa fa-envelope-o theme-color"></i> team@eqbids.com</li>
-                                    <li><i class="fa fa-phone"></i> <a href="tel:+7042791249"> <span>+(123) 456-7890 </span> </a> </li>
+                                    <li><i class="fa fa-envelope-o theme-color"></i> <a href="mailto:team@eqbids.com"> <span>team@eqbids.com</span> </a> </li>
+                                    <li><i class="fa fa-phone"></i> <a href="tel:+5196572671"> <span>+(519) 657-2671 </span> </a> </li>
                                 </ul>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="topbar-social text-center text-md-right">
                                 <ul>
-
+                                <li><a href="https://www.facebook.com/EQBids/"target="_blank""><span class="fa fa-facebook"></span></a></li>
+                                <li><a href="https://www.instagram.com/eqbids/"target="_blank"><span class="fa fa-instagram"></span></a></li>
+                        
+                                <li><a href="https://www.twitter.com/eqbids"target="_blank"><span class="fa fa-twitter"></span></a></li>
+                                <li><a href="https://www.linkedin.com/company/eqbids/"target="_blank"><span class="fa fa-linkedin"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -225,7 +229,7 @@
                             data-delay="8010"  data-rotate="0"  data-saveperformance="off"
                             data-title="Slide" data-description="">
                             <!-- MAIN IMAGE -->
-                            <img src="{{ asset('images/slider/slider1.jpg') }}"  alt=""
+                            <img src="{{ asset('images/slider/construction_background_slider212.jpg') }}"  alt=""
                                  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat"
                                  class="rev-slidebg" data-no-retina>
                             <!-- LAYERS -->
@@ -259,8 +263,8 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-12">
                         <div class="section-title text-center">
-                            <h6>Our Services</h6>
-                            <h2 class="title-effect">We provide the best service</h2>
+                            <h6>What We Do</h6>
+                            <h2 class="title-effect">We Make Rentals and Purchases Simpler, Smarter and More Streamlined</h2>
                         </div>
                     </div>
                 </div>
@@ -273,9 +277,9 @@
                                         <span class="fa fa-desktop theme-color" aria-hidden="true"></span>
                                     </div>
                                     <div class="feature-info">
-                                        <h5>Perfect design</h5>
-                                        <p>Responsive Lorem Ipsum used since the 1500s is reproduced below for those.. </p>
-                                        <a class="button icon-color" href="#">Read more <i class="fa fa-angle-right"></i></a>
+                                        <h5>User Friendly Design</h5>
+                                        <p>The EQBids platform was designed with both Contractors and Suppliers needs in mind... </p>
+                                        <a class="button icon-color" href="design">Read more <i class="fa fa-angle-right"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -287,7 +291,7 @@
                                     <div class="feature-info">
                                         <h5>24/7 Customer support</h5>
                                         <p>Great support quibusdam reproduced enim <span class="theme-color" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top">expedita</span> sed quia nesciunt incidunt..</p>
-                                        <a class="button icon-color" href="#">Read more <i class="fa fa-angle-right"></i></a>
+                                        <a class="button icon-color" href="support">Read more <i class="fa fa-angle-right"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -301,7 +305,7 @@
                                     <div class="feature-info">
                                         <h5>Easy to Customize</h5>
                                         <p>Fully customizable template enim expedita sed quia nesciunt incidunt accusamus..</p>
-                                        <a class="button icon-color" href="#">Read more <i class="fa fa-angle-right"></i></a>
+                                        <a class="button icon-color" href="custom">Read more <i class="fa fa-angle-right"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -313,37 +317,12 @@
                                     <div class="feature-info">
                                         <h5>Powerful Performance</h5>
                                         <p>Fast as light Ipsum used since the 1500s is reproduced below for those Sections.. </p>
-                                        <a class="button icon-color" href="#">Read more <i class="fa fa-angle-right"></i></a>
+                                        <a class="button icon-color" href="perform">Read more <i class="fa fa-angle-right"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row ">
-                            <div class="col-xl-6 col-lg-6 col-md-6">
-                                <div class="feature-text left-icon xs-mb-40">
-                                    <div class="feature-icon">
-                                        <span class="fa fa-divide theme-color" aria-hidden="true"></span>
-                                    </div>
-                                    <div class="feature-info">
-                                        <h5>Parallax Sections</h5>
-                                        <p>Fully customizable template enim expedita sed quia nesciunt incidunt accusamus..</p>
-                                        <a class="button icon-color" href="#">Read more <i class="fa fa-angle-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6">
-                                <div class="feature-text left-icon">
-                                    <div class="feature-icon">
-                                        <span class="fa fa-image theme-color" aria-hidden="true"></span>
-                                    </div>
-                                    <div class="feature-info">
-                                        <h5>Revolution Slider</h5>
-                                        <p>Fast as light Ipsum used since the 1500s is reproduced below for those Sections.. </p>
-                                        <a class="button icon-color" href="#">Read more <i class="fa fa-angle-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                      
                     </div>
                 </div>
             </div>
@@ -360,18 +339,13 @@
         work-process -->
 
         <section class="split-section black-bg page-section-ptb">
-            <div class="side-background">
-                <div class="col-lg-6 img-side img-left">
-                    <div class="img-holder img-cover" data-jarallax='{"speed": 0.6}' style="background-image: url({{ asset('images/RUS.jpg') }});">
-                    </div>
-                </div>
-            </div>
+            
             <div class="container">
                 <div class="row justify-content-end">
-                    <div class="col-lg-5">
+                    <div class="col-lg-12">
                         <div class="section-title">
-                            <h6 class="text-white">Work Process</h6>
-                            <h2 class="text-white title-effect">Our Unique Process </h2>
+                            <h2 class="text-white">We Do Things Different!</h2>
+                            <h4 class="text-white title-effect">Our Unique Process </h4>
                             <p class="text-white">Know our process and Possimus delectus ex, harum, quis rerum maxime in magnam. lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
                         </div>
                         <div class="tab">
@@ -521,13 +495,16 @@
                         <div class="col-xl-6 col-md-6">
                             <img class="img-fluid"  id="logo-footer"  src="images/logo.png" alt="">
                             <div class="footer-text">
-                                <p> &copy;Copyright <span id="copyright"> <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script></span> <a href="#"> EQBIDS </a> All Rights Reserved </p>
+                                <p> &copy;Copyright <span id="copyright"> <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script></span> <a href="#"> EQBids Inc. </a> All Rights Reserved </p>
                             </div>
                         </div>
                         <div class="col-xl-6 col-md-6">
                             <div class="footer-social">
                                 <ul class="text-left text-md-right">
                                     <li class="list-inline-item"><a href=" {{ route('contact') }}">Contact us </a> &nbsp;&nbsp;&nbsp;|</li>
+                                    <li class="list-inline-item"><a href=" {{ route('about') }}">About us </a> &nbsp;&nbsp;&nbsp;|</li>
+                                    <li class="list-inline-item"><a href=" {{ route('terms') }}">Terms and Conditions </a> &nbsp;&nbsp;&nbsp;|</li>
+                                    <li class="list-inline-item"><a href=" {{ route('privacy') }}">Privacy Policy </a> &nbsp;&nbsp;&nbsp;</li>
                                 </ul>
                             </div>
                         </div>

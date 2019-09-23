@@ -12,6 +12,10 @@
                     <div class="row col-lg-12">
                         @include('web.partials.show_errors')
                     </div>
+
+                    <div class="col-lg-12">
+                        <button type="submit" class="btn btn-primary">{{__("Submit")}}</button>
+                    </div>
                     <div class="col-lg-12">
 
                         <h1>Inventory</h1>

@@ -83,11 +83,13 @@ class CategoriesController extends Controller
 
         if($request->hasFile('image')){
             $image = $request->file('image');
-
+            $imageName = $image->hashName();
+            $destinationPath = public_path('storage/categories/images');
             $imageName = $request->file('image')->store('categories/images','public');
+            $image->move($destinationPath, $imageName);
             $data['details']['image'] = Storage::url($imageName);
         }
-
+        
         $this->categoriesRepo->updateBy($data,$id,'id');
 
         return redirect()->route('admin.categories.index')->with('notifications',collect([
