@@ -1,3 +1,4 @@
+
 <h2 class="text-center">{{ __('Bid #').$bid->id }}</h2>
 <div class="card">
     <div class="card-header">
@@ -65,7 +66,7 @@
             </div>
             <label class="col-sm-3 text-right col-form-label">{{ __('Cell Number:') }}</label>
             <div class="col-sm-3">
-                <input type="text" readonly class="form-control-plaintext text-dark" value="{{ $bid->order->site->phone }}" />
+                <input type="text" readonly class="phone_number form-control-plaintext text-dark" value="{{ $bid->order->site->phone }}" />
             </div>
         </div>
 
@@ -165,6 +166,7 @@
         }
 
         $(document).ready(function() {
+            $(".phone_number").hide();
             var table = $('#equipment-table').DataTable( {
                 data:equipments,
                 "columns": [
@@ -184,6 +186,10 @@
                         }
                     },
                     { "data": function (data) {
+                            $(".phone_number").hide();
+                            if(data.status == "ACCEPTED"){
+                                $(".phone_number").show();
+                            }
                             return '<a  href="'+equipment_route.replace('-1',data.id)+'"> '+data.name+' </a>'
                         }  },
                     { "data": "price"  },
@@ -197,6 +203,7 @@
             $('#equipment-table tbody').on('click', 'td.details-control', function () {
                 var tr = $(this).closest('tr');
                 var row = table.row( tr );
+                
                 var first_col =  $('td:first i',tr).toggleClass('fa-plus-circle fa-minus-circle text-success text-danger');
                 if ( row.child.isShown() ) {
                     // This row is already open - close it
@@ -204,6 +211,7 @@
                     tr.removeClass('shown');
                 }
                 else {
+                    
                     // Open this row
                     row.child( format(row.data()) ).show();
                     tr.addClass('shown');

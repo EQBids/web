@@ -29,16 +29,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label class="col-sm-3 text-right col-form-label">{{ __('Site Contact:') }}</label>
-                            <div class="col-sm-3">
-                                <input type="text" readonly class="form-control-plaintext text-dark" value="{{ $order->site->contact }}" />
-                            </div>
-                            <label class="col-sm-3 text-right col-form-label">{{ __('Cell Number:') }}</label>
-                            <div class="col-sm-3">
-                                <input type="text" readonly class="form-control-plaintext text-dark" value="{{ $order->site->phone }}" />
-                            </div>
-                        </div>
+                        
 
                         <div class="form-group row">
                             <label class="col-sm-3 text-right col-form-label">{{ __('Site Address:') }}</label>
@@ -49,6 +40,17 @@
                             <div class="col-sm-3">
                                 <input type="text" readonly class="form-control-plaintext text-dark" value="{{ $order->site->city->name }}" />
                             </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 text-right col-form-label">{{ __('Site Contact:') }}</label>
+                            <div class="col-sm-3">
+                                <input type="text" readonly class="form-control-plaintext text-dark" value="{{ $order->site->contact }}" />
+                            </div>
+                            <!--<label class="col-sm-3 text-right col-form-label">{{ __('Cell Number:') }}</label>
+                            <div class="col-sm-3">
+                                <input type="text" readonly class="form-control-plaintext text-dark" value="{{ $order->site->phone }}" />
+                            </div>-->
                         </div>
                     </div>
                 </div>
