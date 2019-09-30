@@ -52,7 +52,9 @@
 @push('footer_scripts')
     <script>
         $(function(){
-            $('#applicants-table').dataTable();
+            $('#applicants-table').dataTable({
+                order:[[0,'desc']]
+            });
         })
     </script>
 @endpush
