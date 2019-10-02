@@ -77,6 +77,9 @@
                                     <th >
                                         {{ __('Unit price') }}
                                     </th>
+                                    <th >
+                                        {{ __('Sub Total') }}
+                                    </th>
                                 </tr>
 
                                 </thead>
@@ -122,6 +125,12 @@
         var equipments = {!! \App\Http\Resources\Buyer\orderItemResource::collection($order->items)->toJson() !!}
         var equipment_route = "{{ route('contractor.equipment.show',[-1]) }}";
         Window.dropzone.autoDiscover = false;
+        function calculateSubTotal(el){
+            $('.sub_total').each(function (index, value) {
+                var total = $(el).val() * document.getElementsByClassName('qtde')[index].innerText;
+                $(this).val(total);
+            });
+        }
 
         function format ( data ) {
             var template= '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px; width: 100%" id="child_'+data.oid+'">'+
@@ -189,6 +198,8 @@
         }
 
         $(document).ready(function() {
+           
+
             var table = $('#equipment-table').DataTable( {
                 data:equipments,
                 "columns": [
@@ -210,17 +221,27 @@
                     { "data": function (data) {
                             return '<a  href="'+equipment_route.replace('-1',data.id)+'"> '+data.name+' </a>'
                         }  },
-                    { "data": "qty" },
                     { "data": function (data) {
+                            return '<label class="qtde">'+data.qty+'</label>';
+                        }
+                    
+                    },
+                    { "data": function (data) {
+                            
                             return '<div class="input-group mb-3">\n' +
                                 '  <div class="input-group-prepend" style="padding: 0px">\n' +
                                 '    <span class="input-group-text">$</span>\n' +
                                 '  </div>\n' +
-                                '  <input type="text" required class="form-control money" value="" name="equipments['+data.oid+'][price]" />\n' +
+                                '  <input type="text" onchange="calculateSubTotal(this);" required class="form-control money price-value" value="" name="equipments['+data.oid+'][price]" />\n' +
                                 '  <input type="hidden" required  value="'+data.oid+'" name="equipments['+data.oid+'][id]" />\n' +
                                 '</div>'
                         }
                     },
+                    {
+                        "data" : function (data) {
+                            return '<input type="text" class="form-control money sub_total" disabled value="" />\n';
+                        }
+                    }
                 ],
                 "order": [[1, 'asc']]
             } );
