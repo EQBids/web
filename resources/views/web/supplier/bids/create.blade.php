@@ -10,7 +10,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <form method="post" action="{{ route('supplier.bids.store') }}" class="dropzone" id="form"
+            <form onsubmit="return confirm('Do you really want to confirm your bid?');" method="post" action="{{ route('supplier.bids.store') }}" class="dropzone" id="form"
                   enctype="multipart/form-data">
 
                 <input type="hidden" name="order_id" value="{{ $order->id }}" />
@@ -127,8 +127,17 @@
         Window.dropzone.autoDiscover = false;
         function calculateSubTotal(el){
             $('.sub_total').each(function (index, value) {
-                var total = $(el).val() * document.getElementsByClassName('qtde')[index].innerText;
-                $(this).val(total);
+                if(el != "1"){
+                    var total = ($(el).val() * document.getElementsByClassName('qtde')[index].innerText) +
+                            parseFloat((document.getElementsByClassName('eq-deliv')[index] == "undefined" ? document.getElementsByClassName('eq-deliv')[index].value : 0)) 
+                            + parseFloat((document.getElementsByClassName('eq-pick')[index] == "undefined" ? document.getElementsByClassName('eq-pick')[index].value : 0));
+               
+                }else{
+                    var total = parseFloat(document.getElementsByClassName('qtde')[index].innerText * document.getElementsByClassName('price-value')[index].value) +
+                            parseFloat(document.getElementsByClassName('eq-deliv')[index].value) + parseFloat(document.getElementsByClassName('eq-pick')[index].value);
+               
+                }
+                 $(this).val(total);
             });
         }
 
@@ -156,7 +165,7 @@
                 '<div class="input-group-prepend" style="padding: 0px">' +
                 '<span class="input-group-text">$</span>' +
                 '</div>' +
-                '<input type="text" class="form-control money" value="" name="equipments['+data.oid+'][delivery]" />' +
+                '<input type="text" class="form-control money eq-deliv" value="0" onchange="calculateSubTotal(1)"  name="equipments['+data.oid+'][delivery]" />' +
                 '</div>' +
                 '</td>'+
                 '</tr>'+
@@ -166,7 +175,7 @@
                 '<div class="input-group-prepend" style="padding: 0px">' +
                 '<span class="input-group-text">$</span>' +
                 '</div>' +
-                '<input type="text" class="form-control money" value="" name="equipments['+data.oid+'][pick]" />' +
+                '<input type="text" class="form-control money eq-pick" value="0" onchange="calculateSubTotal(1)" name="equipments['+data.oid+'][pick]" />' +
                 '</div>' +
                 '</td>'+
                 '</tr>'+
@@ -239,7 +248,12 @@
                     },
                     {
                         "data" : function (data) {
-                            return '<input type="text" class="form-control money sub_total" disabled value="" />\n';
+                            return  '<div class="input-group mb-3">\n' +
+                                    '  <div class="input-group-prepend" style="padding: 0px">\n' +
+                                    '<span class="input-group-text">$</span>\n' +
+                                    '  </div>\n' +
+                                    '<input type="text" class="form-control money sub_total" disabled value="0" />\n' +
+                                    '</div>';
                         }
                     }
                 ],

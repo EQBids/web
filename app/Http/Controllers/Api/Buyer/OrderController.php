@@ -199,6 +199,7 @@ class OrderController extends Controller
      */
     public function index()
     {
+		
         $user = Auth::user();
         return orderResource::collection($this->order_repository->accesibleOrders($user)->paginate());
     }
@@ -1313,6 +1314,7 @@ class OrderController extends Controller
 	 */
 	public function bids(viewOrderBidsRequest $request,Order $order){
 		$order->load('items.bids');
+
 		return orderItemResource::collection($order->items);
 	}
 

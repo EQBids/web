@@ -63,6 +63,7 @@
                             <td>
                                 <input type="text" readonly class="form-control-plaintext text-dark" value="{{ $item->qty }}" />
                             </td>
+                            
                         </tr>
                     @endif
                 @endforeach
@@ -76,13 +77,13 @@
     <script type="application/javascript">
 
         var equipments_map={!! json_encode(\App\Http\Resources\Buyer\orderItemResource::collection($order->items)->keyBy('id'))  !!};
-
+        
         function format ( id ) {
             var template= '<div>' +
                 '<label>{{'Notes:'}}</label><br/>'+
                 '<div>'+((equipments_map[id]!=undefined)?equipments_map[id].order_notes:'')+'</div>'+
                 '</div>';
-
+            console.log(equipments_map);
             if(equipments_map[id].accepted_bid){
                 var bid=equipments_map[id].accepted_bid;
                 template+=
@@ -95,7 +96,7 @@
                     '{{__('Delivery fee:')}} '+bid.delivery_fee +'<br/>'+
                     '{{__('Pickup fee:')}} '+bid.pickup_fee +'<br/>'+
                     '{{__('Insurance:')}} '+bid.insurance +'<br/>'+
-                    '<b>{{__('Total:') }} $'+bid.total+'</b><br/>'+
+                    '<b>{{__('Total:') }} $'+((bid.total * equipments_map[id].qty) + parseFloat(bid.delivery_fee) + parseFloat(bid.pickup_fee) )+'</b><br/>'+
                     '</p>'+
                     '</div>' +
                     '<div class="col-md-4">'+
@@ -149,6 +150,7 @@
             }
             else {
                 // Open this row
+               
                 row.child(format(tr.data('equipment-id'))).show();
                 tr.addClass('shown');
             }

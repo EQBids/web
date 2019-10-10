@@ -110,7 +110,6 @@
                     if (bid.status=='ACCEPTED') {
                         accepted_bid_id = bid.id;
                     }
-                    console.log(bid);
                     html+='<div class="card-body row '+(bid.status=='ACCEPTED'?'picked-bid':'')+'">' +
                             '<div class="col-md-5">'+
                         '<p>' +
@@ -118,8 +117,8 @@
                         '{{__('Price:')}} '+bid.price +'<br/>'+
                         '{{__('Delivery fee:')}} '+bid.delivery_fee +'<br/>'+
                         '{{__('Pickup fee:')}} '+bid.pickup_fee +'<br/>'+
-                        '{{__('Insurance:')}} '+bid.insurance +'<br/>'+
-                        '<b>{{__('Total:') }} $'+bid.total+'</b><br/>'+
+                        '{{__('Insurance:')}} '+ ( bid.insurance * parseFloat(document.getElementsByClassName('qtde')[idx].innerText ) +'<br/>'+
+                        '<b>{{__('Total:') }} $'+( (bid.insurance  * parseFloat(document.getElementsByClassName('qtde')[idx].innerText) ) + (bid.price  * parseFloat(document.getElementsByClassName('qtde')[idx].innerText) ) + parseFloat(bid.delivery_fee) + parseFloat(bid.pickup_fee) )+'</b><br/>'+               
                         '</p>'+
                         '</div>' +
                             '<div class="col-md-4">'+
@@ -177,7 +176,11 @@
                     { "data": function (data) {
                             return '<a  href="'+equipment_route.replace('-1',data.id)+'"> '+data.name+' </a>'
                         }  },
-                    { "data": "qty" },
+                    { "data": function (data) {
+                            return '<label class="qtde">'+data.qty+'</label>';
+                        }
+                    
+                    },
                     { "data": function (data) {
                             return data.bids.length+'/'+suppliers;
                         }

@@ -139,11 +139,13 @@ class orderRepository extends BaseRepository implements orderRepositoryInterface
 			$this->query->whereIn('site_id',[0]); //nothing
 		}
 		if($user->is_contractor && $user->contractor != null){
+			
 			if ($user->hasAnyRol(['contractor-worker','contractor-manager'])){
 				$sites = $user->sites()->pluck('id');
 				$this->query->whereIn('site_id',$sites);
 			}else{
 				$sites = $user->contractor->sites()->pluck('id');
+			
 				$this->query->whereIn('site_id',$sites);
 			}
 		}elseif($user->is_supplier){
@@ -158,12 +160,13 @@ class orderRepository extends BaseRepository implements orderRepositoryInterface
 			$this->query->whereIn('site_id',[0]); //nothing
 		}
 		$this->query->orderBy('created_at','desc');
-
+		
 		return $this;
 	}
 
 
 	public function ordersFromSites($site_ids){
+		
 		$this->query->whereIn('site_id',$site_ids);
 		return $this->findAll();
 	}

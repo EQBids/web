@@ -19,7 +19,7 @@ class orderItemResource extends Resource
      */
     public function toArray($request)
     {
-
+		
     	$details = $this->equipment->details;
 	    if(isset($details['image'])) {
 		    $image = asset( implode( '/', array_map( function ( $v ) {
@@ -28,7 +28,6 @@ class orderItemResource extends Resource
 	    }else{
 		    $image='';
 	    }
-
 	    return [
 	    	'oid'=>$this->id,
 		    'id'=>$this->equipment->id,
