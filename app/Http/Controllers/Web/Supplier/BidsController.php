@@ -58,14 +58,15 @@ class BidsController extends Controller
      */
     public function store(createBidRequest $request)
     {
-
+		
     	$user = Auth::user();
     	$order = Order::find($request->get('order_id'));
 	    $supplier=$order->suppliers()->whereIn('id',$user->suppliers->pluck('id'))->first();
 
 	    $files = Storage::files('bids/'.$order->id.'/'.$supplier->id);
 
-    	$data = $request->only(['order_id','equipments']);
+		$data = $request->only(['order_id','equipments']);
+
     	$data['supplier_id']=$supplier->id;
     	$data['details']=[
     		'notes'=>$request->get('notes')

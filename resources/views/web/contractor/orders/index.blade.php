@@ -36,24 +36,24 @@
                         <td>{{$order->creator->full_name }}</td>
                         <td>{{$order->site->nickname }}</td>
                         <td>{{$order->getStatusName() }}</td>
-                        <td>
+                        <td style="width:100% !important;">
                             @if($order->can_assign_bids)
                                 <a class="btn btn-sm btn-info" href="{{ route('contractor.orders.bids',[$order->id]) }}"><i class="fa fa-gavel fa-bold "></i>Accept bids</a>
-                                <br/>
+                                
                             @endif
                             @if($order->is_approvable)
-                                <a href="{{ route('contractor.orders.approval',[$order->id]) }}"><i class="fa fa-check-circle"></i></a>
+                                <a class="btn btn-sm btn-info" href="{{ route('contractor.orders.approval',[$order->id]) }}"><i class="fa fa-check-circle">Approve</i></a>
                             @endif
-                            <a href="{{ route('contractor.orders.show',[$order->id]) }}"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-sm btn-info" href="{{ route('contractor.orders.show',[$order->id]) }}"><i class="fa fa-eye"></i>View</a>
 
                             @if($order->is_editable)
-                                <a href="{{ route('contractor.orders.edit',[$order->id]) }}"><i class="fa fa-wrench"></i></a>
+                                <a class="btn btn-sm btn-info" href="{{ route('contractor.orders.edit',[$order->id]) }}"><i class="fa fa-wrench"></i>Edit</a>
                             @endif
                             @if($order->is_editing)
-                                <a href="{{ route('contractor.orders.edit.site',[$order->id]) }}"><i class="fa fa-wrench"></i></a>
+                                <a class="btn btn-sm btn-info" href="{{ route('contractor.orders.edit.site',[$order->id]) }}"><i class="fa fa-wrench"></i>Edit</a>
                             @endif
                             @if($order->is_cancelable)
-                                <a href="{{ route('contractor.orders.delete',[$order->id]) }}"><i class="fa fa-ban text-danger"></i></a>
+                                <a class="btn btn-sm btn-info" href="{{ route('contractor.orders.delete',[$order->id]) }}"><i class="fa fa-ban text-danger"></i>Delete</a>
                             @endif
 
 

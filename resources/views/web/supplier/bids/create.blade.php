@@ -128,13 +128,13 @@
         function calculateSubTotal(el){
             $('.sub_total').each(function (index, value) {
                 if(el != "1"){
-                    var total = ($(el).val() * document.getElementsByClassName('qtde')[index].innerText) +
-                            parseFloat((document.getElementsByClassName('eq-deliv')[index] == "undefined" ? document.getElementsByClassName('eq-deliv')[index].value : 0)) 
-                            + parseFloat((document.getElementsByClassName('eq-pick')[index] == "undefined" ? document.getElementsByClassName('eq-pick')[index].value : 0));
+                    var total = (document.getElementsByClassName('price-value')[index].value.replace(",","") * document.getElementsByClassName('qtde')[index].innerText) +
+                            parseFloat((document.getElementsByClassName('eq-deliv')[index] != undefined ? document.getElementsByClassName('eq-deliv')[index].value.replace(",","") : 0)) 
+                            + parseFloat((document.getElementsByClassName('eq-pick')[index] != undefined ? document.getElementsByClassName('eq-pick')[index].value.replace(",","") : 0));
                
                 }else{
-                    var total = parseFloat(document.getElementsByClassName('qtde')[index].innerText * document.getElementsByClassName('price-value')[index].value) +
-                            parseFloat(document.getElementsByClassName('eq-deliv')[index].value) + parseFloat(document.getElementsByClassName('eq-pick')[index].value);
+                    var total = parseFloat(document.getElementsByClassName('qtde')[index].innerText * document.getElementsByClassName('price-value')[index].value.replace(",","")) +
+                            parseFloat(document.getElementsByClassName('eq-deliv')[index].value.replace(",","")) + parseFloat(document.getElementsByClassName('eq-pick')[index].value.replace(",",""));
                
                 }
                  $(this).val(total);
@@ -208,7 +208,6 @@
 
         $(document).ready(function() {
            
-
             var table = $('#equipment-table').DataTable( {
                 data:equipments,
                 "columns": [
@@ -231,7 +230,7 @@
                             return '<a  href="'+equipment_route.replace('-1',data.id)+'"> '+data.name+' </a>'
                         }  },
                     { "data": function (data) {
-                            return '<label class="qtde">'+data.qty+'</label>';
+                            return '<input type="hidden" value="'+data.qty+'" name="equipments['+data.oid+'][qty]"/><label class="qtde">'+data.qty+'</label>';
                         }
                     
                     },
@@ -248,6 +247,7 @@
                     },
                     {
                         "data" : function (data) {
+                            
                             return  '<div class="input-group mb-3">\n' +
                                     '  <div class="input-group-prepend" style="padding: 0px">\n' +
                                     '<span class="input-group-text">$</span>\n' +
@@ -259,16 +259,18 @@
                 ],
                 "order": [[1, 'asc']]
             } );
-
+            
             // Add event listener for opening and closing details
             $('#equipment-table tbody').on('click', 'td.details-control', function () {
                 var tr = $(this).closest('tr');
                 var row = table.row( tr );
                 var first_col =  $('td:first i',tr).toggleClass('fa-plus-circle fa-minus-circle text-success text-danger');
+                
                 if ( row.child.isShown() ) {
                     // This row is already open - close it
-                    row.child.hide();
-                    tr.removeClass('shown');
+                    //row.child.hide();
+                    //tr.removeClass('shown');
+                    row.child.show();
                 }
                 else if(row.data().exists){
                     row.child.show();
@@ -334,6 +336,8 @@
                         );
                 }
             } );
+
+            $(".details-control").trigger('click');
 
             $('.money').mask('#,##0.00', {reverse: true});
         } );

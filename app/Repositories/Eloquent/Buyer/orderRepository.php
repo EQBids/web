@@ -53,8 +53,11 @@ class orderRepository extends BaseRepository implements orderRepositoryInterface
 	}
 
 	public function createFromCart( Cart $cart ) {
+		
+		
 		$items_data = [];
 		foreach($cart->items as $item){
+	
 			array_push($items_data,[	'qty'=>$item->pivot->qty,
 				'deliv_date'=>$item->pivot->from,
 				'return_date'=>$item->pivot->to,

@@ -98,7 +98,7 @@
         function bid_chosen(id){
             $(".bid_id").val(id);
         }
-        function format ( data ) {
+        function format ( data ,index) {
             console.log('');
             var accepted_bid_id=undefined;
             var html = '<div id="bids_'+data.id+'">' +
@@ -110,6 +110,8 @@
                     if (bid.status=='ACCEPTED') {
                         accepted_bid_id = bid.id;
                     }
+                    var qtde = document.getElementsByClassName('qtde')[index] != undefined ? document.getElementsByClassName('qtde')[index].innerText : 0
+                   
                     html+='<div class="card-body row '+(bid.status=='ACCEPTED'?'picked-bid':'')+'">' +
                             '<div class="col-md-5">'+
                         '<p>' +
@@ -117,8 +119,8 @@
                         '{{__('Price:')}} '+bid.price +'<br/>'+
                         '{{__('Delivery fee:')}} '+bid.delivery_fee +'<br/>'+
                         '{{__('Pickup fee:')}} '+bid.pickup_fee +'<br/>'+
-                        '{{__('Insurance:')}} '+ ( bid.insurance * parseFloat(document.getElementsByClassName('qtde')[idx].innerText ) +'<br/>'+
-                        '<b>{{__('Total:') }} $'+( (bid.insurance  * parseFloat(document.getElementsByClassName('qtde')[idx].innerText) ) + (bid.price  * parseFloat(document.getElementsByClassName('qtde')[idx].innerText) ) + parseFloat(bid.delivery_fee) + parseFloat(bid.pickup_fee) )+'</b><br/>'+               
+                        '{{__('Insurance:')}} '+ (bid.insurance * parseFloat( qtde )) +'<br/>'+
+                        '<b>{{__('Total:') }} $'+( bid.insurance  * parseFloat(qtde ) + (bid.price  * parseFloat(qtde) ) + parseFloat(bid.delivery_fee) + parseFloat(bid.pickup_fee) )+'</b><br/>'+               
                         '</p>'+
                         '</div>' +
                             '<div class="col-md-4">'+
@@ -136,17 +138,14 @@
                         '{{__('Notes:')}} '+
                         '</p>' +
                         '<p>'+bid.notes+'</p>'+
-                    '</div>'
-
-
-                    ;
+                    '</div>' ;
 
                 }
                 html+='<input type="hidden"  class="bid_id" name="bids['+data.oid+'][bid_id]" />';
                 html+='<input type="hidden" name="bids['+data.oid+'][id]" value="'+data.oid+'" />';
                 html+='<input type="hidden" class="bid" name="bids['+data.oid+'][bid]" value="'+((accepted_bid_id!=undefined)?accepted_bid_id:'')+' />';
 
-                html += '</div>'
+                html += '</div>'+
                 '</div>';
                 return html;
         }
@@ -192,7 +191,7 @@
             $( "tbody tr" ).each(function( index ) {
                 var tr = $(this).closest('tr');
                 var row = table.row( tr );
-                row.child( format(row.data()) ).show();
+                row.child( format(row.data() , index ) ).show();
                 
                 $('.pick_btn',row.child()).on('click',function(){
                 

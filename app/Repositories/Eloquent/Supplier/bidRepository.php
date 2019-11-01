@@ -35,6 +35,7 @@ class bidRepository extends BaseRepository implements bidRepositoryInterface {
 	}
 
 	public function create( array $data ) {
+		
 		$user=Auth::user();
 		if(isset($data['user_id'])){
 			$user=$this->users_repository->findOneBy($data['user_id']);
@@ -67,9 +68,9 @@ class bidRepository extends BaseRepository implements bidRepositoryInterface {
 
 		$amount=0;
 		foreach ($data['equipments'] as $equipment){
-			$amount+=($equipment['price'] + (isset($equipment['pick']) ? $equipment['pick'] : 0 ) + (isset($equipment['delivery']) ? $equipment['delivery'] : 0) ) ;
+			$amount+=( ($equipment['price'] * $equipment['qty']) + (isset($equipment['pick']) ? $equipment['pick'] : 0 ) + (isset($equipment['delivery']) ? $equipment['delivery'] : 0) ) ;
 		}
-		$data['amount']=$amount;
+		
 		$data['status']=Bid::STATUS_ACTIVE;
 		$insurance=$this->settings_repository->getValue($user->supplier,'insurance');
 		if(!$insurance || !is_numeric($insurance) || ((float)$insurance)<0 ){
@@ -78,11 +79,13 @@ class bidRepository extends BaseRepository implements bidRepositoryInterface {
 
 		$insurance=(float)$insurance;
 		$insurance/=100.0;
-
+		$data['amount']=round($amount,2);
 		$bid_items=[];
-
 		foreach ($data['equipments'] as $key=>$equipment){
 			$ins = (isset($equipment['insurance']) && $equipment['insurance'])?($insurance*$equipment['price']):0;
+
+			$ins = $ins * $equipment['qty'];
+
 			$bid_items[$key]=[
 				'price'=>$equipment['price'],
 				'dropoff_fee'=>isset($equipment['pick'])?$equipment['pick']:0,
@@ -96,8 +99,10 @@ class bidRepository extends BaseRepository implements bidRepositoryInterface {
 					'attachments'=>isset($equipment['attachments'])?$equipment['attachments']:[],
 				]
 			];
-			$data['amount'] = $data['amount'] + $ins;
+			$data['amount'] = $data['amount'] + ($ins );
+
 		}
+		
 		DB::beginTransaction();
 		$bid = Bid::create($data);
 		$bid->items()->attach($bid_items);
@@ -106,6 +111,7 @@ class bidRepository extends BaseRepository implements bidRepositoryInterface {
 	}
 
 	public function accesibleBids( User $user ) {
+		
 		if(!$user->is_supplier){
 			return collect([]);
 		}

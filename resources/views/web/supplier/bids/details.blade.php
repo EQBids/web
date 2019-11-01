@@ -100,7 +100,13 @@
                         {{ __('Product name') }}
                     </th>
                     <th >
-                        {{ __('Price') }}
+                        {{ __('Quantity') }}
+                    </th>
+                    <th >
+                        {{ __('Unit Price') }}
+                    </th>
+                    <th >
+                        {{ __('Sub Total') }}
                     </th>
                     <th>
                         {{ __('Status') }}
@@ -165,6 +171,7 @@
              return template;
         }
 
+        
         $(document).ready(function() {
             $(".phone_number").hide();
             var table = $('#equipment-table').DataTable( {
@@ -192,7 +199,18 @@
                             }
                             return '<a  href="'+equipment_route.replace('-1',data.id)+'"> '+data.name+' </a>'
                         }  },
+                    { "data": "qty"  },
                     { "data": "price"  },
+                    { "data" : function (data) {
+                        
+                            var total = parseFloat( parseFloat(data.delivery_fee) + parseFloat(data.insurance) + parseFloat(data.pickup_fee) + (parseFloat(data.price) * parseFloat(data.qty)) ).toFixed(2) ;
+                            return  '<div class="input-group mb-3">\n' +
+                                    '  <div class="input-group-prepend" style="padding: 0px">\n' +
+                                    '<span class="input-group-text">$</span>\n' +
+                                    '  </div>\n' +
+                                    '<input type="text" class="form-control money sub_total" disabled value="'+total+'" />\n' +
+                                    '</div>';
+                    }},
                     { "data": "status" },
 
                 ],

@@ -86,6 +86,7 @@
             console.log(equipments_map);
             if(equipments_map[id].accepted_bid){
                 var bid=equipments_map[id].accepted_bid;
+                console.log(bid);
                 template+=
                     '<h5 class="mt-30">Accepted Bid:</h5>'+
                     '<div class="card-body row">' +
@@ -96,7 +97,7 @@
                     '{{__('Delivery fee:')}} '+bid.delivery_fee +'<br/>'+
                     '{{__('Pickup fee:')}} '+bid.pickup_fee +'<br/>'+
                     '{{__('Insurance:')}} '+bid.insurance +'<br/>'+
-                    '<b>{{__('Total:') }} $'+((bid.total * equipments_map[id].qty) + parseFloat(bid.delivery_fee) + parseFloat(bid.pickup_fee) )+'</b><br/>'+
+                    '<b>{{__('Total:') }} $'+ parseFloat(bid.total ).toFixed(2) +'</b><br/>'+
                     '</p>'+
                     '</div>' +
                     '<div class="col-md-4">'+

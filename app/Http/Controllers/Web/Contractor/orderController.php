@@ -78,7 +78,8 @@ class orderController extends Controller
     public function store(createOrderRequest $request)
     {
 
-        $order = $this->order_repository->createFromCart(Auth::user()->cart);
+		$order = $this->order_repository->createFromCart(Auth::user()->cart);
+		
         if(!$order){
 	        return redirect()->back()->with('notifications',collect([
 			        [
