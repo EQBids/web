@@ -6,7 +6,6 @@
 ?>
 
 @extends('web.supplier.layout')
-
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -123,6 +122,18 @@
     <script type="application/javascript">
 
         var equipments = {!! \App\Http\Resources\Buyer\orderItemResource::collection($order->items)->toJson() !!}
+        var equipmentsIds = <?php print_r(json_encode(array_map('intval',$equipmentIds))); ?>;
+       
+        var ind = 0;
+        equipments.forEach(el => {
+            
+            if(!equipmentsIds.includes(el.id)){
+                equipments.splice(ind,1);
+                
+            }
+            ind++;
+        });
+
         var equipment_route = "{{ route('contractor.equipment.show',[-1]) }}";
         Window.dropzone.autoDiscover = false;
         function calculateSubTotal(el){

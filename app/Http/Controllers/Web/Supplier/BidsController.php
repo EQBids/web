@@ -17,15 +17,19 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Repositories\Interfaces\Product\inventoryRepositoryInterface;
 
 class BidsController extends Controller
 {
 
-
+	protected $inventoryRepo;
 	protected $bid_repository,$supplier_repository;
-	public function __construct(bidRepository $bid_repository,supplierRepository $supplier_repository) {
+
+	public function __construct(bidRepository $bid_repository,supplierRepository $supplier_repository,inventoryRepositoryInterface $inventoryRepo) {
 		$this->bid_repository=$bid_repository;
 		$this->supplier_repository=$supplier_repository;
+
+        $this->inventoryRepo = $inventoryRepo;
 	}
 
 	/**
@@ -35,7 +39,6 @@ class BidsController extends Controller
      */
     public function index()
     {
-		
 	    $bids = $this->bid_repository->accesibleBids(Auth::user());
 	    return view('web.supplier.bids.index')->with(compact('bids'));
     }
@@ -47,7 +50,16 @@ class BidsController extends Controller
      */
     public function create(Order $order)
     {
-        return view('web.supplier.bids.create')->with(compact('order'));
+		$user = Auth::user();
+		$supplier=$order->suppliers()->whereIn('id',$user->suppliers->pluck('id'))->first();
+
+		$supplierId = Auth::user()->suppliers()->first()->id;
+
+        $hasInventories = $this->inventoryRepo->hasInventories($supplierId);
+		$equipmentIds = $this->inventoryRepo->findEquipmentIdsBySupplier($supplierId);
+		
+		//die;
+        return view('web.supplier.bids.create')->with(compact('order','equipmentIds'));
     }
 
     /**
