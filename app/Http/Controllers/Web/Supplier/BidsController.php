@@ -316,6 +316,21 @@ class BidsController extends Controller
 	}
 
 	public function close(showBidRequest $request, Bid $bid){
+		
+		$image = $request->file('image');
+        $imageName = $image->hashName();
+		$bid['contract'] = $imageName;
+		
+        $imageName=$request->file('image')->store('suppliers','public');
+        
+        $destinationPath = public_path('storage/suppliers');
+        $image->move($destinationPath, $imageName);
+        $data['details'] = [
+        	'image'=>Storage::url($imageName),
+	        'description'=>htmlentities(clean($request->get('description'))),
+	        'excerpt'=>htmlentities(clean($request->get('excerpt'))),
+        ];
+		
 		try {
 			$this->bid_repository->close( $bid);
 			return redirect(route('supplier.bids.index'))->with('notifications',collect([

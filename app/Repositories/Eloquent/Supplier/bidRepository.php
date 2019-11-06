@@ -10,6 +10,7 @@ namespace App\Repositories\Eloquent\Supplier;
 
 
 use App\Mail\orders\confirmedBid;
+use App\Mail\orders\contractBid;
 use App\Models\Buyer\Order;
 use App\Models\OrderSupplier;
 use App\Models\Supplier\Bid;
@@ -220,6 +221,9 @@ class bidRepository extends BaseRepository implements bidRepositoryInterface {
 
 
 		Mail::to($bid->order->site->contractor->users()->get()->pluck('email')->toArray())->send(new confirmedBid($bid));
+
+		Mail::to($bid->order->site->contractor->users()->get()->pluck('email')->toArray())->send(new contractBid($bid));
+
 
 		$bid->status=Bid::STATUS_CLOSED;
 		$bid->save();
