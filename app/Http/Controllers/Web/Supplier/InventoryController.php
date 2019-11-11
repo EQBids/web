@@ -39,11 +39,15 @@ class InventoryController extends Controller
 
         //TODO check if this is ok, or there will be added a user_id fk to the suppliers table.
         $supplierId = Auth::user()->suppliers()->first()->id;
-
+        $list =$request->get('equipment');
+        if($request->get('equipment') == "" ){
+            $list = array();
+        }
+       
         if(!$this->inventoryRepo->hasInventories($supplierId))
-            $this->inventoryRepo->createWithMultipleEquipments($request->get('equipment'),$supplierId);
+            $this->inventoryRepo->createWithMultipleEquipments($list,$supplierId);
         else
-            $this->inventoryRepo->updateWithMultipleEquipments($request->get('equipment'),$supplierId);
+            $this->inventoryRepo->updateWithMultipleEquipments($list,$supplierId);
 
         return redirect()->route('supplier.inventory.index')->with('notifications',collect([
             [

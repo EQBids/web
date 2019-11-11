@@ -40,6 +40,15 @@ class InventoryRepository extends BaseRepository implements inventoryRepositoryI
 
     }
 
+    public function findAllBy( $value = null, $field = null, array $columns = [ '*' ], array $with=[] ) {
+		if ($field==null){
+			return $this->findAll();
+		}
+		$res= $this->query->where($field,$value)->whereRaw('deleted_at is null')->with($with)->get($columns);
+		$this->resetScope();
+		return $res;
+	}
+
     public function findEquipmentIdsBySupplier($supplierId)
     {
         return $this->findAllBy($supplierId,'supplier_id')->pluck('equipment_id')->toArray();
@@ -54,15 +63,15 @@ class InventoryRepository extends BaseRepository implements inventoryRepositoryI
     {
         try{
             DB::beginTransaction();
-
+            
             $equipmentsAlreadyOnInventory = $this->findEquipmentIdsBySupplier($supplierId);
-
+            
             for($i = 0 ; $i < count($equipments) ; $i++){
-
+            
                 //If the equipment was already on the inventory
                 if(in_array($equipments[$i] , $equipmentsAlreadyOnInventory)){
 
-                    $inventory = $this->model->where('supplier_id',$supplierId)->where('equipment_id',$equipments[$i])->first();
+                    $inventory = $this->model->whereRaw('deleted_at is null')->where('supplier_id',$supplierId)->where('equipment_id',$equipments[$i])->first();
 
                     if($inventory->status == 2){
                         $inventory->status = 1;
@@ -70,7 +79,6 @@ class InventoryRepository extends BaseRepository implements inventoryRepositoryI
                     elseif ($inventory->status == 1){
                         $inventory->status = 2;
                     }
-
                     $inventory->save();
                 }
                 else{
@@ -83,8 +91,17 @@ class InventoryRepository extends BaseRepository implements inventoryRepositoryI
                     ]);
                 }
             }
-
+            
+            for($i = 0 ; $i < count($equipmentsAlreadyOnInventory) ; $i++){
+                if(count($equipments) ==0 || !in_array($equipmentsAlreadyOnInventory[$i] , $equipments)){
+                    $inventory = $this->model->whereRaw('deleted_at is null')->where('supplier_id',$supplierId)->where('equipment_id',$equipmentsAlreadyOnInventory[$i])->first();
+                    echo $equipmentsAlreadyOnInventory[$i];
+                    $inventory->deleted_at = date("Y-m-d");
+                    $inventory->save();
+                }
+            }
             DB::commit();
+           
         }catch(\Exception $e){
             throw $e;
             DB::rollback();
