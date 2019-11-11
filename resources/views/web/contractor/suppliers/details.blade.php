@@ -25,19 +25,3 @@
     </div>
 </div>
 
-<div class="row">
-    
-    <div class="col-lg-6">
-        <div class="form-group">
-            <label for="">Latitude</label>
-            <input type="text" readonly class="form-control-plaintext" value="{{ $supplier->lat }}">
-        </div>
-    </div>
-
-    <div class="col-lg-6">
-        <div class="form-group">
-            <label for="">Longitude</label>
-            <input type="text" readonly class="form-control-plaintext" value="{{ $supplier->lon }}">
-        </div>
-    </div>
-</div>
