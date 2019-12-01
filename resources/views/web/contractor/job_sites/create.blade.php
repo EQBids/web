@@ -31,7 +31,7 @@
 
                     <div class="form-group">
                         <label for="">Office<span class="required-symbol">*</span></label>
-                        <select name="contractor" id="contrator" class="form-control" data-parsley-required>
+                        <select name="contractor" id="contrator" data-parsley-required>
                             <option value="">Choose</option>
                             @foreach($contractors as $contractor)
                                 <option value="{{$contractor->id}}">{{$contractor->address}}</option>
@@ -42,14 +42,7 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="">Job site nickname</label>
-                        {!! Form::text('nickname',null,[
-                            'class' =>  'form-control'
-                        ]) !!}
-                    </div>
-                </div>
+               
 
                 <div class="col-lg-6">
                     <div class="form-group">

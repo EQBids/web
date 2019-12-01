@@ -45,9 +45,10 @@ class supplierRepository extends BaseRepository  implements supplierRepositoryIn
 	}
 
 	public function supplierUsers( $supplier_id,$columns=['*'] ) {
+	
 		$users = User::query()->whereExists(function ($exists) use ($supplier_id){
 			$exists->select(DB::raw(1))->from('supplier_user')->whereRaw('supplier_user.user_id = users.id');
-			if(is_array($supplier_id)){
+			if(count($supplier_id)> 0){
 				$exists->whereIn('supplier_id',$supplier_id);
 			}else{
 				$exists->where('supplier_id',$supplier_id);

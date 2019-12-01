@@ -11,6 +11,8 @@
         <input type="text" readonly class="form-control-plaintext text-dark" value="{{ $order->creator->full_name }}" />
     </div>
 </div>
+
+
 <h4>{{ __('Equipment\'s') }}</h4>
 <div class="row">
     <div class="col-lg-12 col-md-12">
@@ -61,7 +63,7 @@
                                 <input type="text" readonly class="form-control-plaintext text-dark" value="{{ $item->return_date->format('Y/m/d') }}" />
                             </td>
                             <td>
-                                <input type="text" readonly class="form-control-plaintext text-dark" value="{{ $item->qty }}" />
+                                <input type="text" readonly class="qtde_{{$item->id}} form-control-plaintext text-dark" value="{{ $item->qty }}" />
                             </td>
                             
                         </tr>
@@ -83,10 +85,11 @@
                 '<label>{{'Notes:'}}</label><br/>'+
                 '<div>'+((equipments_map[id]!=undefined)?equipments_map[id].order_notes:'')+'</div>'+
                 '</div>';
-            console.log(equipments_map);
             if(equipments_map[id].accepted_bid){
                 var bid=equipments_map[id].accepted_bid;
-                console.log(bid);
+                console.log(id);
+                var qtde = document.getElementsByClassName('qtde_'+ id)[0] != undefined ? document.getElementsByClassName('qtde_'+ id)[0].value : 0
+                   
                 template+=
                     '<h5 class="mt-30">Accepted Bid:</h5>'+
                     '<div class="card-body row">' +
@@ -97,7 +100,7 @@
                     '{{__('Delivery fee:')}} '+bid.delivery_fee +'<br/>'+
                     '{{__('Pickup fee:')}} '+bid.pickup_fee +'<br/>'+
                     '{{__('Insurance:')}} '+bid.insurance +'<br/>'+
-                    '<b>{{__('Total:') }} $'+ parseFloat(bid.total ).toFixed(2) +'</b><br/>'+
+                    '<b>{{__('Total:') }} $'+( bid.insurance  * parseFloat(qtde ) + (bid.price  * parseFloat(qtde) ) + parseFloat(bid.delivery_fee) + parseFloat(bid.pickup_fee) )+'</b><br/>'+               
                     '</p>'+
                     '</div>' +
                     '<div class="col-md-4">'+
@@ -114,6 +117,7 @@
                     '{{__('Notes:')}} '+
                     '</p>' +
                     '<p>'+bid.notes+'</p>'+
+                   
                     '</div>';
             }
 

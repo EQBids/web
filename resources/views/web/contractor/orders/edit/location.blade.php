@@ -24,7 +24,7 @@
                         <select id="site" name="site" class="fancyselect wide">
                             <option value="">-</option>
                             @foreach($sites as $_site)
-                                <option value="{{ $_site->id }}" {{ (old('site')==$_site->id) || (isset($site) && $site->id==$_site->id)?'selected':'' }}> {{ $_site->nickname }}</option>
+                                <option value="{{ $_site->id }}" {{ (old('site')==$_site->id) || (isset($site) && $site->id==$_site->id)?'selected':'' }}> {{ $_site->name }}</option>
                             @endforeach
                         </select>
                     </div>

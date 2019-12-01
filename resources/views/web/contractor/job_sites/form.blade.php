@@ -39,14 +39,7 @@
 @endif
 
 <div class="row">
-    <div class="col-lg-6 col-sm-12">
-        <div class="form-group">
-            <label for="">Job site nickname</label>
-            {!! Form::text('nickname',old('nickname',isset($site)?$site->nickname:''),[
-                'class' =>  'form-control'
-            ]) !!}
-        </div>
-    </div>
+    
     <div class="col-lg-6">
         <div class="form-group">
             <label for="">Job site name<span class="required-symbol">*</span></label>

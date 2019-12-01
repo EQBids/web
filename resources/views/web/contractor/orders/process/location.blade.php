@@ -26,7 +26,7 @@
                             @if(isset($sites)) 
                             @foreach($sites as $_site)
                                 
-                                <option value="{{ $_site->id }}" {{ (old('site')==$_site->id) || (isset($site_id) && $site_id==$_site->id)?'selected':'' }}> {{ $_site->nickname }}</option>
+                                <option value="{{ $_site->id }}" {{ (old('site')==$_site->id) || (isset($site_id) && $site_id==$_site->id)?'selected':'' }}> {{ $_site->name }}</option>
                             @endforeach
                             @endif
                         </select>

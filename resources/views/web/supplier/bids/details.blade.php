@@ -1,4 +1,16 @@
 
+<style>
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+</style>
+
 <h2 class="text-center">{{ __('Bid #').$bid->id }}</h2>
 <div class="card">
     <div class="card-header">
@@ -40,7 +52,18 @@
                 <p type="text" readonly class="form-control-plaintext text-dark" >{{ $bid->details['notes'] }}</p>
             </div>
         </div>
-
+        @if($bid->contract_signed != "")
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">{{ __('Signed Contract:') }}</label>
+            <div class="col-sm-10">
+                <a target="_blank"  href="../../storage/{{ isset( $bid->contract_signed) ?  $bid->contract_signed : ''}}">
+                    <label class="custom-file-upload">
+                        <i class="fa fa-cloud-download"></i>Download
+                    </label>
+                </a>
+            </div>
+        </div>
+        @endif
     </div>
 </div>
 <div class="card">

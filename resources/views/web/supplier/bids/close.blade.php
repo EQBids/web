@@ -22,12 +22,12 @@
                                     {{ csrf_field() }}
 
                                     @if($bid->is_accepted && $bid->status==\App\Models\Supplier\Bid::STATUS_ACTIVE)
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <label for="image">{{(__("Attachment"))}}</label>
-                                            {!! Form::file('image',['class'=>'form-control']) !!}
-                                        </div>
-                                    </div>
+                                    
+                                    <label for="file-upload" class="custom-file-upload">
+                                        <i class="fa fa-cloud-upload"></i>Attachment
+                                    </label>
+                                    <input id="file-upload" name="image"  type="file" required/>
+                               
                                     @endif
                                     <br>
                                     <input type="submit"  class="btn btn-info pull-right" value="{{ __('Confirm and close the bid') }}" />

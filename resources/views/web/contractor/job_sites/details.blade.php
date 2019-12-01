@@ -22,8 +22,7 @@
 <div class="row">
     <div class="col-lg-6">
         <div class="form-group">
-            <label for="">Job site nickname</label>
-            <input type="text" readonly class="form-control-plaintext" value="{{ $site->nickname }}">
+            <input type="hidden" readonly class="form-control-plaintext" value="{{ $site->nickname }}">
         </div>
     </div>
 

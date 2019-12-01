@@ -82,7 +82,8 @@ Route::middleware([IsLoggedIn::class])->group(function(){
 		    Route::resource('orders','Web\Contractor\orderController')->except(['create']);
 		    Route::get('/orders/{order}/delete','Web\Contractor\orderController@delete')->name('orders.delete');
 		    Route::get('/orders/{order}/approval','Web\Contractor\orderController@approval')->name('orders.approval');
-		    Route::post('/orders/{order}/approve','Web\Contractor\orderController@approve')->name('orders.approve');
+			Route::post('/orders/{order}/approve','Web\Contractor\orderController@approve')->name('orders.approve');
+			Route::post('/orders/uploadContract','Web\Contractor\orderController@uploadContract')->name('orders.uploadContract');
 			
 		    Route::prefix('/orders/{order}/edit')->name('orders.edit.')->group(function (){
 			    Route::post('/begin','Web\Contractor\orderController@edit_begin')->name('begin');

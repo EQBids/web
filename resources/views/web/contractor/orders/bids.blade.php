@@ -95,8 +95,8 @@
         var equipment_route = "{{ route('contractor.equipment.show',[-1]) }}";
         var suppliers = {{ $order->suppliers->count() }};
 
-        function bid_chosen(id){
-            $(".bid_id").val(id);
+        function bid_chosen(id,order_id){
+            $(".bid_id_" + order_id).val(id);
         }
         function format ( data ,index) {
             console.log('');
@@ -119,8 +119,8 @@
                         '{{__('Price:')}} '+bid.price +'<br/>'+
                         '{{__('Delivery fee:')}} '+bid.delivery_fee +'<br/>'+
                         '{{__('Pickup fee:')}} '+bid.pickup_fee +'<br/>'+
-                        '{{__('Insurance:')}} '+ (bid.insurance * parseFloat( qtde )) +'<br/>'+
-                        '<b>{{__('Total:') }} $'+( bid.insurance  * parseFloat(qtde ) + (bid.price  * parseFloat(qtde) ) + parseFloat(bid.delivery_fee) + parseFloat(bid.pickup_fee) )+'</b><br/>'+               
+                        '{{__('Insurance:')}} '+ (bid.insurance ) +'<br/>'+
+                        '<b>{{__('Total:') }} $'+( bid.insurance  * 1 + (bid.price  * parseFloat(qtde) ) + parseFloat(bid.delivery_fee) + parseFloat(bid.pickup_fee) )+'</b><br/>'+               
                         '</p>'+
                         '</div>' +
                             '<div class="col-md-4">'+
@@ -130,7 +130,7 @@
                                 '</p>'+
                             '</div>'+
                         '<div class="col-md-3">' +
-                        '<button type="button" onclick="bid_chosen('+bid.id+')"; class="btn btn-success pick_btn pull-right" role="button" data-id="'+bid.id+'" >{{ __('Accept') }}</button>' +
+                        '<button type="button" onclick="bid_chosen('+bid.id+','+data.oid+')"; class="btn btn-success pick_btn pull-right" role="button" data-id="'+bid.id+'" >{{ __('Accept') }}</button>' +
                         '</div>' +
                         '</div>'+
                             '<div class="card-body row '+(bid.status=='ACCEPTED'?'picked-bid':'')+'">' +
@@ -139,9 +139,9 @@
                         '</p>' +
                         '<p>'+bid.notes+'</p>'+
                     '</div>' ;
-
+                    
                 }
-                html+='<input type="hidden"  class="bid_id" name="bids['+data.oid+'][bid_id]" />';
+                html+='<input type="hidden"  class="bid_id_' + data.oid + '" name="bids['+data.oid+'][bid_id]" />';
                 html+='<input type="hidden" name="bids['+data.oid+'][id]" value="'+data.oid+'" />';
                 html+='<input type="hidden" class="bid" name="bids['+data.oid+'][bid]" value="'+((accepted_bid_id!=undefined)?accepted_bid_id:'')+' />';
 

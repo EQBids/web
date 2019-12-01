@@ -32,7 +32,6 @@
                 <table id="dttable" class="table table-bordered table-striped dataTable">
                     <thead>
                         <tr>
-                            <th>{{ __('Nickname') }}</th>
                             <th>{{ __('Name') }}</th>
                             <th>{{ __('City') }}</th>
                             <th>{{ __('State/Province') }}</th>
@@ -42,7 +41,6 @@
                     <tbody>
                         @foreach($sites as $site)
                             <tr>
-                                <td>{{ $site->nickname }}</td>
                                 <td>{{ $site->name }}</td>
                                 <td>{{ $site->city?$site->city->name:'' }}</td>
                                 <td>{{ $site->state?$site->state->iso_code:'' }}</td>

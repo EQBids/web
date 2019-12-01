@@ -32,11 +32,20 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Models\Supplier\Bid;
+use App\Models\Supplier\Supplier;
+use App\Repositories\Eloquent\Supplier\bidRepository;
+
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\orders\contractBid;
+
+use Illuminate\Support\Facades\Storage;
 
 class orderController extends Controller
 {
 	protected $order_repository,$cart_repository,$site_repository,$city_repository,$supplier_repository;
-	protected $settings_repository,$country_repository,$state_repository;
+	protected $settings_repository,$country_repository,$state_repository, $bid_repository;
 	public function __construct(orderRepositoryInterface $order_repository,
 								cartRepositoryInterface $cart_repository,
 								siteRepositoryInterface $site_repository,
@@ -44,7 +53,8 @@ class orderController extends Controller
 								supplierRepository $supplier_repository,
 								SettingsRepository $settings_repository,
 								CountryRepository $country_repository,
-								stateRepository $state_repository
+								stateRepository $state_repository,
+								bidRepository $bid_repository
 								) {
 		$this->order_repository=$order_repository;
 		$this->cart_repository=$cart_repository;
@@ -54,6 +64,7 @@ class orderController extends Controller
 		$this->settings_repository=$settings_repository;
 		$this->state_repository=$state_repository;
 		$this->country_repository=$country_repository;
+		$this->bid_repository=$bid_repository;
 	}
 
 	/**
@@ -109,6 +120,7 @@ class orderController extends Controller
      */
     public function show(showRequest $request,Order $order)
     {
+		$order->load('items.bids');
     	return view('web.contractor.orders.show')->with(compact('order'));
     }
 
@@ -594,6 +606,27 @@ class orderController extends Controller
 				]
 			]));
 		}
+	}
+
+	public function uploadContract(Request $request){
+
+		$bid = Bid::find($request->input("bidId"));
+	
+		$image = $request->file('file');
+		
+        $imageName=$request->file('file')->store('suppliers','public') ;
+        $bid['contract_signed'] = $imageName;
+        $destinationPath = public_path('storage/suppliers');
+        $image->move($destinationPath, $imageName);
+        $data['details'] = [
+        	'image'=>Storage::url($imageName),
+	        'description'=>htmlentities(clean($request->get('description'))),
+	        'excerpt'=>htmlentities(clean($request->get('excerpt'))),
+		];
+		$bid->save();
+		Mail::to($bid->user->email)->send(new contractBid($bid));
+
+		//return redirect()->route('root',array('name' => 'Abigail', 'state' => 'CA'))->with('message', 'Success')->withInput();
 	}
 
 

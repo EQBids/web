@@ -48,7 +48,7 @@ class BidItem extends Pivot
 		switch ($this->status){
 			case BidItem::STATUS_DEFAULT: return 'IN REVIEW';
 			case BidItem::STATUS_ACCEPTED: return 'ACCEPTED';
-			case BidItem::STATUS_CANCELED: return 'CANCELLED';
+			case BidItem::STATUS_REJECTED: return 'CANCELLED';
 			default: return 'UNKNOWN';
 		}
 	}

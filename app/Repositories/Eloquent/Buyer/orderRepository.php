@@ -317,27 +317,26 @@ class orderRepository extends BaseRepository implements orderRepositoryInterface
 		if(!$order->can_assign_bids){
 			throw new \Error('Invalid access');
 		}
-		
-		
 		$items = $order->items->keyBy('id');
 		$allBids = $order->bids()->get()->toArray();
 		$i=0;
 		DB::beginTransaction();
 		try{
-			
+			//print_r($bidItems);die;
 			foreach ($bidItems as $bidItem ){
 				
 				$bid_id_picked = $bidItem['bid_id'];
-				BidItem::query()->where('bid_id',$bid_id_picked)->update(['status'=>BidItem::STATUS_ACCEPTED]);
+			
+				BidItem::query()->where('order_item_id', $bidItem['id'] )->where('bid_id',$bid_id_picked)->update(['status'=>BidItem::STATUS_ACCEPTED]);
 				for($i=0;$i< count($allBids); $i++){
 					$bidId = $allBids[$i]['id'];
 					
 					if($bid_id_picked !=$bidId ){
 						
 						$item = $items[$bidItem['id']];
-						$item->bids()->updateExistingPivot($bidId,['status'=>BidItem::STATUS_DEFAULT]);
-						//BidItem::query()->where('order_item_id',$bidId)->update(['status'=>BidItem::STATUS_DEFAULT]);
-						
+						$item->bids()->updateExistingPivot($bidId,['status'=>BidItem::STATUS_REJECTED]);
+						//BidItem::query()->where('order_item_id',$bidId)->update(['status'=>BidItem::STATUS_REJECTED]);
+						//BidItem::query()->where('bid_id',$bidId)->update(['status'=>BidItem::STATUS_REJECTED]);
 					}
 				}
 				
@@ -364,7 +363,7 @@ class orderRepository extends BaseRepository implements orderRepositoryInterface
 	}
 
 	public function close( Order $order ) {
-		
+	
 		if(!$order){
 			throw new \Exception('invalid order');
 		}
@@ -380,7 +379,7 @@ class orderRepository extends BaseRepository implements orderRepositoryInterface
 		})->unique();
 		
 		$no_winners = $suppliers->diff($winning_suppliers);
-	
+		
 		$this->sendCloseOrderEmails($order,$winning_suppliers,$no_winners);
 
 		$this->updateBy([
@@ -394,8 +393,9 @@ class orderRepository extends BaseRepository implements orderRepositoryInterface
 		//winning suppliers
 		if(count($winning_suppliers) > 0){
 			$users = $this->supplier_repository->supplierUsers($winning_suppliers,['email']);
-			$emails = $users->pluck('email')->unique();
+			$emails = $users->pluck('email');
 			Mail::bcc($emails)->send(new closureWinner($order));
+	
 		}
 		//losing suppliers
 		if( count($no_winning_suppliers) > 0 ) {
