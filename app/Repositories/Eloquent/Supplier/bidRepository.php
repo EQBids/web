@@ -35,7 +35,7 @@ class bidRepository extends BaseRepository implements bidRepositoryInterface {
 		$this->settings_repository=$settings_repository;
 	}
 
-	public function create( array $data ) {
+	public function create_bid( array $data ,$market_place_fee) {
 		
 		$user=Auth::user();
 		if(isset($data['user_id'])){
@@ -74,6 +74,7 @@ class bidRepository extends BaseRepository implements bidRepositoryInterface {
 		
 		$data['status']=Bid::STATUS_ACTIVE;
 		$insurance=$this->settings_repository->getValue($user->supplier,'insurance');
+		
 		if(!$insurance || !is_numeric($insurance) || ((float)$insurance)<0 ){
 			throw new \Error('Insurance value must be a positive number');
 		}
@@ -103,7 +104,9 @@ class bidRepository extends BaseRepository implements bidRepositoryInterface {
 			$data['amount'] = $data['amount'] + ($ins );
 
 		}
+		$data['price_w_fee'] = (($market_place_fee /100)* $data['amount']) + $data['amount'] ;
 		
+		//print_r($data);die;
 		DB::beginTransaction();
 		$bid = Bid::create($data);
 		$bid->items()->attach($bid_items);

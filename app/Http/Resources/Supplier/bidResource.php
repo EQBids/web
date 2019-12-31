@@ -19,7 +19,8 @@ class bidResource extends Resource
     	return [
         	'id'=>$this->id,
             'supplier'=>SupplierResource::make($this->supplier),
-	        'amount'=>$this->amount,
+            'amount'=>$this->amount,
+            'price_w_fee'=>$this->price_w_fee,
 	        'status'=>$this->resource->getStatusName(),
 	        'total'=>$this->whenPivotLoaded('bid_order_item',function(){
 		        return $this->pivot->total;

@@ -38,7 +38,7 @@ input[type="file"] {
                             <td>{{ $supplier->name }}</td>
                             <td>{{ $supplier->city?$supplier->city->name:'' }}</td>
                             <td class="{{ $supplier->pivot->bid?'table-success':'table-danger' }}">{{ $supplier->pivot->bid?__('YES'):__('NO') }}</td>
-                            <td>{{ isset( $supplier->pivot->bid) ? '$' . $supplier->pivot->bid->amount : ''}}</td>
+                            <td>{{ isset( $supplier->pivot->bid) ? '$' . $supplier->pivot->bid->price_w_fee : ''}}</td>
                             <td style="width:114px;">
                                 @if( $supplier->pivot->order->status == '7' && isset( $supplier->pivot->bid) && $supplier->pivot->bid->contract != '')
                                 <a target="_blank"  href="../../storage/suppliers/{{ isset( $supplier->pivot->bid) ?  $supplier->pivot->bid->contract : ''}}">
@@ -50,12 +50,15 @@ input[type="file"] {
                                 @endif
                             </td>
                             <td style="width:100px;">
-                                @if( $supplier->pivot->order->status == '7' && isset( $supplier->pivot->bid) && $supplier->pivot->bid->contract != '')
+                                @if($supplier->pivot->bid['contract_signed'] == "" && $supplier->pivot->order->status == '7' && isset( $supplier->pivot->bid) && $supplier->pivot->bid->contract != '')
                                 <label for="file-upload" class="custom-file-upload">
                                     <i class="fa fa-cloud-upload"></i>Upload
                                 </label>
                                 <input id="file-upload" name="image" onchange="uploadFile({{ $supplier->pivot->bid->id }})" class="file_upload_{{ $supplier->pivot->bid->id }}" type="file"/>
                                
+                                @endif
+                                @if($supplier->pivot->bid['contract_signed'] != "")
+                                    Uploaded
                                 @endif
                             </td>
                         </tr>

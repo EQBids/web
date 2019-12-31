@@ -10,6 +10,7 @@ use App\Http\Requests\Supplier\Bids\showBidRequest;
 use App\Http\Requests\Supplier\Bids\updateBidRequest;
 use App\Models\Buyer\Order;
 use App\Models\Supplier\Bid;
+use App\Repositories\Eloquent\SettingsRepository;
 use App\Repositories\Eloquent\Supplier\bidRepository;
 use App\Repositories\Eloquent\Supplier\supplierRepository;
 use function GuzzleHttp\Promise\all;
@@ -19,16 +20,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\Interfaces\Product\inventoryRepositoryInterface;
 
+
+
 class BidsController extends Controller
 {
 
 	protected $inventoryRepo;
-	protected $bid_repository,$supplier_repository;
+	protected $bid_repository,$supplier_repository, $settings_repository;
 
-	public function __construct(bidRepository $bid_repository,supplierRepository $supplier_repository,inventoryRepositoryInterface $inventoryRepo) {
+	public function __construct(SettingsRepository $settings_repository, bidRepository $bid_repository,supplierRepository $supplier_repository,inventoryRepositoryInterface $inventoryRepo) {
 		$this->bid_repository=$bid_repository;
 		$this->supplier_repository=$supplier_repository;
-
+		$this->settings_repository = $settings_repository;
         $this->inventoryRepo = $inventoryRepo;
 	}
 
@@ -58,8 +61,9 @@ class BidsController extends Controller
         $hasInventories = $this->inventoryRepo->hasInventories($supplierId);
 		$equipmentIds = $this->inventoryRepo->findEquipmentIdsBySupplier($supplierId);
 		
-		//die;
-        return view('web.supplier.bids.create')->with(compact('order','equipmentIds'));
+		$settings = $this->settings_repository->findAll()->whereIn('name', 'market_place_fee')->first();
+		$marketPlaceFee = $settings['value'];
+        return view('web.supplier.bids.create')->with(compact('order','equipmentIds', 'marketPlaceFee'));
     }
 
     /**
@@ -79,10 +83,15 @@ class BidsController extends Controller
 
 		$data = $request->only(['order_id','equipments']);
 
-    	$data['supplier_id']=$supplier->id;
+		$data['supplier_id']=$supplier->id;
+		
+		
     	$data['details']=[
     		'notes'=>$request->get('notes')
-	    ];
+		];
+		
+
+
 	    foreach ($files as $index=>$file){
 		    $files[$index]=basename($file);
 	    }
@@ -102,7 +111,9 @@ class BidsController extends Controller
 	    }
 
     	try{
-		    $bid = $this->bid_repository->create($data);
+			$settings = $this->settings_repository->findAll()->whereIn('name', 'market_place_fee')->first();
+			
+		    $bid = $this->bid_repository->create_bid($data,$settings['value'] );
 		    return redirect(route('supplier.bids.index'))->with('notifications',collect([
 				    [
 					    'type'=>'success',

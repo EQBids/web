@@ -100,6 +100,7 @@
                             <a class="list-group-item" href="{{ route('admin.reports.whoQuoted') }}" data-parent="#menu_reports"><i class="fa fa-circle"></i>{{ __('Who Quoted') }}</a>
                             <a class="list-group-item" href="{{ route('admin.reports.topEquipmentRequests') }}" data-parent="#menu_reports"><i class="fa fa-circle"></i>{{ __('Top Equipment Requests') }}</a>
                             <a class="list-group-item" href="{{ route('admin.reports.equipmentHistory') }}" data-parent="#menu_reports"><i class="fa fa-circle"></i>{{ __('Equipment History') }}</a>
+                            <a class="list-group-item" href="{{ route('admin.reports.marketPlaceFee') }}" data-parent="#menu_reports"><i class="fa fa-circle"></i>{{ __('Market Place Fee') }}</a>
                         </div>
 
                         <a href="{{ route('admin.orders.index') }}" class="list-group-item" ><i class="fa fa-list-ul"></i> {{__('Orders')}}</a>

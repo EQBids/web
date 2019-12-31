@@ -98,6 +98,7 @@
                     </div>
 
                 </div>
+                <input type="hidden" class="value_with_fee" name="price_w_fee"/>
                 <div class="row mt-50">
 
                     {{ csrf_field() }}
@@ -114,7 +115,6 @@
         </div>
     </div>
 @endsection
-
 @push('footer_scripts')
     <script src="{{ asset('js/plugins/bootstrap-datetimepicker/moment-datepicker.js') }}" type="application/javascript"></script>
     <script src="{{ asset('js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') }}" type="application/javascript"></script>
@@ -123,7 +123,6 @@
 
         var equipments = {!! \App\Http\Resources\Buyer\orderItemResource::collection($order->items)->toJson() !!}
         var equipmentsIds = <?php print_r(json_encode(array_map('intval',$equipmentIds))); ?>;
-       
         var ind = 0;
         equipments.forEach(el => {
             
@@ -148,7 +147,8 @@
                             parseFloat(document.getElementsByClassName('eq-deliv')[index].value.replace(",","")) + parseFloat(document.getElementsByClassName('eq-pick')[index].value.replace(",",""));
                
                 }
-                 $(this).val(total);
+                document.getElementsByClassName("markt_fee")[index].value = (total * ( <?php echo $marketPlaceFee; ?>/100) ).toFixed(2);
+                $(this).val(total);
             });
         }
 
@@ -187,6 +187,16 @@
                 '<span class="input-group-text">$</span>' +
                 '</div>' +
                 '<input type="text" class="form-control money eq-pick" value="0" onchange="calculateSubTotal(1)" name="equipments['+data.oid+'][pick]" />' +
+                '</div>' +
+                '</td>'+
+                '</tr>'+
+                '<tr>'+
+                '<td>{{ __('Market Place Fee') }}:</td>'+
+                '<td> <div class="input-group mb-3">' +
+                '<div class="input-group-prepend" style="padding: 0px">' +
+                '<span class="input-group-text">$</span>' +
+                '</div>' +
+                '<input type="text" disabled class="form-control money markt_fee" value="0" />' +
                 '</div>' +
                 '</td>'+
                 '</tr>'+

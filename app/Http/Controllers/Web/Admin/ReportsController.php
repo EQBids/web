@@ -541,4 +541,21 @@ class ReportsController extends Controller
 			'items' => $items
 		] ) );	
 	}
+
+	public function marketPlaceFee(baseReportRequest $request){
+		
+		//if($request->get("equipment_id") == ""){
+			
+		//	return view( 'web.admin.reports.marketPlaceFee' );//->with( array_merge( ['equipments'  => $equipments]));
+	//	}
+
+		$items=DB::select(DB::raw(" 
+		SELECT amount, price_w_fee, bids.id , (price_w_fee - amount) as fee , s.name as supplier FROM bids 
+		 INNER JOIN suppliers s on s.id = supplier_id  where (price_w_fee - amount) > 0" 
+							));
+		return view( 'web.admin.reports.marketPlaceFee' )->with( array_merge( [
+		//	'equipments'  => $equipments,
+			'items' => $items
+		] ) );	
+	}
 }

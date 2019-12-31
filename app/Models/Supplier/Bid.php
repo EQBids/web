@@ -16,7 +16,7 @@ class Bid extends Model
 	const STATUS_CLOSED=3;
 
 
-    protected $fillable=['amount','details','supplier_id','order_id','user_id','status'];
+    protected $fillable=['amount','details','supplier_id','order_id','user_id','status','price_w_fee'];
     protected $casts=[
     	'details'=>'json'
     ];

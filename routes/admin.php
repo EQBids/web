@@ -81,6 +81,7 @@ Route::name('admin.')->middleware('admin.authenticated')->group(function(){
         Route::get('whoQuoted','Web\Admin\ReportsController@whoQuoted')->name('whoQuoted');
         Route::get('topEquipmentRequests','Web\Admin\ReportsController@topEquipmentRequests')->name('topEquipmentRequests');
         Route::get('equipmentHistory','Web\Admin\ReportsController@equipmentHistory')->name('equipmentHistory');
+        Route::get('marketPlaceFee','Web\Admin\ReportsController@marketPlaceFee')->name('marketPlaceFee');
     });
 
 	Route::get('/logout','Web\Admin\LoginController@logout')->name('logout');

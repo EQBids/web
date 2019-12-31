@@ -96,11 +96,11 @@
                     '<div class="col-md-5">'+
                     '<p>' +
                     '<b>{{__('Supplier:') }} '+bid.supplier.name+'</b><br/>'+
-                    '{{__('Price:')}} '+bid.price +'<br/>'+
+                    '{{__('Price:')}} '+bid.price_w_fee +'<br/>'+
                     '{{__('Delivery fee:')}} '+bid.delivery_fee +'<br/>'+
                     '{{__('Pickup fee:')}} '+bid.pickup_fee +'<br/>'+
                     '{{__('Insurance:')}} '+bid.insurance +'<br/>'+
-                    '<b>{{__('Total:') }} $'+( bid.insurance  * parseFloat(qtde ) + (bid.price  * parseFloat(qtde) ) + parseFloat(bid.delivery_fee) + parseFloat(bid.pickup_fee) )+'</b><br/>'+               
+                    '<b>{{__('Total:') }} $'+( bid.insurance  * parseFloat(qtde ) + (bid.price_w_fee  ) + parseFloat(bid.delivery_fee) + parseFloat(bid.pickup_fee) )+'</b><br/>'+               
                     '</p>'+
                     '</div>' +
                     '<div class="col-md-4">'+
