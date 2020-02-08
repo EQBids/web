@@ -87,7 +87,7 @@
                 '</div>';
             if(equipments_map[id].accepted_bid){
                 var bid=equipments_map[id].accepted_bid;
-                console.log(id);
+                console.log(bid);
                 var qtde = document.getElementsByClassName('qtde_'+ id)[0] != undefined ? document.getElementsByClassName('qtde_'+ id)[0].value : 0
                    
                 template+=
@@ -96,11 +96,11 @@
                     '<div class="col-md-5">'+
                     '<p>' +
                     '<b>{{__('Supplier:') }} '+bid.supplier.name+'</b><br/>'+
-                    '{{__('Price:')}} '+bid.price_w_fee +'<br/>'+
+                    '{{__('Price per unit:')}} '+( parseFloat(bid.price) + ( (parseFloat(bid.price_w_fee) - parseFloat(bid.amount) ) / qtde ) ).toFixed(2) +'<br/>'+
                     '{{__('Delivery fee:')}} '+bid.delivery_fee +'<br/>'+
                     '{{__('Pickup fee:')}} '+bid.pickup_fee +'<br/>'+
                     '{{__('Insurance:')}} '+bid.insurance +'<br/>'+
-                    '<b>{{__('Total:') }} $'+( bid.insurance  * parseFloat(qtde ) + (bid.price_w_fee  ) + parseFloat(bid.delivery_fee) + parseFloat(bid.pickup_fee) )+'</b><br/>'+               
+                    '<b>{{__('Total:') }} $'+(  parseFloat(bid.price_w_fee) )+'</b><br/>'+               
                     '</p>'+
                     '</div>' +
                     '<div class="col-md-4">'+

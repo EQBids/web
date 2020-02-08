@@ -20,7 +20,8 @@ class orderItemResource extends Resource
     public function toArray($request)
     {
 		
-    	$details = $this->equipment->details;
+		$details = $this->equipment->details;
+		
 	    if(isset($details['image'])) {
 		    $image = asset( implode( '/', array_map( function ( $v ) {
 			    return rawurlencode( $v );
@@ -60,7 +61,8 @@ class orderItemResource extends Resource
 		    }),
 		    'notes'=>$this->whenPivotLoaded('bid_order_item',function(){
 			    return $this->pivot->notes;
-		    }),
+			}),
+			
 		    'editable'=>$this->whenPivotLoaded('bid_order_item',function(){
 			    return $this->pivot->status!=BidItem::STATUS_ACCEPTED;
 		    }),

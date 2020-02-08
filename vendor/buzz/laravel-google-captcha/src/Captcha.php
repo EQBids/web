@@ -82,7 +82,7 @@ class Captcha
         if ($isMultiple) {
             array_push($this->captchaAttributes, $attributes);
         } else {
-            $attributes['data-sitekey'] = '6Ldn9akUAAAAAHvldbAW6hKFy0dBwHzgG9kIhW_r'; //$this->config->get('captcha.sitekey');
+            $attributes['data-sitekey'] = '6LdTyc8UAAAAAB4jRCJAaH8oUsCP8dSOjJcl6o5g'; //$this->config->get('captcha.sitekey');
         }
 
         return $html . '<div class="g-recaptcha"' . $this->buildAttributes($attributes) . '></div>';

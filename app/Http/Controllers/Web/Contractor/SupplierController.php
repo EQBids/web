@@ -14,6 +14,7 @@ class SupplierController extends Controller
     public function __construct(){}
 
     public function index(){
+        
         $suppliers = Supplier::where('status', 1)->get();
         return view('web.contractor.suppliers.index', compact('suppliers'));
     }
@@ -26,6 +27,7 @@ class SupplierController extends Controller
      */
     public function show($id)
     {
+      
         $supplier = Supplier::where('id', $id)->first();
         return view('web.contractor.suppliers.show')->with('supplier', $supplier);
     }

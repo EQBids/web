@@ -122,6 +122,7 @@
     <script type="application/javascript">
 
         var equipments = {!! \App\Http\Resources\Buyer\orderItemResource::collection($order->items)->toJson() !!}
+   
         var equipmentsIds = <?php print_r(json_encode(array_map('intval',$equipmentIds))); ?>;
         var ind = 0;
         equipments.forEach(el => {
@@ -138,17 +139,26 @@
         function calculateSubTotal(el){
             $('.sub_total').each(function (index, value) {
                 if(el != "1"){
-                    var total = (document.getElementsByClassName('price-value')[index].value.replace(",","") * document.getElementsByClassName('qtde')[index].innerText) +
-                            parseFloat((document.getElementsByClassName('eq-deliv')[index] != undefined ? document.getElementsByClassName('eq-deliv')[index].value.replace(",","") : 0)) 
+                    var price_total_eqp = (document.getElementsByClassName('price-value')[index].value.replace(",","") * document.getElementsByClassName('qtde')[index].innerText) ;
+                    var total = parseFloat(price_total_eqp).toFixed(2) +
+                            parseFloat((document.getElementsByClassName('eq-deliv')[index] != undefined ? document.getElementsByClassName('eq-deliv')[index].value.replace(",","") : 0)) ;
                             + parseFloat((document.getElementsByClassName('eq-pick')[index] != undefined ? document.getElementsByClassName('eq-pick')[index].value.replace(",","") : 0));
                
                 }else{
-                    var total = parseFloat(document.getElementsByClassName('qtde')[index].innerText * document.getElementsByClassName('price-value')[index].value.replace(",","")) +
+                    var price_total_eqp = parseFloat(document.getElementsByClassName('qtde')[index].innerText * document.getElementsByClassName('price-value')[index].value.replace(",",""));
+                    var total = parseFloat(price_total_eqp) +
                             parseFloat(document.getElementsByClassName('eq-deliv')[index].value.replace(",","")) + parseFloat(document.getElementsByClassName('eq-pick')[index].value.replace(",",""));
                
                 }
-                document.getElementsByClassName("markt_fee")[index].value = (total * ( <?php echo $marketPlaceFee; ?>/100) ).toFixed(2);
-                $(this).val(total);
+                var ins = 0;
+                document.getElementsByClassName('ins_but')[index].value = "0";
+                if(document.getElementsByClassName('ins_but')[index].checked ){
+                    ins = parseFloat(price_total_eqp) *  <?php echo $insurance; ?>;
+                    document.getElementsByClassName('ins_but')[index].value = "1";
+                }
+                var ins_w_total = parseFloat(ins.toFixed(2)) + parseFloat(total);
+                document.getElementsByClassName("markt_fee")[index].value =  ( (ins_w_total ) * ( <?php echo $marketPlaceFee; ?>/100) ).toFixed(2);
+                $(this).val(parseFloat(total).toFixed(2));
             });
         }
 
@@ -203,8 +213,7 @@
                 '<tr>'+
                 '<td>{{ __('Insurance fee') }}:</td>'+
                 '<td>' +
-                '  <input type="hidden" value="0" name="equipments['+data.oid+'][insurance]" />\n' +
-                '  <input type="checkbox" class="checkbox-switch" value="1" name="equipments['+data.oid+'][insurance]" />\n' +
+                '  <input type="checkbox" onchange="calculateSubTotal(1);" class="ins_but"  value="0" name="equipments['+data.oid+'][insurance]" />\n' +
                 '</td>' +
                 '</tr>'+
                 '<tr>'+

@@ -558,8 +558,11 @@ class orderController extends Controller
 	}
 
 	public function bids(viewOrderBidsRequest $request,Order $order){
-    	$order->load('items.bids');
-		return view('web.contractor.orders.bids')->with(compact('order'));
+		$order->load('items.bids');
+		$settings = $this->settings_repository->findAll()->whereIn('name', 'market_place_fee')->first();
+		$marketPlaceFee = $settings['value'];
+
+		return view('web.contractor.orders.bids')->with(compact('order', 'marketPlaceFee'));
 	}
 
 	public function save_bid(updateOrderBidsRequest $request,Order $order){

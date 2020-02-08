@@ -34,7 +34,7 @@ input[type="file"] {
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">{{ __('Amount:') }}</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext text-dark" value="{{ money_format('%.2n',$bid->amount) }}" />
+                <input type="text" readonly class="form-control-plaintext text-dark" value="{{ money_format('%.2n',$bid->price_w_fee) }}" />
             </div>
         </div>
 
@@ -177,6 +177,10 @@ input[type="file"] {
                 '<td><p>'+(data.insurance!=null?data.insurance:'')+'</p></td>' +
                 '</tr>'+
                 '<tr>'+
+                '<td>{{ __('Market Place Fee') }}:</td>'+
+                '<td><p>'+( ( parseFloat(data.price * data.qty) + parseFloat(data.insurance ) + parseFloat(data.pickup_fee) + parseFloat(data.delivery_fee) ) * (<?php print_r( $fee/100);?>) ).toFixed(2)+'</p></td>' +
+                '</tr>'+
+                '<tr>'+
                 '<td>{{ __('Notes') }}:</td>'+
                 '<td><p>'+(data.notes!=null?data.notes:'')+'</p></td>' +
                 '</tr>';
@@ -223,15 +227,18 @@ input[type="file"] {
                             return '<a  href="'+equipment_route.replace('-1',data.id)+'"> '+data.name+' </a>'
                         }  },
                     { "data": "qty"  },
-                    { "data": "price"  },
+                    { "data": function (data) {
+                        return '<span class="">'+data.price+'</span>\n'  ;
+                     }},
                     { "data" : function (data) {
-                        
-                            var total = parseFloat( parseFloat(data.delivery_fee) + parseFloat(data.insurance) + parseFloat(data.pickup_fee) + (parseFloat(data.price) * parseFloat(data.qty)) ).toFixed(2) ;
+                            var market_place_fee = ( ( parseFloat(data.price * data.qty) + parseFloat(data.insurance ) + parseFloat(data.pickup_fee) + parseFloat(data.delivery_fee) ) * (<?php print_r( $fee/100);?>) );
+                            var total =  ( parseFloat(data.price * data.qty) + parseFloat(data.insurance ) + parseFloat(data.pickup_fee) + parseFloat(data.delivery_fee) );
+                            total = parseFloat(total.toFixed(20)) + parseFloat( market_place_fee.toFixed(2));
                             return  '<div class="input-group mb-3">\n' +
                                     '  <div class="input-group-prepend" style="padding: 0px">\n' +
                                     '<span class="input-group-text">$</span>\n' +
                                     '  </div>\n' +
-                                    '<input type="text" class="form-control money sub_total" disabled value="'+total+'" />\n' +
+                                    '<input type="text" class="form-control money sub_total" disabled value="'+(total.toFixed(2))+'" />\n' +
                                     '</div>';
                     }},
                     { "data": "status" },

@@ -111,16 +111,21 @@
                         accepted_bid_id = bid.id;
                     }
                     var qtde = document.getElementsByClassName('qtde')[index] != undefined ? document.getElementsByClassName('qtde')[index].innerText : 0
-                   
+                    var pricePerUnit = parseFloat( bid.price ) ;
+                
+                    var totalAll = parseFloat( (pricePerUnit * parseFloat(qtde)) + parseFloat(bid.delivery_fee) + parseFloat(bid.pickup_fee) + parseFloat(bid.insurance) ).toFixed(2);
+                    var marketPlaceFee = totalAll * (parseFloat(<?php echo $marketPlaceFee ;?>)/100);
+                    totalAll = parseFloat(totalAll) + parseFloat(marketPlaceFee);
+                    pricePerUnit = parseFloat(pricePerUnit) + (marketPlaceFee/qtde);
                     html+='<div class="card-body row '+(bid.status=='ACCEPTED'?'picked-bid':'')+'">' +
                             '<div class="col-md-5">'+
                         '<p>' +
                         '<b>{{__('Supplier:') }} '+bid.supplier.name+'</b><br/>'+
-                        '{{__('Price Per Unit:')}} '+( (bid.price_w_fee - bid.delivery_fee - bid.pickup_fee  - bid.insurance) / parseFloat(qtde)  ).toFixed(2) +'<br/>'+
+                        '{{__('Price Per Unit:')}} '+ pricePerUnit.toFixed(2) +'<br/>'+
                         '{{__('Delivery fee:')}} '+bid.delivery_fee +'<br/>'+
                         '{{__('Pickup fee:')}} '+bid.pickup_fee +'<br/>'+
                         '{{__('Insurance:')}} '+ (bid.insurance ) +'<br/>'+
-                        '<b>{{__('Total:') }} $'+( parseFloat(bid.price_w_fee) ).toFixed(2) +'</b><br/>'+               
+                        '<b>{{__('Total:') }} $'+totalAll.toFixed(2)  +'</b><br/>'+               
                         '</p>'+
                         '</div>' +
                             '<div class="col-md-4">'+

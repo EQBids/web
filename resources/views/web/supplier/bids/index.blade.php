@@ -36,7 +36,7 @@
                         <td>{{$bid->order_id }}</td>
                         <td>{{$bid->created_at->format('Y/m/d') }}</td>
                         <td>{{$bid->user->full_name }}</td>
-                        <td>$ {{ money_format('%.2n',$bid->amount) }}</td>
+                        <td>$ {{ money_format('%.2n',$bid->price_w_fee) }}</td>
                         <td>{{$bid->getStatusName() }}</td>
                         <td>
                             <a href="{{ route('supplier.bids.show',[$bid->id]) }}" class="btn btn-sm btn-success"><i class="fa fa-eye"></i></a>

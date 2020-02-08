@@ -35,6 +35,13 @@ class bidRepository extends BaseRepository implements bidRepositoryInterface {
 		$this->settings_repository=$settings_repository;
 	}
 
+	public function getInsurance(){
+		$user=Auth::user();
+		$insurance=$this->settings_repository->getValue($user->supplier,'insurance');
+		$insurance/=100.0;
+		return (float)$insurance;
+	}
+
 	public function create_bid( array $data ,$market_place_fee) {
 		
 		$user=Auth::user();
@@ -57,15 +64,15 @@ class bidRepository extends BaseRepository implements bidRepositoryInterface {
 			throw new \Error('Invalid order');
 		}
 
-		if(!$orderSuppliers->is_bidable){
+		/*if(!$orderSuppliers->is_bidable){
 			throw new \Error('Not allowed to bid');
-		}
+		}*/
 
 		$older_bids = Bid::query()->where('order_id',$data['order_id'])->where('supplier_id',$data['supplier_id'])->count();
 
-		if($older_bids){
+		/*if($older_bids){
 			throw new \Error('Not allowed to bid');
-		}
+		}*/
 
 		$amount=0;
 		foreach ($data['equipments'] as $equipment){
@@ -83,11 +90,11 @@ class bidRepository extends BaseRepository implements bidRepositoryInterface {
 		$insurance/=100.0;
 		$data['amount']=round($amount,2);
 		$bid_items=[];
+		
 		foreach ($data['equipments'] as $key=>$equipment){
-			$ins = (isset($equipment['insurance']) && $equipment['insurance'])?($insurance*$equipment['price']):0;
-
-			$ins = $ins * $equipment['qty'];
-
+			
+			$ins = (isset($equipment['insurance']) && $equipment['insurance'] == "1" )?($insurance*($equipment['price'] * $equipment['qty'])):0;
+			
 			$bid_items[$key]=[
 				'price'=>$equipment['price'],
 				'dropoff_fee'=>isset($equipment['pick'])?$equipment['pick']:0,
@@ -105,8 +112,6 @@ class bidRepository extends BaseRepository implements bidRepositoryInterface {
 
 		}
 		$data['price_w_fee'] = (($market_place_fee /100)* $data['amount']) + $data['amount'] ;
-		
-		//print_r($data);die;
 		DB::beginTransaction();
 		$bid = Bid::create($data);
 		$bid->items()->attach($bid_items);

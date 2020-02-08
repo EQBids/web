@@ -63,7 +63,11 @@ class BidsController extends Controller
 		
 		$settings = $this->settings_repository->findAll()->whereIn('name', 'market_place_fee')->first();
 		$marketPlaceFee = $settings['value'];
-        return view('web.supplier.bids.create')->with(compact('order','equipmentIds', 'marketPlaceFee'));
+
+		$insurance = $this->bid_repository->getInsurance();
+	
+	
+        return view('web.supplier.bids.create')->with(compact('order','equipmentIds', 'marketPlaceFee', 'insurance'));
     }
 
     /**
@@ -135,7 +139,10 @@ class BidsController extends Controller
      */
     public function show(showBidRequest $request, Bid $bid)
     {
-    	return view('web.supplier.bids.show')->with(compact('bid'));
+		$settings = $this->settings_repository->findAll()->whereIn('name', 'market_place_fee')->first();
+		$fee = $settings["value"];
+	
+    	return view('web.supplier.bids.show')->with(compact('bid', 'fee'));
     }
 
     /**
@@ -323,7 +330,9 @@ class BidsController extends Controller
 	}
 
 	public function closing(showBidRequest $request,Bid $bid){
-    	return view('web.supplier.bids.close')->with(compact('bid'));
+		$settings = $this->settings_repository->findAll()->whereIn('name', 'market_place_fee')->first();
+		$fee = $settings["value"];
+    	return view('web.supplier.bids.close')->with(compact('bid', 'fee'));
 	}
 
 	public function close(showBidRequest $request, Bid $bid){

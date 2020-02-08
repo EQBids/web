@@ -90,7 +90,7 @@ else:
         grecaptcha.execute('<?php echo $siteKey; ?>', {action: 'homepage'}).then(function(token) {
             document.querySelector('.token').innerHTML = token;
             document.querySelector('.step2').style.display = 'list-item';
-
+            alert("oi");
             fetch('/recaptcha-v3-verify.php?token='+token).then(function(response) {
                 response.json().then(function(data) {
                     document.querySelector('.response').innerHTML = JSON.stringify(data, null, 2);

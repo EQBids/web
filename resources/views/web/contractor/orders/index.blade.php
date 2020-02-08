@@ -34,7 +34,7 @@
                     <tr>
                         <td>{{$order->created_at->format('Y/m/d') }}</td>
                         <td>{{$order->creator->full_name }}</td>
-                        <td>{{$order->site->nickname }}</td>
+                        <td>{{$order->site->name }}</td>
                         <td>{{$order->getStatusName() }}</td>
                         <td style="width:100% !important;">
                             @if($order->can_assign_bids)

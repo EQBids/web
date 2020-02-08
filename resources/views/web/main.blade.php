@@ -151,10 +151,8 @@
                     </div>
                 </div>
             </div>
-
             <!--=================================
              mega menu -->
-
             <div class="menu">
                 <!-- menu start -->
                 <nav id="menu" class="mega-menu">
@@ -198,7 +196,6 @@
                                                             <a href="{{ route('signup_supplier') }}">{{ __('Sign-up as supplier') }} </a>
                                                         </li>
                                                     </ul>
-
                                                 </li>
                                             @endif
                                         </ul>
@@ -211,14 +208,11 @@
                 <!-- menu end -->
             </div>
         </header>
-
         <!--=================================
          header -->
-
         <!--=================================
          banner -->
-
-        <section class="rev-slider">
+         <section class="rev-slider">
             <div id="slider_wrapper" class="rev_slider_wrapper fullwidthbanner-container" data-alias="webster-slider-2" data-source="gallery" style="margin:0px auto;background:transparent;padding:0px;margin-top:0px;margin-bottom:0px;">
                 <!-- START REVOLUTION SLIDER 5.4.6.3 fullwidth mode -->
                 <div id="slider" class="rev_slider fullwidthabanner" style="display:none;" data-version="5.4.6.3">
@@ -229,35 +223,22 @@
                             data-delay="8010"  data-rotate="0"  data-saveperformance="off"
                             data-title="Slide" data-description="">
                             <!-- MAIN IMAGE -->
-                            <img src="{{ asset('images/slider/construction_background_slider212.jpg') }}"  alt=""
+                            <img src="{{ asset('images/slider/construction_background_slider1.jpeg') }}"  alt=""
                                  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat"
                                  class="rev-slidebg" data-no-retina>
                             <!-- LAYERS -->
                         </li>
-                        <li data-index="rs-757" data-transition="fade" data-slotamount="default"
-                            data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default"
-                            data-easeout="default" data-masterspeed="300"
-                            data-delay="8010"  data-rotate="0"  data-saveperformance="off"
-                            data-title="Slide" data-description="">
-                            <!-- MAIN IMAGE -->
-                            <img src="{{ asset('images/slider/slider2.jpg') }}"  alt=""  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
-                            <!-- LAYERS -->
-                        </li>
+                  
                     </ul>
                     <div class="tp-bannertimer tp-bottom" style="visibility: hidden !important;"></div> </div>
             </div>
         </section>
-
         <!--=================================
          banner -->
-
-
         <!--=================================
         our-service -->
-
         <section class="our-service page-section-ptb">
             <div class="objects-left">
-
             </div>
             <div class="container">
                 <div class="row">
@@ -331,13 +312,10 @@
                 <img class="objects-5 img-fluid wow fadeInRight" data-wow-delay="0.4s" data-wow-duration="2.0s" src="images/objects/05.png" alt="">
             </div>
         </section>
-
         <!--=================================
         our-service -->
-
         <!--=================================
         work-process -->
-
         <section class="split-section black-bg page-section-ptb">
             
             <div class="container">
@@ -370,13 +348,10 @@
                 </div>
             </div>
         </section>
-
         <!--=================================
         work-process -->
-
         <!--=================================
         things differently -->
-
         <section class="page-section-ptb">
             <div class="container">
                 <div class="row">
@@ -442,13 +417,10 @@
                 </div>
             </div>
         </section>
-
         <!--=================================
         things differently -->
-
         <!--=================================
         frequently  -->
-
         <section class="theme-bg pos-r page-section-ptb">
             <div class="container">
                 <div class="row">
@@ -480,14 +452,10 @@
                 </div>
             </div>
         </section>
-
         <!--=================================
         frequently  -->
-
-
         <!--=================================
         footer -->
-
         <footer class="footer footer-topbar black-bg">
             <div class="copyright">
                 <div class="container">
@@ -512,20 +480,14 @@
                 </div>
             </div>
         </footer>
-
         <!--=================================
          footer -->
-
     </div>
 </div>
-
 <div id="back-to-top"><a class="top arrow" href="#top"><i class="fa fa-angle-up"></i> <span>TOP</span></a></div>
-
-
 <script type="text/javascript">
     var plugin_path = "{{ asset('').'js/plugins/' }}";
 </script>
-
 <script type="text/javascript">
             @if(Session::has('notifications'))
 		        <?php $notifications = Session::get('notifications'); ?>
@@ -540,15 +502,12 @@
                         ];
             @endif
 </script>
-
 @stack('before_footer_scripts')
-
 <script src="{{ asset('js/app.js') }}" type="application/javascript"></script>
 <script src="{{ asset('js/plugins/mega-menu/mega_menu.js') }}" type="application/javascript"></script>
 <!-- REVOLUTION JS FILES -->
 <script src="{{ asset('js/revolution/jquery.themepunch.tools.min.js') }}"></script>
 <script src="{{ asset('js/revolution/jquery.themepunch.revolution.min.js') }}"></script>
-
 <!-- SLIDER REVOLUTION 5.0 EXTENSIONS  (Load Extensions only on Local File Systems !  The following part can be removed on Server for On Demand Loading) -->
 <script src="{{ asset('js/revolution/extensions/revolution.extension.actions.min.js') }}"></script>
 <script src="{{ asset('js/revolution/extensions/revolution.extension.carousel.min.js') }}"></script>
@@ -559,9 +518,7 @@
 <script src="{{ asset('js/revolution/extensions/revolution.extension.parallax.min.js') }}"></script>
 <script src="{{ asset('js/revolution/extensions/revolution.extension.slideanims.min.js') }}"></script>
 <script src="{{ asset('js/revolution/extensions/revolution.extension.video.min.js') }}"></script>
-
 <script src="{{ asset('js/eqbids.js') }}" type="application/javascript"></script>
-
 <script type="application/javascript">
     $(document).ready(function() {
         $("#slider").show().revolution({
@@ -586,7 +543,7 @@
                 ,
                 arrows: {
                     style: "dione",
-                    enable: true,
+                    enable: false,
                     hide_onmobile: true,
                     hide_under: 767,
                     hide_onleave: false,
@@ -629,10 +586,7 @@
             }
         });
     });
-
 </script>
-
 @stack('footer_scripts')
-
 </body>
 </html>

@@ -35,7 +35,7 @@
                     <tr>
                         <td>{{$order_supplier->order->created_at->format('Y/m/d') }}</td>
                         <td>{{ $order_supplier->order->site->contractor->company_name }}</td>
-                        <td>{{$order_supplier->order->site->nickname }}</td>
+                        <td>{{$order_supplier->order->site->name }}</td>
                         <td>{{$order_supplier->order->site->city->name }}</td>
                         <td>{{$order_supplier->status==\App\Models\OrderSupplier::STATUS_REJECTED?
                             $order_supplier->getStatusName():
