@@ -8,16 +8,22 @@ use App\Http\Requests\Buyer\Office\CreateOfficeRequest;
 use App\Repositories\Interfaces\Buyer\officeRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\Interfaces\Buyer\contractorRepositoryInterface;
+use Session;
+use App\Repositories\Interfaces\usersRepositoryInterface;
 
 class OfficesController extends Controller
 {
 
     protected $officeRepo,$geoRepo,$cityRepo,$stateRepo,$countryRepo;
 
-    public function __construct(officeRepositoryInterface $officeRepo)
+    public function __construct(officeRepositoryInterface $officeRepo , contractorRepositoryInterface $contractorRepo,
+    usersRepositoryInterface $usersRepo)
 
     {
         $this->officeRepo = $officeRepo;
+        $this->contractorRepo = $contractorRepo;
+        $this->usersRepo = $usersRepo;
     }
 
     public function index(){
@@ -117,10 +123,32 @@ class OfficesController extends Controller
 
     }
 
-    public function workers($id){
+    public function deleteWorker( $id){
+        
+        $user = $this->usersRepo->findOneBy($id,'id');
 
+        return view('web.contractor.offices.deleteWorker',compact('user', 'id'));
+    }
+
+    public function destroyWorker(Request $request,$id){
+        $office = $request->session()->pull('office', 'default');
+        
+        $this->officeRepo->deleteWorkerToOffice( $office,$id);
+        
+        return redirect()->route('contractor.offices.workers',[$office])->with('notifications',collect([
+            [
+                'text'=>__("The worker was removed successfully"),
+                'type'=>'success',
+                'wait'=>10,
+            ]
+        ]));
+    }
+
+    public function workers($id){
+        Session::put('office', $id);
         $office = $this->officeRepo->findOneBy($id);
         $workers = $this->officeRepo->findAllWorkersAffiliatedTo($id);
+     
         $eligibleWorkers = $this->officeRepo->findEligibleWorkersForOffice($id,Auth::user());
         return view('web.contractor.offices.workers',compact('office','workers','eligibleWorkers'));
     }

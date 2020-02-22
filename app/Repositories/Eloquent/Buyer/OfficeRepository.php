@@ -101,21 +101,24 @@ class OfficeRepository extends BaseRepository implements officeRepositoryInterfa
     {
         //TODO check if there's a more efficient way to do this.
 
-       $usersBelongingToContractor = DB::table('contractor_user')->select('user_id')->where('contractor_id',$id);
-       
-       $usersIds = DB::table('site_user')->select('site_user.user_id')
-                                                ->join('sites','sites.id','=','site_user.site_id')
-                                                ->join('contractors','sites.contractor_id','=','contractors.id')
-                                                ->where('contractors.id',$id)
-                                                ->union($usersBelongingToContractor)->get();
+       $usersIds = DB::table('contractor_user')->select('user_id')->whereRaw('contractor_id = '. $id  )->get();
+       //$usersIds = DB::table('site_user')->select('site_user.user_id')
+       //                                         ->join('sites','sites.id','=','site_user.site_id')
+      //                                          ->join('contractors','sites.contractor_id','=','contractors.id')
+       //                                         ->where('contractors.id',$id)
+       //                                         ->union($usersBelongingToContractor)->get();
 
        if(isset($usersIds) && count($usersIds) > 0){
 
            $arrayOfUsersIds = $usersIds->pluck('user_id')->toArray();
 
            //We return all the users that either belong to the contractor model with $id, or belong to a job site that belongs
-           //to the mentioned contractor "office"
-           return $this->usersRepo->with('rols')->findAllWhereIn($arrayOfUsersIds,'id');
+           //to the mentioned contractor "office" 
+           return  DB::table('users')->select('*')
+                    ->join('role_user','users.id','=','role_user.user_id')
+                    ->join('roles','roles.id','=','role_user.role_id')
+                    ->whereIn('users.id' , $arrayOfUsersIds )->get();
+           //return $this->usersRepo->with('rols')->findAllWhereIn($arrayOfUsersIds,'id');
        }
 
        return null;
@@ -214,6 +217,12 @@ class OfficeRepository extends BaseRepository implements officeRepositoryInterfa
     {
         $user = $this->usersRepo->findOneBy($userId);
         return $user->contractors()->attach($id);
+    }
+
+    public function deleteWorkerToOffice($contracotrId, $userId)
+    {
+        DB::table('contractor_user')->whereRaw('user_id=' . $userId . ' and contractor_id =' . $contracotrId)->delete();
+        DB::commit();
     }
 
     public function findAllWhereUserBelongsTo($userId)

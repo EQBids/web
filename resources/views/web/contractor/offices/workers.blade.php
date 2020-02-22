@@ -15,17 +15,18 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if(isset($workers))
                         @foreach($workers as $worker)
                             <tr>
-                                <td>{{ $worker->full_name }}</td>
-                                <td>{{ $worker->rols()->first()->intuitive_name }}</td>
-
+                                <td>{{ $worker->first_name . ' ' . $worker->last_name }}</td>
+                                <td>{{$worker->name}}</td>
                                 <td>
-                                    <a class="btn btn-primary btn-sm" href="#">{{__('View')}}</a>
-                                    <a class="btn btn-danger btn-sm" href="#">{{__('Remove')}}</a>
+                                    <a class="btn btn-primary btn-sm" href="{{ route('contractor.users.edit',[$worker->user_id]) }}">{{__('Edit')}}</a>
+                                    <a class="btn btn-danger btn-sm" href="{{ route('contractor.offices.deleteWorker',[$worker->user_id]) }}">{{__('Remove')}}</a>
                                 </td>
                             </tr>
                         @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>

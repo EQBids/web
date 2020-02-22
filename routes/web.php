@@ -65,7 +65,9 @@ Route::middleware([IsLoggedIn::class])->group(function(){
             });
 
 	    	Route::resource('sites','Web\Contractor\siteController');//->except(['store','create']);
-	        Route::get('offices/{office}/workers','Web\Contractor\OfficesController@workers')->name('offices.workers');
+			Route::get('offices/{office}/workers','Web\Contractor\OfficesController@workers')->name('offices.workers');
+			Route::get('offices/{user}/deleteWorker','Web\Contractor\OfficesController@deleteWorker')->name('offices.deleteWorker');
+			Route::delete('offices/{user}/destroyWorker','Web\Contractor\OfficesController@destroyWorker')->name('offices.destroyWorker');
 
 	        Route::post('offices/{office}/workers/add','Web\Contractor\OfficesController@addWorker')->name('offices.workers.add');
 

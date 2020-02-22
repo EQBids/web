@@ -27,6 +27,7 @@
                     <th scope="col">{{__("Created by")}}</th>
                     <th scope="col">{{__("Amount")}}</th>
                     <th scope="col">{{__("Status")}}</th>
+                    <th scope="col">{{__("Contract")}}</th>
                     <th scope="col">{{__("Actions")}}</th>
                 </tr>
                 </thead>
@@ -38,6 +39,7 @@
                         <td>{{$bid->user->full_name }}</td>
                         <td>$ {{ money_format('%.2n',$bid->price_w_fee) }}</td>
                         <td>{{$bid->getStatusName() }}</td>
+                        <td>{{isset($bid->contract) ? "Sent" : "Not Sent"}}</td>
                         <td>
                             <a href="{{ route('supplier.bids.show',[$bid->id]) }}" class="btn btn-sm btn-success"><i class="fa fa-eye"></i></a>
                             @if($bid->is_editable)

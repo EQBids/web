@@ -27,6 +27,7 @@
                     <th scope="col">{{__("Destination")}}</th>
                     <th scope="col">{{__("City")}}</th>
                     <th scope="col">{{__("Status")}}</th>
+                    <th scope="col">{{__("Contract")}}</th>
                     <th scope="col">{{__("Actions")}}</th>
                 </tr>
                 </thead>
@@ -40,6 +41,7 @@
                         <td>{{$order_supplier->status==\App\Models\OrderSupplier::STATUS_REJECTED?
                             $order_supplier->getStatusName():
                             $order_supplier->order->getStatusName() }}</td>
+                        <td>{{isset($order_supplier->bid->contract) ? "Sent" : "Not Sent"}}</td>
                         <td>
                             @if($order_supplier->is_bidable)
                                 <a href="{{ route('supplier.bids.create',[$order_supplier->order_id]) }}" class="btn btn-sm btn-success"><i class="fa fa-gavel"></i>{{ __('Bid') }}</a>
