@@ -26,7 +26,7 @@
                                     <label for="file-upload" class="custom-file-upload">
                                         <i class="fa fa-cloud-upload"></i>Attachment
                                     </label>
-                                    <input id="file-upload" name="image"  type="file" required/>
+                                    <input id="file-upload" onChange="uploadFile();" name="image"  type="file" required/>
                                
                                     @endif
                                     <br>
@@ -43,6 +43,12 @@
         </div>
     </div>
 
+    <script>
+        function uploadFile(){
+            alert('File has been uploaded');
+        }
+               
+    </script>
 
     @include('web.supplier.bids.details')
 

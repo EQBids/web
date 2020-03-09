@@ -201,6 +201,12 @@ class Order extends Model
 			})->count()>0;
 	}
 
+	public function getAcceptedBidsAttribute(){
+		return $this->bids()->whereHas('items',function ($q){
+				$q->where('bid_order_item.status',BidItem::STATUS_ACCEPTED);
+			});
+	}
+
 
 
 
