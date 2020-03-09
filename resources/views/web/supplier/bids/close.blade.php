@@ -12,7 +12,8 @@
         <div class="col-lg-12">
             <div class="alert alert-warning">
                 <p>
-                    {{ __('The order has been closed and you must confirm the bid. only the contractor can reopen the bids') }}
+                    {{ __('The order has been closed and you must confirm the bid. 
+                        only the contractor can reopen the bids. ATTETION: You must add the unit price + market place fee to your countract. See the value below') }}
 
                     <div class="row">
                         <div class="col-lg-12">
