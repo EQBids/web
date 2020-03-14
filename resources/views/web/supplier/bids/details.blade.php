@@ -182,11 +182,11 @@ input[type="file"] {
                 '</tr>'+
                 '<tr>'+
                 '<td>{{ __('Unit Price + Market Place Fee') }}:</td>'+
-                '<td><p>'+( (( parseFloat(data.price * data.qty) + 
+                '<td><p>'+( ( (( parseFloat(data.price * data.qty) + 
                             parseFloat(data.insurance ) + 
                             parseFloat(data.pickup_fee) + 
                             parseFloat(data.delivery_fee) ) * 
-                            (<?php print_r( $fee/100);?>) ) + parseFloat( data.price) ).toFixed(2)+'</p></td>' +
+                            (<?php print_r( $fee/100);?>) )/ parseFloat(data.qty)) + parseFloat( data.price) ).toFixed(2)+'</p></td>' +
                 '</tr>'+
                 '<tr>'+
                 '<td>{{ __('Notes') }}:</td>'+

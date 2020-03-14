@@ -74,8 +74,8 @@ class orderController extends Controller
      */
     public function index()
     {
-		
 		$orders = $this->order_repository->accesibleOrders(Auth::user())->findAll();
+		
 		return view('web.contractor.orders.index')->with(compact('orders'));
     }
 

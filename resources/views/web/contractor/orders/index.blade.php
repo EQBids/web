@@ -26,16 +26,27 @@
                     <th scope="col">{{__("Creator")}}</th>
                     <th scope="col">{{__("Destination")}}</th>
                     <th scope="col">{{__("Status")}}</th>
+                    <th scope="col">{{__("Contract Signed?")}}</th>
                     <th scope="col">{{__("Actions")}}</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($orders as $order)
                     <tr>
+                        
                         <td>{{$order->created_at->format('Y/m/d') }}</td>
                         <td>{{$order->creator->full_name }}</td>
                         <td>{{$order->site->name }}</td>
                         <td>{{$order->getStatusName() }}</td>
+                        <td><?php
+                                if($order->getHasAcceptedBidsAttribute() > 0 && 
+                                $order->getAcceptedBidsAttribute()->get()[0]->contract_signed != ""){
+                                    echo "Yes"; 
+                                }else{
+                                    echo "No";
+                                }
+                            ?>
+                        </td>
                         <td style="width:100% !important;">
                             @if($order->can_assign_bids)
                                 <a class="btn btn-sm btn-info" href="{{ route('contractor.orders.bids',[$order->id]) }}"><i class="fa fa-gavel fa-bold "></i>Accept bids</a>
