@@ -38,7 +38,7 @@ input[type="file"] {
                             <td>{{ $supplier->name }}</td>
                             <td>{{ $supplier->city?$supplier->city->name:'' }}</td>
                             <td class="{{ $supplier->pivot->bid?'table-success':'table-danger' }}">{{ $supplier->pivot->bid?__('YES'):__('NO') }}</td>
-                            <td>{{ isset( $supplier->pivot->bid) ? '$' . $supplier->pivot->bid->price_w_fee : ''}}</td>
+                            <td>{{ isset( $supplier->pivot->bid) ? '$' .  number_format($supplier->pivot->bid->price_w_fee,2)  : ''}}</td>
                             <td style="width:114px;">
                                 @if( $supplier->pivot->order->status == '7' && isset( $supplier->pivot->bid) && $supplier->pivot->bid->contract != '')
                                 <a target="_blank"  href="../../storage/suppliers/{{ isset( $supplier->pivot->bid) ?  $supplier->pivot->bid->contract : ''}}">
