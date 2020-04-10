@@ -98,30 +98,7 @@
                         <li><i class="fa fa-envelope-o"></i> <a href="mailto:info@eqbids.com"> <span>Email: info@eqbids.com</span> </a> </li>
                     </ul>
                 </div>
-                <div class="col-lg-4 col-sm-6">
-                    <h6 class="text-white mb-30 mt-10 text-uppercase">Subscribe to Our Newsletter</h6>
-                    <p>Sign Up to our Newsletter to get the latest news, offers and hear when new markets are opening.</p>
-                    <div class="footer-Newsletter">
-                        <div id="mc_embed_signup_scroll">
-                            <form action="php/mailchimp-action.php" method="POST" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate">
-                                <div id="msg"> </div>
-                                <div id="mc_embed_signup_scroll_2">
-                                    <input id="mce-EMAIL" class="form-control" type="text" placeholder="Email address" name="email1" value="">
-                                </div>
-                                <div id="mce-responses" class="clear">
-                                    <div class="response" id="mce-error-response" style="display:none"></div>
-                                    <div class="response" id="mce-success-response" style="display:none"></div>
-                                </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                                <div style="position: absolute; left: -5000px;">
-                                    <input type="text" name="b_b7ef45306f8b17781aa5ae58a_6b09f39a55" tabindex="-1" value="">
-                                </div>
-                                <div class="clear">
-                                    <button type="submit" name="submitbtn" id="mc-embedded-subscribe" class="button button-border mt-20 form-button">  Get notified </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
             <div class="footer-widget mt-20">
                 <div class="row">

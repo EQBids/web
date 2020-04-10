@@ -52,7 +52,8 @@ class UserController extends Controller
      */
     public function index()
     {
-    	$data=$this->user_repository->with(['rols','suppliers','contractors','city'])->paginate(1000);
+			$data=$this->user_repository->findAll();//->with(['rols','suppliers','contractors','city'])->paginate(1000);
+
     	return view('web.admin.user.index')->with(compact('data'));
     }
 
@@ -177,7 +178,6 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-			
     	$user=User::findOrFail($id);
     	$role = Auth::user()->rols()->first();
 	    $roles = $this->role_repository->allowedCrudRoles($role);
@@ -209,8 +209,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(updateSubUserRequest $request, User $user)
+		public function update(updateSubUserRequest $request, User $user)
     {
+			
+			
+		
 			if(!$user){
     		return redirect('/');
 	    }

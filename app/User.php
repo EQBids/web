@@ -207,8 +207,7 @@ class User extends Authenticatable
 	public function setStatusAttribute($status){
 		//prevents unsecure user reactivation
 		if (isset($this->attributes['status'])
-		    && (in_array($this->attributes['status'],[User::STATUS_INACTIVE,User::STATUS_BANNED,
-														User::STATUS_BLOCKED,User::STATUS_AWAY]))){
+		    && (in_array($this->attributes['status'],[]))){
 			return;
 		}
 		$this->attributes['status']=$status;

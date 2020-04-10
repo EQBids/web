@@ -34,7 +34,12 @@ class UsersRepository extends BaseRepository implements usersRepositoryInterface
         $this->userStatusModel = $userStatus;
         $this->geoRepo = $geoRepo;
         $this->role_repository=app('App\Repositories\Eloquent\roleRepository');
-    }
+	}
+	
+	public function findAll (array $columns = [ '*' ] ) {
+		return $this->model
+		->get();
+	}
 
     public function emailExists($email)
     {

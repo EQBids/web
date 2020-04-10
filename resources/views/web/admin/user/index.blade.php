@@ -27,6 +27,7 @@
                             <th>{{ __('Company name')}}</th>
                             <th>{{ __('Full name')}}</th>
                             <th>{{ __('City') }}</th>
+                            <th>{{ __('Status') }}</th>
                             <th>{{ __('Actions') }}</th>
 
                         </tr>
@@ -51,6 +52,9 @@
                                     @if($item->city)
                                         {{ $item->city->name }}
                                     @endif
+                                </td>
+                                <td>
+                                    {{ $item->getStatusName() }}
                                 </td>
                                 <td>
                                         <a class="btn btn-primary" href="{{ route('admin.users.edit',[$item->id]) }}">{{__('Edit')}}</a>

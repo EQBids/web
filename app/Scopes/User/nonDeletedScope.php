@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Scope;
 class nonDeletedScope implements Scope {
 
 	function apply( Builder $builder, Model $model ) {
-		$builder->whereNotIn($model->getTable().'.status',[User::STATUS_INACTIVE, User::STATUS_BANNED, User::STATUS_AWAY]);
+		$builder->whereNotIn($model->getTable().'.status',[]);
 	}
 
 }

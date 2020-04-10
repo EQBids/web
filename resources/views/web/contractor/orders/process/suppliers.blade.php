@@ -40,7 +40,7 @@
                 @foreach($suppliers as $supplier)
                     <tr>
                         <td>
-                            {{ round($supplier->distance,1) }}
+                            {{ $supplier->distance == 0 ? 'Local' : round($supplier->distance,1) }}
                         </td>
                         <td>
                             {{ $supplier->name }}
